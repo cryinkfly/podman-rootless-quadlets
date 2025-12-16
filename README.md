@@ -53,11 +53,15 @@ WantedBy=default.target
 
 ```
 
-### 4. Reload systemd
+### 4 Create a seperate podman network
+
+    podman network create proxy
+
+### 5. Reload systemd
 
     systemctl --user daemon-reload
 
-### 5. Prepare persistent storage (optional)
+### 6. Prepare persistent storage (optional)
 
 Before starting your container, you can create directories for persistent storage if you want data to survive container recreation or be stored on an external drive.
 
@@ -76,15 +80,15 @@ Important:
 - This step is only necessary if you want persistent data outside the container.
 - If you skip this step, Podman will use its default storage path, and all data will remain inside the container.
 
-### 6. Start the container
+### 7. Start the container
 
     systemctl --user start nginx-proxy-manager.service
 
-### 7. Check if the Podman container is running:
+### 8. Check if the Podman container is running:
 
     podman ps
 
-### 8. Enable Linger for Headless User (No Root Required)
+### 9. Enable Linger for Headless User (No Root Required)
 
 Run this as your normal user:
 
@@ -100,7 +104,7 @@ To disable linger (also without root):
 
     loginctl disable-linger
 
-### 9. Troubleshooting
+### 10. Troubleshooting
 
 If something goes wrong, check logs:
 
