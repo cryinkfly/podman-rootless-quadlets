@@ -14,6 +14,9 @@ Volume=stirling-pdf_data:/configs
 # Environment for configure the language
 Environment=SYSTEM_DEFAULTLOCALE=de-DE
 
+# Stirling-PDF opens the web interface directly, without login. This is optional:
+#Environment=SECURITY_ENABLELOGIN=false 
+
 # Networks
 Network=proxy
 
