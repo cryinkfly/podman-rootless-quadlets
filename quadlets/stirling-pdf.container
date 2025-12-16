@@ -1,0 +1,24 @@
+[Unit]
+Description=Stirling-PDF (Rootless Podman)
+
+[Container]
+ContainerName=stirling-pdf
+Image=docker.io/stirlingtools/stirling-pdf:latest
+
+# Ports
+PublishPort=9010:80
+
+# Default volumes
+Volume=stirling-pdf_data:/data
+
+# Environment for configure the language
+Environment=SYSTEM_DEFAULTLOCALE=de-DE
+
+# Networks
+Network=proxy
+
+[Service]
+Restart=always
+RestartSec=10
+
+[Install]
