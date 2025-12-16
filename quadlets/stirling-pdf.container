@@ -12,7 +12,8 @@ PublishPort=9010:8080
 Volume=stirling-pdf_data:/configs
 
 # Environment for configure the language
-Environment=LANGS=de-DE
+Environment=LANGS=de_DE
+Environment=SYSTEM_DEFAULTLOCALE=de-DE
 
 # Stirling-PDF opens the web interface directly, without login. This is optional:
 #Environment=SECURITY_ENABLELOGIN=false 
