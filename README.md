@@ -50,8 +50,6 @@ RestartSec=10
 
 [Install]
 WantedBy=default.target
-
-
 ```
 
 ### 4 Create a seperate podman network
@@ -127,7 +125,8 @@ Example: Map 8080 → 80 and 8443 → 443
 
     sudo nano /etc/systemd/system/rootless-port-forward.service
 
-```[Unit]
+```
+[Unit]
 Description=Port Forwarding for Rootless Podman
 After=network.target
 
@@ -144,7 +143,6 @@ ExecStop=/sbin/iptables -t nat -D PREROUTING -p tcp --dport 443 -j REDIRECT --to
 
 [Install]
 WantedBy=multi-user.target
-
 ```
 
 Reload systemd:
