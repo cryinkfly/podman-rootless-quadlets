@@ -27,12 +27,21 @@ Description=Nginx Proxy Manager (Rootless Podman)
 [Container]
 ContainerName=nginx-proxy-manager
 Image=docker.io/jc21/nginx-proxy-manager:latest
+
+# Ports
 PublishPort=8080:80
 PublishPort=8443:443
 PublishPort=8081:81
+
+# Volumes
 Volume=nginx-proxy-manager_data:/data
 Volume=nginx-proxy-manager_letsencrypt:/etc/letsencrypt
+
+# Environment
 Environment=TZ=Europe/Berlin
+
+# Networks
+Network=proxy
 
 [Service]
 Restart=always
@@ -40,6 +49,7 @@ RestartSec=10
 
 [Install]
 WantedBy=default.target
+
 
 ```
 
