@@ -11,7 +11,7 @@ PublishPort=9010:8080
 # Default volumes
 Volume=stirling-pdf_data:/configs
 
-# Environment for configure the language
+# Environment to configure the language
 Environment=LANGS=de_DE
 Environment=SYSTEM_DEFAULTLOCALE=de-DE
 
