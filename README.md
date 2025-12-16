@@ -21,7 +21,8 @@ Place your .container, .network, and .env files in this directory.
 
     nano ~/.config/containers/systemd/nginx-proxy-manager.container
 
-```[Unit]
+```
+[Unit]
 Description=Nginx Proxy Manager (Rootless Podman)
 
 [Container]
