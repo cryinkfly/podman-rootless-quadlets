@@ -6,7 +6,7 @@ ContainerName=stirling-pdf
 Image=docker.io/stirlingtools/stirling-pdf:latest
 
 # Ports
-PublishPort=9010:80
+PublishPort=9010:8080
 
 # Default volumes
 Volume=stirling-pdf_data:/data
