@@ -1,0 +1,34 @@
+[Unit]
+Description=OpenCloud (Rootless Podman)
+
+[Container]
+ContainerName=opencloud
+Image=docker.io/opencloudeu/opencloud-rolling:latest
+
+# HTTP-Port für OpenCloud
+# Use server's LAN IP for external access with an nginx-proxy manager for example.
+# Or use 127.0.0.1/localhost if the browser is on the same machine as the container.
+PublishPort=127.0.0.1:9200:9200  
+
+# Mounts for existing Docker volumes
+Volume=opencloud_config:/etc/opencloud
+Volume=opencloud_data:/var/lib/opencloud
+
+# Environment
+# Disable certificate checking (not recommended for public instances)
+Environment=OC_INSECURE=true
+Environment=PROXY_HTTP_ADDR=0.0.0.0:9200
+
+# URL for OpenCloud access: use localhost only if accessing from the same machine,
+# otherwise set your domain or the server's LAN IP for external access with an nginx-proxy manager for example.
+Environment=OC_URL=https://127.0.0.1:9200 # or https://opencloud.example.org
+
+# Network
+Network=proxy
+
+[Service]
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
