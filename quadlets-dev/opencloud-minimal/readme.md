@@ -63,7 +63,7 @@ Environment=PROXY_HTTP_ADDR=0.0.0.0:9200
 # otherwise set your domain or the server's LAN IP for external access with an nginx-proxy manager for example.
 Environment=OC_URL=https://127.0.0.1:9200 # or https://opencloud.example.org
 
-# Network (same as reverse proxy)
+# Network (same as reverse proxy) - Optional
 Network=proxy
 
 [Service]
