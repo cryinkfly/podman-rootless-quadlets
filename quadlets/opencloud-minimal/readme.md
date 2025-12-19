@@ -59,7 +59,7 @@ Environment=PROXY_HTTP_ADDR=0.0.0.0:9200
 
 # URL for OpenCloud access: use localhost only if accessing from the same system,
 # otherwise set your domain or the server's LAN IP for external access.
-Environment=OC_URL=https://localhost:9200 # or https://192.168.192.20 --> Checkt the IP address in the configuration of the router!
+Environment=OC_URL=https://localhost:9200 # or https://192.168.192.20 --> Check the IP address in the configuration of the router!
 
 [Service]
 Restart=always
