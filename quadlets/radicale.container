@@ -1,0 +1,27 @@
+[Unit]
+Description=Radicale (Rootless Podman)
+
+[Container]
+ContainerName=radicale
+Image=docker.io/tomsquest/docker-radicale:latest
+
+# Ports
+PublishPort=5232:5232
+
+# Volumes
+Volume=radicale_data:/data
+
+# Environment
+Environment=TZ=Europe/Berlin
+
+# Netzwerk
+Network=proxy
+
+[Service]
+TasksMax=50
+MemoryHigh=256M
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
