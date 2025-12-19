@@ -3,7 +3,7 @@
 # Script to initialize OpenCloud rootless Podman container
 
 # Hardcoded admin password
-ADMIN_PASSWORD="YourSecurePassword123"
+ADMIN_PASSWORD="admin"
 
 # Create required volumes if they don't exist
 podman volume create opencloud_config
