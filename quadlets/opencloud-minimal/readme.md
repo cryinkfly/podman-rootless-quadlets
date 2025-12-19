@@ -46,9 +46,7 @@ ContainerName=opencloud
 Image=docker.io/opencloudeu/opencloud-rolling:latest
 
 # HTTP-Port für OpenCloud
-# Use server's LAN IP for external access with an nginx-proxy manager for example.
-# Or use 127.0.0.1/localhost if the browser is on the same machine as the container.
-PublishPort=127.0.0.1:9200:9200
+PublishPort=9200:9200
 
 # Mounts for existing Docker volumes
 Volume=opencloud_config:/etc/opencloud
@@ -59,12 +57,9 @@ Volume=opencloud_data:/var/lib/opencloud
 Environment=OC_INSECURE=true
 Environment=PROXY_HTTP_ADDR=0.0.0.0:9200
 
-# URL for OpenCloud access: use localhost only if accessing from the same machine,
-# otherwise set your domain or the server's LAN IP for external access with an nginx-proxy manager for example.
-Environment=OC_URL=https://127.0.0.1:9200 # or https://opencloud.example.org
-
-# Network (same as reverse proxy) - Optional
-Network=proxy
+# URL for OpenCloud access: use localhost only if accessing from the same system,
+# otherwise set your domain or the server's LAN IP for external access.
+Environment=OC_URL=https://localhost:9200 # or https://192.168.192.20 --> Checkt the IP address in the configuration of the router!
 
 [Service]
 Restart=always
@@ -88,10 +83,7 @@ systemctl --user start opencloud.service
 ## 5. Access OpenCloud
 
 * **Direct (HTTPS)**
-  [https://192.168.200.15:9200](https://127.0.0.1:9200)
-
-* **Via reverse proxy (HTTPS)**
-  [https://opencloud.example.org](https://opencloud.example.org)
+  [https://localhost:9200](https://localhost:9200) or [https://192.168.192.20:9200](https://192.168.192.20:9200) for example.
 
 ---
 
@@ -99,5 +91,4 @@ systemctl --user start opencloud.service
 
 * **Initialization is mandatory** – without `init` the container will exit immediately.
 * `PROXY_HTTP_ADDR=0.0.0.0:9200` is required so OpenCloud listens on the container port.
-* `OC_URL` must match the public URL used by the browser or reverse proxy.
-* Rootless Podman **cannot bind directly to port 443**.
+* `OC_URL` must match the public URL used by the browser.
