@@ -1,0 +1,31 @@
+[Unit]
+Description=Radicale (Rootless Podman)
+
+[Container]
+ContainerName=radicale
+Image=docker.io/tomsquest/docker-radicale:latest
+
+# Ports
+PublishPort=5232:5232
+
+# Volumes
+Volume=radicale_data:/data
+
+# WARNING: Edit /config/config to enable auth (htpasswd), set rights, and configure SSL/TLS. See https://radicale.org/v3.html#configuration and https://github.com/cryinkfly/podman-rootless-quadlets/blob/main/quadlets/radical/config
+# You must configure it yourself. For example: nano ~/.local/share/containers/storage/volumes/radicale_config/_data/config
+Volume=radicale_config:/config:ro
+
+# Environment
+Environment=TZ=Europe/Berlin
+
+# Netzwerk
+Network=proxy
+
+[Service]
+TasksMax=50
+MemoryHigh=256M
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
