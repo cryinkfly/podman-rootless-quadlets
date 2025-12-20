@@ -55,9 +55,50 @@ RestartSec=10
 WantedBy=default.target
 ```
 
-Run this command for auto-update: 
+#### 3.1 Create two files for the Auto-Update function: 
 
-    podman generate systemd --timer
+    nano ~/.config/containers/systemd/podman-auto-update.service
+
+```
+[Unit]
+Description=Auto-update multiple Podman Containers
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/podman auto-update nginx-proxy-manager
+#ExecStart=/usr/bin/podman auto-update container2
+#ExecStart=/usr/bin/podman auto-update container3
+# ...
+```
+
+    nano ~/.config/containers/systemd/podman-auto-update.timer
+
+```
+[Unit]
+Description=Run Podman AutoUpdate every hour
+
+[Timer]
+OnBootSec=5min # Start 5 minutes after boot
+OnUnitActiveSec=24h # Then repeat every 24 hours
+Unit=podman-auto-update.service
+
+[Install]
+WantedBy=default.target
+
+```
+
+
+##### 3.1.1 Timer vs Service
+
+Timer (podman-auto-update.timer)
+
+- Runs the auto-update service at scheduled intervals (e.g., every 24 hours).
+- Does not execute immediately when you start the timer; it waits for the next scheduled time.
+
+Service (podman-auto-update.service)
+
+- Executes the actual commands to update the containers.
+- Can be run manually to immediately check for updates and restart containers if needed.
 
 ### 4 Create a seperate podman network
 
