@@ -1,29 +1,52 @@
 [Unit]
 Description=Radicale (Rootless Podman)
+Documentation=https://radicale.org/v3.html#configuration
 
 [Container]
 ContainerName=radicale
-Image=docker.io/tomsquest/docker-radicale:latest
 
+# -----------------------------
+# Official Radicale image from Kozea (GHCR)
+# Includes Radicale + Python dependencies on minimal Alpine base
+# Use volumes for persistent data (/var/lib/radicale) and config (/etc/radicale/config)
+# -----------------------------
+Image=ghcr.io/kozea/radicale:latest
+
+# -----------------------------
 # Ports
+# -----------------------------
 PublishPort=5232:5232
 
+# -----------------------------
 # Volumes
-Volume=radicale_data:/data
+# -----------------------------
+# Persistent data: calendars, contacts, users
+Volume=radicale_data:/var/lib/radicale
 
-# WARNING: Edit /config/config to enable auth (htpasswd), set rights, and configure SSL/TLS. See https://radicale.org/v3.html#configuration and https://github.com/cryinkfly/podman-rootless-quadlets/blob/main/quadlets/radical/config
-# You must configure it yourself. For example: nano ~/.local/share/containers/storage/volumes/radicale_config/_data/config
-Volume=radicale_config:/config:ro
+# Configuration (read-only)
+# WARNING: Edit config to enable auth (htpasswd), rights, SSL/TLS
+# The :ro suffix makes this volume read-only inside the container
+# The container cannot modify the configuration file;
+# it must be edited **outside the container** on the host
+# Example: nano ~/.local/share/containers/storage/volumes/radicale_config/_data/config
+Volume=radicale_config:/etc/radicale:ro
 
+# -----------------------------
 # Environment
+# -----------------------------
 Environment=TZ=Europe/Berlin
 
-# Netzwerk
+# -----------------------------
+# Network
+# -----------------------------
 Network=proxy
 
 [Service]
+# Limit tasks and memory for Rootless container
 TasksMax=50
 MemoryHigh=256M
+
+# Restart policy
 Restart=always
 RestartSec=5
 
