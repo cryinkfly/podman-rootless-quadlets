@@ -11,6 +11,8 @@ ContainerName=radicale
 # -----------------------------
 Image=ghcr.io/kozea/radicale:latest
 
+AutoUpdate=registry
+
 # -----------------------------
 # Ports
 # -----------------------------
