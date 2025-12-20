@@ -34,7 +34,7 @@ Volume=cloud_files:/files
 # 3. Enter insert mode with 'i' and adjust the sources, e.g.:
 #    sources:
 #      - path: "/files"
-#        name: "Cloud"
+#        name: "drive"
 # 4. Save and exit: Esc → :wq
 # 5. Restart the container for changes to take effect:
 #    podman restart filebrowser-quantum
