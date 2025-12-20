@@ -14,7 +14,7 @@ AutoUpdate=registry
 
 # --- Volumes ---
 # Persistent data (config, database, etc.)
-Volume=filebrowserquantum_data:/home/filebrowser/data
+Volume=filebrowser-quantum_data:/home/filebrowser/data
 
 # User files
 # IMPORTANT: The container path (/files) will be shown in the FileBrowser GUI.
@@ -23,7 +23,7 @@ Volume=filebrowserquantum_data:/home/filebrowser/data
 # server:
 #   sources:
 #     - path: "/files"
-Volume=cloud_files:/files
+Volume=filebrowser-quantum_files:/files
 
 # --- Editing config.yaml ---
 # After the container has started, you can edit the config directly:
