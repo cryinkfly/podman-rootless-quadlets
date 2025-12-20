@@ -29,6 +29,9 @@ Description=Nginx Proxy Manager (Rootless Podman)
 ContainerName=nginx-proxy-manager
 Image=docker.io/jc21/nginx-proxy-manager:latest
 
+AutoUpdate=registry
+
+
 # Ports
 PublishPort=8080:80
 PublishPort=8443:443
@@ -47,7 +50,6 @@ Network=proxy
 [Service]
 Restart=always
 RestartSec=10
-AutoUpdate=registry
 
 [Install]
 WantedBy=default.target
