@@ -5,6 +5,7 @@ server:
     - levels: "info|warning|error"
   sources:
     - path: "/files"
+      name: "Storage"
 userDefaults:
   editorQuickSave: false                  # show quick save button in editor
   hideSidebarFileActions: false           # hide the file actions in the sidebar
