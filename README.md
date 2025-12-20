@@ -17,7 +17,7 @@
 
 Place your .container, .network, and .env files in this directory.
 
-### 3. Create or modify a .container file
+### 3. Create a .container file for example the Nginx Proxy Manager
 
     nano ~/.config/containers/systemd/nginx-proxy-manager.container
 
@@ -60,19 +60,41 @@ WantedBy=default.target
 
     systemctl --user daemon-reload
 
-### 6. Prepare persistent storage (optional)
+### 6. Prepare persistent storage (Optional)
 
 Before starting your container, you can create directories for persistent storage if you want data to survive container recreation or be stored on an external drive.
 
 Default Rootless Podman path:
 
-    $HOME/.local/share/containers/storage/volumes
+    $HOME/.local/share/containers/storage/volumes/
 
 
 Example of creating a custom storage directory:
 
-    mkdir -p /path/to/storage/containerfolder
+    mkdir -p /path/to/storage/volumes/npm_data
+    mkdir -p /path/to/storage/volumes/npm_letsencrypt
 
+
+Or you repare the directories on a separate mounted SSD for example: /mnt/ssd
+
+```
+sudo mkdir -p /mnt/ssd/podman/volumes/npm_data
+sudo mkdir -p /mnt/ssd/podman/volumes/npm_letsencrypt
+```
+
+Rootless Podman must be able to write, so create the directories as your user (chwon):
+
+```
+sudo chown -R $(whoami):$(whoami) /mnt/ssd/podman/volumes/npm_data
+sudo chown -R $(whoami):$(whoami) /mnt/ssd/podman/volumes/npm_letsencrypt
+```
+
+Creates the new Podman volumes with persist container data outside the container filesystem.
+
+```
+podman volume create --opt type=none --opt device=/mnt/ssd/podman/volumes/npm_data --opt o=bind npm_data
+podman volume create --opt type=none --opt device=/mnt/ssd/podman/volumes/npm_letsencrypt --opt o=bind npm_letsencrypt
+```
 
 Important:
 
