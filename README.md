@@ -47,10 +47,15 @@ Network=proxy
 [Service]
 Restart=always
 RestartSec=10
+AutoUpdate=registry
 
 [Install]
 WantedBy=default.target
 ```
+
+Run this command for auto-update: 
+
+    podman generate systemd --timer
 
 ### 4 Create a seperate podman network
 
