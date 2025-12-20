@@ -5,6 +5,8 @@ Description=Vaultwarden (Rootless Podman)
 ContainerName=vaultwarden
 Image=docker.io/vaultwarden/server:latest
 
+AutoUpdate=registry
+
 # Ports
 PublishPort=9000:80
 
