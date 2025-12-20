@@ -51,6 +51,8 @@ Environment=TZ=Europe/Berlin
 # Set admin password via environment variable
 Environment=FILEBROWSER_ADMIN_PASSWORD="admin"
 
+Environment=FILEBROWSER_CONFIG: "data/config.yaml" # overrides the default path which is ./config.yaml
+
 # --- Network ---
 # Isolated container network
 # IMPORTANT: The network must exist before starting this service!
