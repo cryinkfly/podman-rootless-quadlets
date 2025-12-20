@@ -58,8 +58,8 @@ Environment=FILEBROWSER_CONFIG="data/config.yaml"
 # Isolated container network
 # IMPORTANT: The network must exist before starting this service!
 # Example:
-# podman network create proxy-filebrowser
-# podman network connect proxy-filebrowser nginx-proxy-manager
+# podman network create proxy-filebrowser-quantum
+# podman network connect proxy-filebrowser-quantum nginx-proxy-manager
 Network=proxy-filebrowser-quantum
 
 # --- Ports ---
