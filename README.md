@@ -78,13 +78,15 @@ Example of creating a custom storage directory:
 Or you repare the directories on a separate mounted SSD for example: /mnt/ssd
 
 ```
-sudo mkdir -p /mnt/ssd/podman/volumes/npm_data
-sudo mkdir -p /mnt/ssd/podman/volumes/npm_letsencrypt
+sudo mkdir -p /mnt/ssd/podman/volumes/
+#Rootless Podman must be able to write, so create the directories as your user (chwon):
+chown -R $(whoami):$(whoami) /mnt/ssd/podman/volumes
+mkdir -p /mnt/ssd/podman/volumes/npm_data
+mkdir -p /mnt/ssd/podman/volumes/npm_letsencrypt
 ```
 
-Rootless Podman must be able to write, so create the directories as your user (chwon):
-
 ```
+# Optional - For rootless Podman, make sure your user owns the directory:
 sudo chown -R $(whoami):$(whoami) /mnt/ssd/podman/volumes/npm_data
 sudo chown -R $(whoami):$(whoami) /mnt/ssd/podman/volumes/npm_letsencrypt
 ```
