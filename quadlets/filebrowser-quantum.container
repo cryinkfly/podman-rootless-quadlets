@@ -52,7 +52,7 @@ Environment=TZ=Europe/Berlin
 Environment=FILEBROWSER_ADMIN_PASSWORD="admin"
 
 # Overrides the default path which is ./config.yaml
-Environment=FILEBROWSER_CONFIG: "data/config.yaml"
+Environment=FILEBROWSER_CONFIG="data/config.yaml"
 
 # --- Network ---
 # Isolated container network
@@ -60,7 +60,7 @@ Environment=FILEBROWSER_CONFIG: "data/config.yaml"
 # Example:
 # podman network create proxy-filebrowser
 # podman network connect proxy-filebrowser nginx-proxy-manager
-Network=proxy-filebrowser
+Network=proxy-filebrowser-quantum
 
 # --- Ports ---
 # Internal container port 80 is used by FileBrowser
