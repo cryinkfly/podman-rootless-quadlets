@@ -1,6 +1,6 @@
 [Unit]
 Description=FileBrowser Quantum (Rootless Podman)
-# Description of the container for systemd
+# Systemd service description
 
 [Container]
 # Container name
@@ -23,7 +23,23 @@ Volume=cloud_data:/home/filebrowser/data
 # server:
 #   sources:
 #     - path: "/files"
-Volume=cloud_files:/files # with /srv --> No change in config.yaml is needed.
+Volume=cloud_files:/files
+
+# --- Editing config.yaml ---
+# After the container has started, you can edit the config directly:
+# 1. Enter the container shell:
+#    podman exec -it filebrowser-quantum sh
+# 2. Open config.yaml with vi:
+#    vi /home/filebrowser/data/config.yaml
+# 3. Enter insert mode with 'i' and adjust the sources, e.g.:
+#    sources:
+#      - path: "/files"
+#        name: "Cloud"
+# 4. Save and exit: Esc → :wq
+# 5. Restart the container for changes to take effect:
+#    podman restart filebrowser-quantum
+# or if using systemd:
+#    systemctl restart container-filebrowser.service
 
 # --- Time / Timezone ---
 # Mount host timezone files for correct log timestamps
@@ -45,7 +61,7 @@ Network=proxy-filebrowser
 
 # --- Ports ---
 # Internal container port 80 is used by FileBrowser
-# Container name (filebrowser) is selected in Nginx Proxy Manager as Forward Hostname
+# Container name (filebrowser-quantum) is selected in Nginx Proxy Manager as Forward Hostname
 # Forward Port in Nginx Proxy Manager should be 80
 # No need to publish host ports when using Nginx Proxy Manager
 # PublishPort=80   # NOT required
