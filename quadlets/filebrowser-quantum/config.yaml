@@ -1,5 +1,6 @@
 server:
   port: 80
+  database: "./data/database.db"
   baseURL:  "/"
   logging:
     - levels: "info|warning|error"
@@ -50,3 +51,9 @@ userDefaults:
   customTheme: ""                         # Name of theme to use chosen from custom themes config.
   showSelectMultiple: false               # show select multiple files on desktop
   debugOffice: false                      # debug onlyoffice editor
+
+#frontend:
+#  externalLinks:
+#    - text: "Radicale"
+#      title: "Access your Calendars and Contacts (Radicale)"
+#      url: "http://IP OR Domainname"
