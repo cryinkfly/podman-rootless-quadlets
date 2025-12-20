@@ -87,15 +87,12 @@ WantedBy=default.target
 
 ```
 
-
-##### 3.1.1 Timer vs Service
-
-Timer (podman-auto-update.timer)
+> Timer (podman-auto-update.timer)
 
 - Runs the auto-update service at scheduled intervals (e.g., every 24 hours).
 - Does not execute immediately when you start the timer; it waits for the next scheduled time.
 
-Service (podman-auto-update.service)
+> Service (podman-auto-update.service)
 
 - Executes the actual commands to update the containers.
 - Can be run manually to immediately check for updates and restart containers if needed.
