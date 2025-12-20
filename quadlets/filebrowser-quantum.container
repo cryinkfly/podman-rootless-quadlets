@@ -1,34 +1,78 @@
 [Unit]
 Description=FileBrowser Quantum (Rootless Podman)
+# Systemd service description
 
 [Container]
+# Container name
 ContainerName=filebrowser-quantum
+
+# Container image
 Image=docker.io/gtstef/filebrowser:latest
+
+# Automatically update the container image from the registry
 AutoUpdate=registry
 
 # --- Volumes ---
-Volume=filebrowser-quantum_data:/home/filebrowser/data
-Volume=filebrowser-quantum_files:/srv
+# Persistent data (config, database, etc.)
+Volume=filebrowserquantum_data:/home/filebrowser/data
+
+# User files
+# IMPORTANT: The container path (/files) will be shown in the FileBrowser GUI.
+# If you use the default path /srv, no change in config.yaml is needed.
+# If you use a custom path (like /files), update config.yaml accordingly:
+# server:
+#   sources:
+#     - path: "/files"
+Volume=cloud_files:/files
+
+# --- Editing config.yaml ---
+# After the container has started, you can edit the config directly:
+# 1. Enter the container shell:
+#    podman exec -it filebrowser-quantum sh
+# 2. Open config.yaml with vi:
+#    vi /home/filebrowser/data/config.yaml
+# 3. Enter insert mode with 'i' and adjust the sources, e.g.:
+#    sources:
+#      - path: "/files"
+#        name: "drive"
+# 4. Save and exit: Esc → :wq
+# 5. Restart the container for changes to take effect:
+#    podman restart filebrowser-quantum
+# or if using systemd:
+#    systemctl restart container-filebrowser.service
 
 # --- Time / Timezone ---
+# Mount host timezone files for correct log timestamps
 Volume=/etc/localtime:/etc/localtime:ro
 Volume=/etc/timezone:/etc/timezone:ro
 Environment=TZ=Europe/Berlin
 
 # --- Admin Password ---
+# Set admin password via environment variable
 Environment=FILEBROWSER_ADMIN_PASSWORD="admin"
 
+Environment=FILEBROWSER_CONFIG: "data/config.yaml" # overrides the default path which is ./config.yaml
+
 # --- Network ---
-# Make sure the network exists before starting
-Network=proxy-filebrowser-quantum
+# Isolated container network
+# IMPORTANT: The network must exist before starting this service!
+# Example:
+# podman network create proxy-filebrowser
+# podman network connect proxy-filebrowser nginx-proxy-manager
+Network=proxy-filebrowser
 
 # --- Ports ---
 # Internal container port 80 is used by FileBrowser
+# Container name (filebrowser-quantum) is selected in Nginx Proxy Manager as Forward Hostname
+# Forward Port in Nginx Proxy Manager should be 80
 # No need to publish host ports when using Nginx Proxy Manager
+# PublishPort=80   # NOT required
 
 [Service]
+# Restart the container automatically if it crashes
 Restart=always
 RestartSec=10
 
 [Install]
+# Start the service at boot
 WantedBy=default.target
