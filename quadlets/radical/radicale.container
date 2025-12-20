@@ -1,6 +1,5 @@
 [Unit]
 Description=Radicale (Rootless Podman)
-Documentation=https://radicale.org/v3.html#configuration
 
 [Container]
 ContainerName=radicale
@@ -29,6 +28,7 @@ Volume=radicale_data:/var/lib/radicale
 # The container cannot modify the configuration file;
 # it must be edited **outside the container** on the host
 # Example: nano ~/.local/share/containers/storage/volumes/radicale_config/_data/config
+# Documentation: https://radicale.org/v3.html#configuration
 Volume=radicale_config:/etc/radicale:ro
 
 # -----------------------------
