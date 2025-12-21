@@ -28,6 +28,9 @@ Volume=filebrowser-quantum_data:/home/filebrowser/data
 # See instructions below to update config.yaml accordingly.
 Volume=filebrowser-quantum_files:/files
 
+# FileBrowser Quantum need a database
+Volume=filebrowser-quantum_database:/home/filebrowser/database.db
+
 # ----------------------------------------------------------------------
 # --- Editing config.yaml ---
 # After the container has started, you can edit the config directly:
