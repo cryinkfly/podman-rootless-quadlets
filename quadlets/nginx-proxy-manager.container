@@ -19,8 +19,16 @@ Volume=nginx-proxy-manager_letsencrypt:/etc/letsencrypt
 # Environment
 Environment=TZ=Europe/Berlin
 
-# Networks
+# --- Network ---
+# Use an isolated container network.
+# IMPORTANT: The network must exist before starting this service!
+# Example to create the network:
+#   podman network create proxy
+# You can also attach Nginx Proxy Manager to an existing network with another container,
+# for example, if the network "proxy-filebrowser-quantum" exists with Filebrowser-aquantum:
+#   podman network connect proxy-filebrowser-quantum nginx-proxy-manager
 Network=proxy
+
 
 [Service]
 Restart=always
