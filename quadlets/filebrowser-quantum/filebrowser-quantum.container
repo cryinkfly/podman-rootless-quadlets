@@ -9,11 +9,19 @@ ContainerName=filebrowser-quantum
 # Container image
 Image=docker.io/gtstef/filebrowser:latest
 
-# Volumes
+# ----------------------------------------------------------------------
 
+# User mapping: run container as host UID/GID for correct file permissions
+# Make sure to set these environment variables in your shell before starting the service:
+# export UID=1000
+# export GID=1000
+User=${UID}:${GID}
+
+# ----------------------------------------------------------------------
+
+# Volumes
 # Persistent data (config, database, etc.)
 Volume=filebrowser-quantum_data:/home/filebrowser/data
-
 # Persistent data (user files)
 # Default user files directory: /srv
 # (In this setup, files are mapped to /files)
@@ -42,6 +50,8 @@ Volume=filebrowser-quantum_files:/files
 # Mount host timezone files for correct log timestamps
 Volume=/etc/localtime:/etc/localtime:ro
 Volume=/etc/timezone:/etc/timezone:ro
+
+# ----------------------------------------------------------------------
 
 # Overrides the default path which is ./config.yaml
 Environment=FILEBROWSER_CONFIG="data/config.yaml"
