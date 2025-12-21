@@ -2,6 +2,8 @@ server:
   port: 80
   database: "./data/database.db"
   baseURL:  "/"
+  #externalUrl: "https://filebrowser.domain.example"  # Accessible from browser
+  #internalUrl: "http://filebrowser-quantum"
   logging:
     - levels: "info|warning|error"
   sources:
@@ -60,5 +62,5 @@ userDefaults:
 
 #integrations:
 #  office:
-#    url: "http://onlyoffice:80"
+#    url: "https://filebrowser.domain.example"
 #    secret: "SUPER_SECRET_PASSWORD"
