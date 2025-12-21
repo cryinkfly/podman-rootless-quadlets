@@ -24,9 +24,9 @@ Environment=JWT_SECRET="SUPER_SECRET_PASSWORD"
 # The container should be attached to the same network as Nginx Proxy Manager,
 # similar to how Filebrowser-aquantum is connected.
 # Example:
-# podman network create npm-filebrowser-network
-# podman network connect npm-filebrowser-network nginx-proxy-manager
-Network=npm-filebrowser-network
+# podman network create proxy-filebrowser-quantum
+# podman network connect proxy-filebrowser-quantum nginx-proxy-manager
+Network=proxy-filebrowser-quantum
 
 # --- Ports ---
 # Internal container port 80 is used by FileBrowser
