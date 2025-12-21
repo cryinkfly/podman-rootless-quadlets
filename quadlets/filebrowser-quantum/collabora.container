@@ -1,0 +1,49 @@
+[Unit]
+Description=Collabora CODE (Rootless Podman)
+# Description of the container for systemd
+
+[Container]
+# Container name
+ContainerName=collabora
+
+# Container image
+Image=docker.io/collabora/code:latest
+
+# Automatically update the container image from the registry
+AutoUpdate=registry
+
+# --- Time / Timezone ---
+# Mount host timezone files for correct log timestamps
+Volume=/etc/localtime:/etc/localtime:ro
+Volume=/etc/timezone:/etc/timezone:ro
+Environment=TZ=Europe/Berlin
+
+Environment=domain="https://files.yourdomain.com"
+Environment=username=admin
+Environment=password="MEIN_SUPER_SECRET_ADMIN_PASSWORD"
+Environment=extra_params=--o:ssl.enable=false
+Environment=WOPI_SECRET="MEIN_SUPER_SECRET_PASSWORD"
+
+# --- Network ---
+# Isolated container network
+# IMPORTANT: The network must exist before starting this service!
+# Example:
+# podman network create proxy-filebrowser-quantum
+# podman network connect proxy-filebrowser-quantum nginx-proxy-manager
+Network=proxy-filebrowser-quantum
+
+# --- Ports ---
+# Internal container port 9980 is used by Collabora CODE
+# Container name (collabora) is selected in Nginx Proxy Manager as Forward Hostname
+# Forward Port in Nginx Proxy Manager should be 80
+# No need to publish host ports when using Nginx Proxy Manager
+# PublishPort=9980   # NOT required
+
+[Service]
+# Restart the container automatically if it crashes
+Restart=always
+RestartSec=10
+
+[Install]
+# Start the service at boot
+WantedBy=default.target
