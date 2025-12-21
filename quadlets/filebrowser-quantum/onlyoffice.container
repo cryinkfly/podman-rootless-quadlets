@@ -16,7 +16,7 @@ Volume=/etc/timezone:/etc/timezone:ro
 
 # Configure OnlyOffice for document editing:
 Environment=JWT_ENABLED=true
-Environment=JWT_SECRET="SUPER_SECRET_PASSWORD"
+Environment=JWT_SECRET=SUPER_SECRET_PASSWORD
 
 # --- Network ---
 # Container network configuration
