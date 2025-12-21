@@ -56,4 +56,9 @@ userDefaults:
 #  externalLinks:
 #    - text: "Radicale"
 #      title: "Access your Calendars and Contacts (Radicale)"
-#      url: "http://IP OR Domainname"
+#      url: "http://radicale:5232"
+
+#integrations:
+#  office:
+#    url: "http://onlyoffice:80"
+#    secret: "SUPER_SECRET_PASSWORD"
