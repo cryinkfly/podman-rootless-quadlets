@@ -47,12 +47,14 @@ Volume=/etc/localtime:/etc/localtime:ro
 Volume=/etc/timezone:/etc/timezone:ro
 Environment=TZ=Europe/Berlin
 
-# --- Admin Password ---
-# Set admin password via environment variable
-Environment=FILEBROWSER_ADMIN_PASSWORD="admin"
-
 # Overrides the default path which is ./config.yaml
 Environment=FILEBROWSER_CONFIG="data/config.yaml"
+
+# Optional - Activate OnlyOffice & Collabora CODE
+# But you need also by other server file: https://github.com/cryinkfly/podman-rootless-quadlets/blob/main/quadlets/filebrowser-quantum/collabora.container
+# Configure OnlyOffice & Collabora CODE for document editing:
+#Environment=FILEBROWSER_ONLYOFFICE_SECRET="SUPER_SECRET_WOPI_PASSWORD"
+#Environment=FILEBROWSER_BASEURL="https://files.yourdomain.com"
 
 # --- Network ---
 # Isolated container network
