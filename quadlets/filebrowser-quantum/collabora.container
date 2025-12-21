@@ -20,9 +20,9 @@ Environment=TZ=Europe/Berlin
 
 Environment=domain="https://files.yourdomain.com"
 Environment=username=admin
-Environment=password="MEIN_SUPER_SECRET_ADMIN_PASSWORD"
+Environment=password="SUPER_SECRET_ADMIN_PASSWORD"
 Environment=extra_params=--o:ssl.enable=false
-Environment=WOPI_SECRET="MEIN_SUPER_SECRET_PASSWORD"
+Environment=WOPI_SECRET="SUPER_SECRET_WOPI_PASSWORD"
 
 # --- Network ---
 # Isolated container network
