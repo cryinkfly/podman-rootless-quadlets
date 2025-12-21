@@ -11,14 +11,6 @@ Image=docker.io/gtstef/filebrowser:latest
 
 # ----------------------------------------------------------------------
 
-# User mapping: run container as host UID/GID for correct file permissions
-# Make sure to set these environment variables in your shell before starting the service:
-# export UID=1000
-# export GID=1000
-User=${UID}:${GID}
-
-# ----------------------------------------------------------------------
-
 # Volumes
 # Persistent data (config, database, etc.)
 Volume=filebrowser-quantum_data:/home/filebrowser/data
@@ -30,6 +22,9 @@ Volume=filebrowser-quantum_files:/files
 
 # FileBrowser Quantum need a database
 Volume=filebrowser-quantum_database:/home/filebrowser/database.db
+
+# Persistent data (tmp files)
+Volume=filebrowser-quantum_tmp:/home/filebrowser/tmp
 
 # ----------------------------------------------------------------------
 # --- Editing config.yaml ---
