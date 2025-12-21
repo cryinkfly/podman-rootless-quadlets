@@ -60,7 +60,7 @@ Volume=/etc/timezone:/etc/timezone:ro
 Environment=FILEBROWSER_CONFIG="data/config.yaml"
 
 # Configure OnlyOffice for document editing:
-Environment=FILEBROWSER_ONLYOFFICE_SECRET="SUPER_SECRET_PASSWORD"
+Environment=FILEBROWSER_ONLYOFFICE_SECRET=SUPER_SECRET_PASSWORD
 
 # --- Network ---
 # Isolated container network
