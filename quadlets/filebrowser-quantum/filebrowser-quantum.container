@@ -9,22 +9,18 @@ ContainerName=filebrowser-quantum
 # Container image
 Image=docker.io/gtstef/filebrowser:latest
 
-# Automatically update the container image from the registry
-AutoUpdate=registry
+# Volumes
 
-# --- Volumes ---
 # Persistent data (config, database, etc.)
 Volume=filebrowser-quantum_data:/home/filebrowser/data
 
-# User files
-# IMPORTANT: The container path (/files) will be shown in the FileBrowser GUI.
-# If you use the default path /srv, no change in config.yaml is needed.
-# If you use a custom path (like /files), update config.yaml accordingly:
-# server:
-#   sources:
-#     - path: "/files"
+# Persistent data (user files)
+# Default user files directory: /srv
+# (In this setup, files are mapped to /files)
+# See instructions below to update config.yaml accordingly.
 Volume=filebrowser-quantum_files:/files
 
+# ----------------------------------------------------------------------
 # --- Editing config.yaml ---
 # After the container has started, you can edit the config directly:
 # 1. Enter the container shell:
@@ -40,21 +36,18 @@ Volume=filebrowser-quantum_files:/files
 #    podman restart filebrowser-quantum
 # or if using systemd:
 #    systemctl restart container-filebrowser.service
+# ----------------------------------------------------------------------
 
-# --- Time / Timezone ---
+# Load the timezone from Host
 # Mount host timezone files for correct log timestamps
 Volume=/etc/localtime:/etc/localtime:ro
 Volume=/etc/timezone:/etc/timezone:ro
-Environment=TZ=Europe/Berlin
 
 # Overrides the default path which is ./config.yaml
 Environment=FILEBROWSER_CONFIG="data/config.yaml"
 
-# Optional - Activate OnlyOffice & Collabora CODE
-# But you need also by other server file: https://github.com/cryinkfly/podman-rootless-quadlets/blob/main/quadlets/filebrowser-quantum/collabora.container
-# Configure OnlyOffice & Collabora CODE for document editing:
-#Environment=FILEBROWSER_ONLYOFFICE_SECRET="SUPER_SECRET_WOPI_PASSWORD"
-#Environment=FILEBROWSER_BASEURL="https://files.yourdomain.com"
+# Configure OnlyOffice for document editing:
+Environment=FILEBROWSER_ONLYOFFICE_SECRET="SUPER_SECRET_WOPI_PASSWORD"
 
 # --- Network ---
 # Isolated container network
