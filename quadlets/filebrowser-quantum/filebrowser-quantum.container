@@ -16,15 +16,10 @@ Image=docker.io/gtstef/filebrowser:latest
 Volume=filebrowser-quantum_data:/home/filebrowser/data
 # Persistent data (user files)
 # Default user files directory: /srv
-# (In this setup, files are mapped to /folder)
+# In this setup, files are mapped to /folder
 # See instructions below to update config.yaml accordingly.
+# Download the config.yaml from here: https://github.com/cryinkfly/podman-rootless-quadlets/blob/main/quadlets/filebrowser-quantum/config.yaml
 Volume=filebrowser-quantum_files:/files
-
-# FileBrowser Quantum need a database
-Volume=filebrowser-quantum_database:/home/filebrowser/database.db
-
-# Persistent data (tmp files)
-Volume=filebrowser-quantum_tmp:/home/filebrowser/tmp
 
 # ----------------------------------------------------------------------
 # --- Editing config.yaml ---
