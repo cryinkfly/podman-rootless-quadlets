@@ -27,7 +27,6 @@ Environment=TZ=Europe/Berlin
 # Admin token for Vaultwarden web interface
 # You must generate your own secure token (e.g., using Argon2 hash)
 # For example here: https://argon2.online
-# Go to the section: Argon2 Hash Validator / Verifier
 Environment=ADMIN_TOKEN="$argon2i...LONG....HASH"
 
 # --- Network ---
