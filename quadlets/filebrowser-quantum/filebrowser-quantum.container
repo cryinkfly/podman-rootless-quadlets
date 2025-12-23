@@ -16,7 +16,7 @@ Image=docker.io/gtstef/filebrowser:latest
 Volume=filebrowser-quantum_data:/home/filebrowser/data
 # Persistent data (user files)
 # Default user files directory: /srv
-# (In this setup, files are mapped to /files)
+# (In this setup, files are mapped to /folder)
 # See instructions below to update config.yaml accordingly.
 Volume=filebrowser-quantum_files:/files
 
@@ -35,7 +35,7 @@ Volume=filebrowser-quantum_tmp:/home/filebrowser/tmp
 #    vi /home/filebrowser/data/config.yaml
 # 3. Enter insert mode with 'i' and adjust the sources, e.g.:
 #    sources:
-#      - path: "/files"
+#      - path: "/folder"
 #        name: "Storage"
 # 4. Save and exit: Esc → :wq
 # 5. Restart the container for changes to take effect:
@@ -55,7 +55,11 @@ Volume=/etc/timezone:/etc/timezone:ro
 Environment=FILEBROWSER_CONFIG="data/config.yaml"
 
 # Configure OnlyOffice for document editing:
-Environment=FILEBROWSER_ONLYOFFICE_SECRET=SUPER_SECRET_PASSWORD
+#Environment=FILEBROWSER_ONLYOFFICE_SECRET=SUPER_SECRET_PASSWORD
+
+# FileBrowser Quantum docker images have a non-default filebrowser user built-in.
+# This user has UID:GID of 1000:1000. You can use it by specifying a user in docker compose.
+User=filebrowser
 
 # --- Network ---
 # Isolated container network
