@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Project: File Browser Quantum → Radicale Integration (htpasswd Export)
+// Project: FileBrowser Quantum → Radicale Integration (htpasswd Export)
 // Version: 0.0.1
 // Date:    2025-12-24
 // Author:  Steve Zabka
@@ -7,14 +7,14 @@
 
 
 // Requirements:
-// - A File Browser Quantum BoltDB database file (database.db)
+// - A FileBrowser Quantum BoltDB database file (database.db)
 // - Go installed to build the program
 //
 // Build & Usage:
 // 1. Build the program using Go:
 //      go build -o bolt2htpasswd bolt2htpasswd.go
 //
-// 2. Ensure the File Browser Quantum BoltDB database (database.db)
+// 2. Ensure the FileBrowser Quantum BoltDB database (database.db)
 //    is located in the same directory as the binary, or adjust the path.
 //
 // 3. Execute the generated binary:
@@ -24,18 +24,18 @@
 //
 // Description:
 // This program is specifically designed to work with the
-// File Browser Quantum BoltDB database.
+// FileBrowser Quantum database.
 //
-// It reads all users stored in File Browser’s BoltDB database,
+// It reads all users stored in FileBrowser Quantum’s BoltDB database,
 // extracts their usernames and bcrypt-hashed passwords,
 // and exports them into an Apache-compatible htpasswd file.
 //
 // The generated htpasswd file can be used for integration
 // with Radicale (CalDAV/CardDAV), allowing users to authenticate
-// to Radicale using the same credentials they use for File Browser.
+// to Radicale using the same credentials they use for FileBrowser Quantum.
 //
 // The program iterates over all buckets and entries in the BoltDB,
-// attempts to unmarshal each value as a File Browser user object,
+// attempts to unmarshal each value as a FileBrowser Quantum user object,
 // validates bcrypt password hashes,
 // avoids duplicate usernames,
 // and writes valid username:hash pairs to the htpasswd file.
@@ -89,7 +89,7 @@ func main() {
 			return b.ForEach(func(_, v []byte) error {
 				var user User
 				if err := json.Unmarshal(v, &user); err != nil {
-					// Not a File Browser user object → ignore
+					// Not a FileBrowser Quantum user object → ignore
 					return nil
 				}
 
