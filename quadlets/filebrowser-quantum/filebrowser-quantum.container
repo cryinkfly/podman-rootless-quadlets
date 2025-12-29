@@ -20,6 +20,10 @@ Volume=filebrowser-quantum_data:/home/filebrowser/data
 # See instructions below to update config.yaml accordingly.
 # Download the config.yaml from here: https://github.com/cryinkfly/podman-rootless-quadlets/blob/main/quadlets/filebrowser-quantum/config.yaml
 Volume=filebrowser-quantum_files:/files
+# Database directory (separate volume)
+# This volume can later be read by the filebrowser-quantum-sync container
+# to generate a users file for other services/containers (e.g., Radicale for calendars, etc.)
+Volume=filebrowser-quantum_db:/home/filebrowser/sync
 
 # ----------------------------------------------------------------------
 # --- Editing config.yaml ---
