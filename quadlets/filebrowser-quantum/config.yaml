@@ -1,6 +1,6 @@
 server:
   port: 80
-  database: "./data/database.db"
+  database: "./sync/database.db"
   baseURL:  "/"
   #externalUrl: "https://filebrowser.domain.example"  # Accessible from browser
   #internalUrl: "http://filebrowser-quantum"
