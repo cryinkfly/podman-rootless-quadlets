@@ -124,7 +124,7 @@ Or you repare the directories on a separate mounted SSD for example: /mnt/ssd
 
     [storage]
     driver = "overlay"
-    runroot = "/run/user/1000/containers"
+    runroot = "/run/user/1000/containers" #user-ID is 1000 here
     graphroot = "/mnt/podman-data" # For example to my external SSD
 
 ```
