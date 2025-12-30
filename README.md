@@ -114,36 +114,23 @@ Default Rootless Podman path:
     $HOME/.local/share/containers/storage/volumes/
 
 
-Example of creating a custom storage directory:
-
-    mkdir -p /path/to/storage/volumes/nginx-proxy-manager_data
-    mkdir -p /path/to/storage/volumes/nginx-proxy-manager_letsencrypt
-
-
 Or you repare the directories on a separate mounted SSD for example: /mnt/ssd
 
-```
-sudo mkdir -p /mnt/ssd/podman/volumes/
-#Rootless Podman must be able to write, so create the directories as your user (chwon):
-sudo chown -R $(whoami):$(whoami) /mnt/ssd/podman/volumes
-sudo chmod -R 755 /mnt/ssd/podman/volumes
-mkdir -p /mnt/ssd/podman/volumes/nginx-proxy-manager_data
-mkdir -p /mnt/ssd/podman/volumes/nginx-proxy-manager_letsencrypt
-```
+    mkdir -p ~/.config/containers
+
+    id -u # Show your user-id
+
+    nano ~/.config/containers/storage.conf
+
+    [storage]
+    driver = "overlay"
+    runroot = "/run/user/1000/containers"
+    graphroot = "/mnt/podman-data" # For example to my external SSD
 
 ```
-# Optional - For rootless Podman, make sure your user owns the directory:
-chown -R $(whoami):$(whoami) /mnt/ssd/podman/volumes/nginx-proxy-manager_data
-chown -R $(whoami):$(whoami) /mnt/ssd/podman/volumes/nginx-proxy-manager_letsencrypt
-chmod -R 755 /mnt/ssd/podman/volumes/nginx-proxy-manager_data
-chmod -R 755 /mnt/ssd/podman/volumes/nginx-proxy-manager_letsencrypt
-```
-
-Creates the new Podman volumes with persist container data outside the container filesystem.
-
-```
-podman volume create --opt type=none --opt device=/mnt/ssd/podman/volumes/nginx-proxy-manager_data --opt o=bind,rw nginx-proxy-manager_data
-podman volume create --opt type=none --opt device=/mnt/ssd/podman/volumes/nginx-proxy-manager_letsencrypt --opt o=bind,rw nginx-proxy-manager_letsencrypt
+# For rootless Podman, make sure your user owns the directory on the SSD:
+chown -R $(whoami):$(whoami) /mnt/podman-data
+chmod -R 755 /mnt/podman-dataa
 ```
 
 Important:
