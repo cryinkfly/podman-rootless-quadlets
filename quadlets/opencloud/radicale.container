@@ -1,0 +1,30 @@
+[Unit]
+Description=Radicale (Rootless Podman)
+After=opencloud.service
+Requires=opencloud.service
+
+[Container]
+ContainerName=radicale
+Image=docker.io/opencloudeu/radicale
+
+# Network
+Network=proxy-opencloud
+
+# Volumes
+Volume=radicale_config:/etc/radicale:ro
+Volume=radicale_data:/var/lib/radicale
+
+# Environment
+Environment=TZ=Europe/Berlin
+
+[Service]
+# Limit tasks and memory for Rootless container
+TasksMax=50
+MemoryHigh=256M
+
+# Restart policy
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=default.target
