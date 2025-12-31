@@ -33,9 +33,9 @@ AutoUpdate=registry
 
 
 # Ports
-PublishPort=8080:80
-PublishPort=8443:443
-PublishPort=8081:81
+PublishPort=80:80
+PublishPort=443:443
+PublishPort=81:81
 
 # Volumes
 Volume=nginx-proxy-manager_data:/data
@@ -178,45 +178,35 @@ If something goes wrong, check logs:
 
 By default, rootless Podman cannot bind ports below 1024 on the host. If you try to map 80 or 443 directly, it will fail!
 
-Solution: Use port forwarding with iptables or map to higher ports and forward:
+Check the current config:
 
-Example: Map 8080 → 80 and 8443 → 443
+    sysctl net.ipv4.ip_unprivileged_port_start
 
-    sudo nano /etc/systemd/system/rootless-port-forward.service
+Output should be:
 
-```
-[Unit]
-Description=Port Forwarding for Rootless Podman
-After=network.target
+    net.ipv4.ip_unprivileged_port_start = 1024
 
-[Service]
-Type=oneshot
-RemainAfterExit=yes
-# Forward HTTP and HTTPS ports to high ports
-ExecStart=/sbin/iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
-ExecStart=/sbin/iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8443
+Allow unprivileged ports from 80:
 
-# Optional: delete on stop
-ExecStop=/sbin/iptables -t nat -D PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
-ExecStop=/sbin/iptables -t nat -D PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8443
+> This default value can however be changed by making changes to file /etc/sysctl.d/99-rootless-podman-unprivileged-ports.conf
 
-AutoUpdate=registry
+    # Allow unprivileged (non-root) processes to bind to ports starting from 80.
+    # This is required for rootless Podman containers to listen on ports 80 and 443
+    # without using iptables redirects or running containers as root.
+    # This enables services like Nginx Proxy Manager to bind directly to ports 80/443
+    # in rootless container setups.
+    # Ports below 80 (e.g. SSH on port 22) remain protected and require root privileges.
+    
+    sudo echo "sysctl net.ipv4.ip_unprivileged_port_start=80" > /etc/sysctl.d/99-rootless-podman-unprivileged-ports.conf
 
-[Install]
-WantedBy=multi-user.target
-```
+Apply & verify:
 
-Reload systemd:
+    sudo sysctl --system
+    sysctl net.ipv4.ip_unprivileged_port_start
 
-    sudo systemctl daemon-reload
+Output should be:
 
-Permanently enable and start the rootless-port-forward.service:
-
-    sudo systemctl enable --now rootless-port-forward.service
-
-Check the status of rootless-port-forward.service:
-
-    sudo systemctl status rootless-port-forward.service
+    net.ipv4.ip_unprivileged_port_start = 80
 
 <br/>
 
