@@ -130,7 +130,7 @@ Or you repare the directories on a separate mounted SSD for example: /mnt/ssd
 ```
 # For rootless Podman, make sure your user owns the directory on the SSD:
 chown -R $(whoami):$(whoami) /mnt/podman-data
-chmod -R 755 /mnt/podman-dataa
+chmod -R 755 /mnt/podman-data
 ```
 
 Important:
