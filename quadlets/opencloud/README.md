@@ -12,5 +12,8 @@
 - Nginx Proxy Manager and Radicale (including their configurations) must be fully set up before starting OpenCloud, otherwise OpenCloud cannot correctly reach the CalDAV/CardDAV routes.
 - All containers (OpenCloud, Radicale, NPM) must be in the same network (proxy-opencloud) so that internal DNS names like radicale resolve correctly.
 - Ports in NPM must be properly forwarded (443/80/81), otherwise HTTPS access will not work.
+- Look also here: https://github.com/opencloud-eu/opencloud-compose/issues/192
+
+---
 
 ... Still in progress ...
