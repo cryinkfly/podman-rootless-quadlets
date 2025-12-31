@@ -1,0 +1,39 @@
+[Unit]
+Description=Opencloud (Rootless Podman)
+After=network-online.target
+
+[Container]
+ContainerName=opencloud
+Image=docker.io/opencloudeu/opencloud-rolling:latest
+
+# Network
+Network=proxy-opencloud
+
+# Volumes
+Volume=opencloud_config:/etc/opencloud
+Volume=opencloud_data:/var/lib/opencloud
+
+# Environment
+Environment=PROXY_TLS=false
+Environment=OC_INSECURE=true
+Environment=IDM_ADMIN_PASSWORD=admin
+Environment=IDM_CREATE_DEMO_USERS=false
+Environment=OC_URL="https://opencloud.podtopia.duckdns.org"
+
+Environment=OC_CALDAV_URL="http://radicale:5232"
+Environment=OC_CARDDAV_URL="http://radicale:5232"
+Environment=OC_CALDAV_ENABLED=true
+Environment=OC_CARDDAV_ENABLED=true
+Environment=OC_CALDAV_AUTOCREATE=true
+Environment=OC_CARDDAV_AUTOCREATE=true
+
+# Entrypoint / Exec
+Entrypoint="/bin/sh"
+Exec=-c 'opencloud init || true; opencloud server'
+
+[Service]
+Restart=always
+RestartSec=30s
+
+[Install]
+WantedBy=default.target
