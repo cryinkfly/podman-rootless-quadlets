@@ -24,6 +24,8 @@ Place your .container, .network, and .env files in this directory.
 ```
 [Unit]
 Description=Nginx Proxy Manager (Rootless Podman)
+After=network-online.target
+Wants=network-online.target
 
 [Container]
 ContainerName=nginx-proxy-manager
@@ -36,8 +38,8 @@ PublishPort=443:443
 PublishPort=81:81
 
 # Volumes
-Volume=nginx-proxy-manager_data:/data
-Volume=nginx-proxy-manager_letsencrypt:/etc/letsencrypt
+Volume=nginx-proxy-manager_data:/data:Z
+Volume=nginx-proxy-manager_letsencrypt:/etc/letsencrypt:Z
 
 # Environment
 Environment=TZ=Europe/Berlin
