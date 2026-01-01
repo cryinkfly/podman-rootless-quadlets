@@ -1,7 +1,7 @@
 [Unit]
 Description=Vaultwarden (Rootless Podman)
-After=nginx-proxy-manager
-Wants=nginx-proxy-manager
+After=network-online.target
+Wants=network-online.target
 
 [Container]
 ContainerName=vaultwarden
