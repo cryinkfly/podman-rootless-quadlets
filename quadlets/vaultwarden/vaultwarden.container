@@ -39,3 +39,5 @@ RestartSec=20
 [Install]
 # Start the service at boot
 WantedBy=default.target
+# Wait until Nginx Proxy Manager is reachable on port 81
+ExecStartPre=/usr/bin/sh -c "until curl -fs http://nginx-proxy-manager:81 >/dev/null; do sleep 2; done"
