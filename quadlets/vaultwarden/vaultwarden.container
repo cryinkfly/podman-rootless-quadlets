@@ -1,50 +1,40 @@
 [Unit]
 Description=Vaultwarden (Rootless Podman)
-# Description of the container for systemd
+After=nginx-proxy-manager
+Wants=nginx-proxy-manager
 
 [Container]
-# Container name
 ContainerName=vaultwarden
-
-# Container image
 Image=docker.io/vaultwarden/server:latest
 
-# Automatically update the container image from the registry
-AutoUpdate=registry
+# Network
+# Isolated container network
+# IMPORTANT: The network must exist before starting this service!
+# podman network create proxy-vaultwarden
+# podman network connect proxy-vaultwarden nginx-proxy-manager
+Network=proxy-vaultwarden
 
-# --- Volumes ---
-# Persistent data (database, attachments)
-Volume=vaultwarden_data:/data
+# Internal container port 80 is used by Vaultwarden
+# Container name (vaultwarden) is selected in Nginx Proxy Manager as Forward Hostname
+# Forward Port in Nginx Proxy Manager should be 80
+# No need to publish host ports when using Nginx Proxy Manager
+# PublishPort=80   # NOT required!
 
-# Mount host timezone files for correct log timestamps (important for Fail2Ban)
+# Volume
+Volume=vaultwarden_data:/data:Z
 Volume=/etc/localtime:/etc/localtime:ro
 Volume=/etc/timezone:/etc/timezone:ro
 
-# --- Environment Variables ---
+# Environment
 # Admin token for Vaultwarden web interface
 # You must generate your own secure token (e.g., using Argon2 hash)
 # For example here: https://argon2.online
 Environment=ADMIN_TOKEN="$argon2i...LONG....HASH"
 
-# --- Network ---
-# Isolated container network
-# IMPORTANT: The network must exist before starting this service!
-# Example:
-# podman network create proxy-vaultwarden
-# podman network connect proxy-vaultwarden nginx-proxy-manager
-Network=proxy-vaultwarden
-
-# --- Ports ---
-# Internal container port 80 is used by Vaultwarden
-# Container name (vaultwarden) is selected in Nginx Proxy Manager as Forward Hostname
-# Forward Port in Nginx Proxy Manager should be 80
-# No need to publish host ports when using Nginx Proxy Manager
-# PublishPort=80   # NOT required
-
 [Service]
 # Restart the container automatically if it crashes
 Restart=always
-RestartSec=10
+RestartSec=20
 
 [Install]
 # Start the service at boot
