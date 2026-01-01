@@ -192,7 +192,7 @@ Allow unprivileged ports from 80:
     # in rootless container setups.
     # Ports below 80 (e.g. SSH on port 22) remain protected and require root privileges.
     
-    sudo echo "sysctl net.ipv4.ip_unprivileged_port_start=80" > /etc/sysctl.d/99-rootless-podman-unprivileged-ports.conf
+    sudo echo "net.ipv4.ip_unprivileged_port_start=80" > /etc/sysctl.d/99-rootless-podman-unprivileged-ports.conf
 
 Apply & verify:
 
