@@ -1,0 +1,21 @@
+[Unit]
+Description=OpenCloud Pod (internal, no ports)
+After=nginx-proxy-manager.service
+BindsTo=nginx-proxy-manager.service
+Requires=nginx-proxy-manager.service
+
+[Pod]
+PodName=opencloud.pod
+
+# Network
+# Isolated container network
+# IMPORTANT: The network must exist before starting this service!
+# podman network create opencloud.net
+Network=opencloud.net
+
+[Service]
+Restart=always
+RestartSec=25
+
+[Install]
+WantedBy=default.target
