@@ -32,7 +32,9 @@ ContainerName=nginx-proxy-manager
 Image=docker.io/jc21/nginx-proxy-manager:latest
 
 # Network
-Network=proxy
+Network=proxy.net
+# Connect nginx-proxy-manager to another networks. For example: vaultwarden.net
+# Network=vaultwarden.net
 PublishPort=80:80
 PublishPort=443:443
 PublishPort=81:81
