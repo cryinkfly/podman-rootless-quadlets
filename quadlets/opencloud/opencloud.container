@@ -1,14 +1,15 @@
 [Unit]
 Description=Opencloud (Rootless Podman)
-After=network-online.target
+After=nginx-proxy-manager.service
+BindsTo=nginx-proxy-manager.service
+Requires=nginx-proxy-manager.service
 
 [Container]
 ContainerName=opencloud
 Image=docker.io/opencloudeu/opencloud-rolling:latest
 
 # Network
-Network=proxy-opencloud
-
+Network=opencloud.net
 # Volumes
 Volume=opencloud_config:/etc/opencloud
 Volume=opencloud_data:/var/lib/opencloud
