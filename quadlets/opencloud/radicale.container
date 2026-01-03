@@ -1,16 +1,18 @@
 [Unit]
 Description=Radicale (Rootless Podman)
-After=opencloud.service
-BindsTo=opencloud.service
-Requires=opencloud.service
 
 [Container]
 ContainerName=radicale
 # Official Radicale image from Kozea (GHCR)
 Image=ghcr.io/kozea/radicale:latest
 
-# Network
-Network=opencloud.net
+# Pod
+# [Container] Pod= automatically sets up the dependency for this container.
+# You don’t need After= or Requires= entries for this container regarding the Pod.
+# The Pod provides a shared network, localhost, and all other resources to its containers.
+# Once the Pod is running, this container starts automatically.
+# All containers are fully orchestrated and can communicate internally.
+Pod=opencloud.pod
 
 # Volumes
 Volume=radicale_data:/var/lib/radicale
