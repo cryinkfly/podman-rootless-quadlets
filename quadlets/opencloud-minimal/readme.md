@@ -37,7 +37,7 @@ nano ~/.config/containers/systemd/opencloud.container
 
 Content:
 
-```ini
+```
 [Unit]
 Description=OpenCloud (Rootless Podman)
 
@@ -46,7 +46,9 @@ ContainerName=opencloud
 Image=docker.io/opencloudeu/opencloud-rolling:latest
 
 # HTTP-Port für OpenCloud
-PublishPort=9200:9200
+# Use server's LAN IP for external access.
+# Or use 127.0.0.1/localhost if the browser is on the same system as the container.
+PublishPort=9200:9200  
 
 # Mounts for existing Docker volumes
 Volume=opencloud_config:/etc/opencloud
@@ -56,10 +58,11 @@ Volume=opencloud_data:/var/lib/opencloud
 # Disable certificate checking (not recommended for public instances)
 Environment=OC_INSECURE=true
 Environment=PROXY_HTTP_ADDR=0.0.0.0:9200
-
 # URL for OpenCloud access: use localhost only if accessing from the same system,
-# otherwise set your domain or the server's LAN IP for external access.
-Environment=OC_URL=https://localhost:9200 # or https://192.168.192.20:9200 --> Check the IP address in the configuration of the router!
+# otherwise set the server's LAN IP for external access.
+Environment=OC_URL=https://127.0.0.1:9200 # or https://192.168.192.20
+# The calendar menu is not visible in the OpenCloud frontend by default in this minimal installation variant, because Radicale is not installed.
+Environment=FRONTEND_DISABLE_RADICALE=false
 
 [Service]
 Restart=always
