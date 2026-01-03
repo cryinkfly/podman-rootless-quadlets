@@ -1,20 +1,26 @@
 [Unit]
 Description=Radicale (Rootless Podman)
 After=opencloud.service
+BindsTo=opencloud.service
 Requires=opencloud.service
 
 [Container]
 ContainerName=radicale
-Image=docker.io/opencloudeu/radicale
+# Official Radicale image from Kozea (GHCR)
+Image=ghcr.io/kozea/radicale:latest
 
 # Network
-Network=proxy-opencloud
+Network=opencloud.net
 
 # Volumes
-Volume=radicale_config:/etc/radicale:ro
 Volume=radicale_data:/var/lib/radicale
+# The :ro suffix makes the radicale_config volume read-only inside the container!
+# The config file cannot be changed from within the container; the file must be edited on the host system.
+# Example: nano ~/.local/share/containers/storage/volumes/radicale_config/_data/config
+# Documentation: https://radicale.org/v3.html#configuration
+Volume=radicale_config:/etc/radicale:ro
 
-# Environment
+# Environments
 Environment=TZ=Europe/Berlin
 
 [Service]
@@ -24,7 +30,7 @@ MemoryHigh=256M
 
 # Restart policy
 Restart=always
-RestartSec=30
+RestartSec=20
 
 [Install]
 WantedBy=default.target
