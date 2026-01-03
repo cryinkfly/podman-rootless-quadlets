@@ -11,9 +11,8 @@ Image=docker.io/vaultwarden/server:latest
 # Network
 # Isolated container network
 # IMPORTANT: The network must exist before starting this service!
-# podman network create proxy-vaultwarden
-# podman network connect proxy-vaultwarden nginx-proxy-manager
-Network=proxy-vaultwarden
+# podman network create vaultwarden.network
+Network=vaultwarden.network
 
 # Internal container port 80 is used by Vaultwarden
 # Container name (vaultwarden) is selected in Nginx Proxy Manager as Forward Hostname
