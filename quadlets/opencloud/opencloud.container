@@ -1,15 +1,18 @@
 [Unit]
 Description=Opencloud (Rootless Podman)
-After=nginx-proxy-manager.service
-BindsTo=nginx-proxy-manager.service
-Requires=nginx-proxy-manager.service
 
 [Container]
 ContainerName=opencloud
 Image=docker.io/opencloudeu/opencloud-rolling:latest
 
-# Network
-Network=opencloud.net
+# Pod
+# [Container] Pod= automatically sets up the dependency for this container.
+# You don’t need After= or Requires= entries for this container regarding the Pod.
+# The Pod provides a shared network, localhost, and all other resources to its containers.
+# Once the Pod is running, this container starts automatically.
+# All containers are fully orchestrated and can communicate internally.
+Pod=opencloud.pod
+
 # Volumes
 Volume=opencloud_config:/etc/opencloud
 Volume=opencloud_data:/var/lib/opencloud
@@ -19,7 +22,7 @@ Environment=PROXY_TLS=false
 Environment=OC_INSECURE=true
 Environment=IDM_ADMIN_PASSWORD=admin
 Environment=IDM_CREATE_DEMO_USERS=false
-Environment=OC_URL="https://opencloud.podtopia.duckdns.org"
+Environment=OC_URL="https://opencloud.example.org"
 
 Environment=OC_CALDAV_URL="http://radicale:5232"
 Environment=OC_CARDDAV_URL="http://radicale:5232"
