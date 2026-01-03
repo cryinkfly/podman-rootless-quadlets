@@ -18,13 +18,11 @@ Volume=opencloud_data:/var/lib/opencloud
 # Disable certificate checking (not recommended for public instances)
 Environment=OC_INSECURE=true
 Environment=PROXY_HTTP_ADDR=0.0.0.0:9200
-
-# The calendar menu is not visible in the OpenCloud frontend by default in this minimal installation variant, because Radicale is not installed.
-Environment=FRONTEND_DISABLE_RADICALE=false
-
 # URL for OpenCloud access: use localhost only if accessing from the same system,
 # otherwise set the server's LAN IP for external access.
 Environment=OC_URL=https://127.0.0.1:9200 # or https://192.168.192.20
+# The calendar menu is not visible in the OpenCloud frontend by default in this minimal installation variant, because Radicale is not installed.
+Environment=FRONTEND_DISABLE_RADICALE=false
 
 [Service]
 Restart=always
