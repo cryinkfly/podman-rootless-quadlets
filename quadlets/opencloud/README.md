@@ -15,5 +15,12 @@
 - Look also here: https://github.com/opencloud-eu/opencloud-compose/issues/192
 
 ---
+podman volume create opencloud_config
+podman unshare ls -l /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/csp.yaml
+
+podman unshare ls -l /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/proxy.yaml
+
+podman unshare ls -l /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/banned-password-list.txt
+
 
 ... Still in progress ...
