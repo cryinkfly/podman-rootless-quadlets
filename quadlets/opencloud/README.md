@@ -16,11 +16,11 @@
 
 ---
     podman volume create opencloud_config
-    podman unshare ls -l /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/csp.yaml
+    podman unshare nano /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/csp.yaml
 
-    podman unshare ls -l /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/proxy.yaml
+    podman unshare nano /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/proxy.yaml
 
-    podman unshare ls -l /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/banned-password-list.txt
+    podman unshare nano /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/banned-password-list.txt
 
 
 ... Still in progress ...
