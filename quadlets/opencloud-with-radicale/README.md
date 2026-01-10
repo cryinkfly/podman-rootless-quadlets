@@ -2,7 +2,7 @@
     
     podman network connect network proxy-opencloud nginx-proxy-manager
 
-    curl -L https://raw.githubusercontent.com/cryinkfly/podman-rootless-quadlets/main/quadlets/opencloud/opencloud.container -o ~/.config/containers/systemd/opencloud.container
+    curl -L https://raw.githubusercontent.com/cryinkfly/podman-rootless-quadlets/main/quadlets/opencloud-with-radicale/opencloud.container -o ~/.config/containers/systemd/opencloud.container
 
     systemctl --user daemon-reload
     systemctl --user start opencloud.service
