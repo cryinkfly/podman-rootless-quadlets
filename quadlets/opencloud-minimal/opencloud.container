@@ -22,7 +22,7 @@ Environment=PROXY_HTTP_ADDR=0.0.0.0:9200
 # otherwise set the server's LAN IP for external access.
 Environment=OC_URL=https://127.0.0.1:9200 # or https://192.168.192.20
 # The calendar menu is not visible in the OpenCloud frontend by default in this minimal installation variant, because Radicale is not installed.
-Environment=FRONTEND_DISABLE_RADICALE=false
+Environment=FRONTEND_DISABLE_RADICALE=true
 
 [Service]
 Restart=always
