@@ -12,7 +12,16 @@ Image=ghcr.io/kozea/radicale:latest
 AutoUpdate=registry
 
 # Network
-PublishPort=5232:5232
+# Isolated container network
+# IMPORTANT: The network must exist before starting this service!
+# podman network create radicale.net
+Network=radicale.net
+
+# Internal container port 5232 is used by Radicale
+# Container name (radicale) is selected in Nginx Proxy Manager as Forward Hostname
+# Forward Port in Nginx Proxy Manager should be 80
+# No need to publish host ports when using Nginx Proxy Manager
+# PublishPort=5232:5232   # NOT required!
 
 # Timezone
 # This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
