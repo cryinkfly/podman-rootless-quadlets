@@ -7,6 +7,11 @@ Wants=network-online.target
 ContainerName=nginx-proxy-manager
 Image=docker.io/jc21/nginx-proxy-manager:latest
 
+# Automatical Updates
+# To enable automatic updates for all containers, start the systemd timer:
+# systemctl --user start --now radicale.auto-update.timer
+AutoUpdate=registry
+
 # Network
 # Isolated container network
 # IMPORTANT: The network must exist before starting this service!
@@ -18,12 +23,13 @@ PublishPort=80:80
 PublishPort=443:443
 PublishPort=81:81
 
+# Timezone
+# This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
+Timezone=local
+
 # Volumes
 Volume=nginx-proxy-manager_data:/data:Z
 Volume=nginx-proxy-manager_letsencrypt:/etc/letsencrypt:Z
-
-# Environment
-Environment=TZ=Europe/Berlin
 
 [Service]
 Restart=always
