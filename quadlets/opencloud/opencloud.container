@@ -13,6 +13,16 @@ Image=docker.io/opencloudeu/opencloud-rolling:latest
 # All containers are fully orchestrated and can communicate internally.
 Pod=opencloud.pod
 
+# Network
+Network=opencloud.net
+
+# Timezone
+# This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
+Timezone=local
+
+# Root inside container only
+User=0
+
 # Volumes
 Volume=opencloud_config:/etc/opencloud:z
 Volume=opencloud_data:/var/lib/opencloud:Z
