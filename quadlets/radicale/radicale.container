@@ -3,45 +3,31 @@ Description=Radicale (Rootless Podman)
 
 [Container]
 ContainerName=radicale
-
-# -----------------------------
 # Official Radicale image from Kozea (GHCR)
-# Includes Radicale + Python dependencies on minimal Alpine base
-# Use volumes for persistent data (/var/lib/radicale) and config (/etc/radicale/config)
-# -----------------------------
 Image=ghcr.io/kozea/radicale:latest
 
+# Automatical Updates
+# To enable automatic updates for all containers, start the systemd timer:
+# systemctl --user start --now radicale.auto-update.timer
 AutoUpdate=registry
 
-# -----------------------------
-# Ports
-# -----------------------------
+# Network
 PublishPort=5232:5232
 
-# -----------------------------
-# Volumes
-# -----------------------------
-# Persistent data: calendars, contacts, users
-Volume=radicale_data:/var/lib/radicale
+# Timezone
+# This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
+Timezone=local
 
-# Configuration (read-only)
-# WARNING: Edit config to enable auth (htpasswd), rights, SSL/TLS
-# The :ro suffix makes this volume read-only inside the container
-# The container cannot modify the configuration file;
-# it must be edited **outside the container** on the host
+# Volumes
+Volume=radicale_data:/var/lib/radicale
+# The :ro suffix makes the radicale_config volume read-only inside the container!
+# The config file cannot be changed from within the container; the file must be edited on the host system.
 # Example: nano ~/.local/share/containers/storage/volumes/radicale_config/_data/config
 # Documentation: https://radicale.org/v3.html#configuration
 Volume=radicale_config:/etc/radicale:ro
 
-# -----------------------------
-# Environment
-# -----------------------------
+# Environments
 Environment=TZ=Europe/Berlin
-
-# -----------------------------
-# Network
-# -----------------------------
-Network=proxy
 
 [Service]
 # Limit tasks and memory for Rootless container
@@ -50,7 +36,7 @@ MemoryHigh=256M
 
 # Restart policy
 Restart=always
-RestartSec=5
+RestartSec=20
 
 [Install]
 WantedBy=default.target
