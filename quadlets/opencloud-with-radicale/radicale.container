@@ -1,7 +1,5 @@
 [Unit]
 Description=Radicale (Rootless Podman)
-After=opencloud.service
-BindsTo=opencloud.service
 
 [Container]
 ContainerName=radicale
