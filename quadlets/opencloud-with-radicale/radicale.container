@@ -8,6 +8,11 @@ ContainerName=radicale
 # Official Radicale image from Kozea (GHCR)
 Image=ghcr.io/kozea/radicale:latest
 
+# Automatical Updates
+# To enable automatic updates for all containers, start the systemd timer:
+# systemctl --user start --now radicale.auto-update.timer
+AutoUpdate=registry
+
 # Pod
 # [Container] Pod= automatically sets up the dependency for this container.
 # You don’t need After= or Requires= entries for this container regarding the Pod.
