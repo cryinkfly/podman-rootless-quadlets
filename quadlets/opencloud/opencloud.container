@@ -26,7 +26,7 @@ Environment=OC_LOG_COLOR=true
 Environment=OC_LOG_PRETTY=true
 Environment=PROXY_TLS=false
 Environment=OC_INSECURE=true
-Environment=IDM_ADMIN_PASSWORD=admin
+#Environment=IDM_ADMIN_PASSWORD=admin
 Environment=IDM_CREATE_DEMO_USERS=false
 
 Environment=NOTIFICATIONS_SMTP_HOST=xxx
@@ -41,18 +41,7 @@ Environment=NOTIFICATIONS_SMTP_ENCRYPTION=xxx
 Environment=FRONTEND_ARCHIVER_MAX_SIZE=10000000000
 Environment=FRONTEND_CHECK_FOR_UPDATES=true
 
-Environment=COLLABORA_DOMAIN=collabora.example.org
-Environment=NATS_NATS_HOST=0.0.0.0
-Environment=GATEWAY_GRPC_ADDR=0.0.0.0:9142
-Environment=FRONTEND_APP_HANDLER_SECURE_VIEW_APP_ADDR=eu.opencloud.api.collaboration
-Environment=GRAPH_AVAILABLE_ROLES="b1e2218d-eef8-4d4c-b82d-0f1a1b48f3b5,a8d5fe5e-96e3-418d-825b-534dbdf22b99,fb6c3e19-e378-47e5-b277-9732f9de6e21,58c63c02-1d>
-
-Environment=OC_CALDAV_URL="http://radicale:5232"
-Environment=OC_CARDDAV_URL="http://radicale:5232"
-Environment=OC_CALDAV_ENABLED=true
-Environment=OC_CARDDAV_ENABLED=true
-Environment=OC_CALDAV_AUTOCREATE=true
-Environment=OC_CARDDAV_AUTOCREATE=true
+Environment=FRONTEND_DISABLE_RADICALE=false
 
 # Entrypoint / Exec
 Entrypoint=["/bin/bash","-c"]
