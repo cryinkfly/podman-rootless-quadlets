@@ -41,6 +41,7 @@ Environment=OC_LOG_COLOR=true
 Environment=OC_LOG_PRETTY=true
 Environment=PROXY_TLS=false
 Environment=OC_INSECURE=true
+# Default password is: admin
 #Environment=IDM_ADMIN_PASSWORD=admin
 Environment=IDM_CREATE_DEMO_USERS=false
 
