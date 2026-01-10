@@ -26,9 +26,6 @@ Volume=radicale_data:/var/lib/radicale
 # Documentation: https://radicale.org/v3.html#configuration
 Volume=radicale_config:/etc/radicale:ro
 
-# Environments
-Environment=TZ=Europe/Berlin
-
 [Service]
 # Limit tasks and memory for Rootless container
 TasksMax=50
