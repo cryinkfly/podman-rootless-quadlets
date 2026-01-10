@@ -2,7 +2,6 @@
 Description=Radicale (Rootless Podman)
 After=opencloud.service
 BindsTo=opencloud.service
-Requires=opencloud.service
 
 [Container]
 ContainerName=radicale
@@ -16,6 +15,13 @@ Image=ghcr.io/kozea/radicale:latest
 # Once the Pod is running, this container starts automatically.
 # All containers are fully orchestrated and can communicate internally.
 Pod=opencloud.pod
+
+# Network
+Network=opencloud.net
+
+# Timezone
+# This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
+Timezone=local
 
 # Volumes
 Volume=radicale_data:/var/lib/radicale
