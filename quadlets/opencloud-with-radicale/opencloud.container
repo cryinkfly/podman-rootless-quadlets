@@ -7,7 +7,7 @@ Image=docker.io/opencloudeu/opencloud-rolling:latest
 
 # Automatical Updates
 # To enable automatic updates for all containers, start the systemd timer:
-# systemctl --user start --now radicale.auto-update.timer
+# systemctl --user start --now podman-auto-update.timer
 AutoUpdate=registry
 
 # Pod
@@ -24,9 +24,6 @@ Network=opencloud.net
 # Timezone
 # This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
 Timezone=local
-
-# Root inside container only
-User=0
 
 # Volumes
 Volume=opencloud_config:/etc/opencloud:z
