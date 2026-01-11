@@ -100,7 +100,7 @@ nano ~/.config/containers/storage.conf
 [storage]
 driver = "overlay" # OverlayFS driver: efficient copy-on-write filesystem
 runroot = "/run/user/1000/containers" # User-ID is 1000 here
-graphroot = "/mnt/podman-data" # Mounted external SSD or custom path
+graphroot = "/mnt/podman/data" # Mounted external SSD or custom path
 ```
 
 > Other storage drivers exist (e.g., vfs, btrfs, zfs). See the official Podman documentation for details: https://docs.podman.io/en/v5.4.2/markdown/podman.1.html
@@ -108,8 +108,8 @@ graphroot = "/mnt/podman-data" # Mounted external SSD or custom path
 For rootless Podman, make sure your user owns the directory on the SSD:
 
 ```
-chown -R $(whoami):$(whoami) /mnt/podman-data
-chmod -R 755 /mnt/podman-data
+chown -R $(whoami):$(whoami) /mnt/podman/data
+chmod -R 755 /mnt/podman/data
 ```
 
 ---
