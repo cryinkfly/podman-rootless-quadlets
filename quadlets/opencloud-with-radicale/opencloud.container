@@ -57,6 +57,13 @@ Environment=FRONTEND_CHECK_FOR_UPDATES=true
 
 Environment=FRONTEND_DISABLE_RADICALE=false
 
+# IMPORTANT: The container starts internally as root, as expected by the container.
+# Then automatically changes the data ownership to PUID/PGID (here 1000:1000).
+# This corresponds exactly to the recommendation in the error message:
+# This Docker container must be run as root, do not specify a user. You can specify PUID and PGID env vars...
+Environment=PUID=1000
+Environment=PGID=1000
+
 # Entrypoint / Exec
 Entrypoint=["/bin/bash","-c"]
 Exec=-'opencloud init || true; opencloud server'
