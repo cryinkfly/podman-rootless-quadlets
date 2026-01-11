@@ -25,6 +25,9 @@ Network=opencloud.net
 # This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
 Timezone=local
 
+# IMPORTANT: The container starts internally as root, as expected by the container.
+User=0
+
 # Volumes
 Volume=opencloud_config:/etc/opencloud:z
 Volume=opencloud_data:/var/lib/opencloud:Z
@@ -56,13 +59,6 @@ Environment=FRONTEND_ARCHIVER_MAX_SIZE=10000000000
 Environment=FRONTEND_CHECK_FOR_UPDATES=true
 
 Environment=FRONTEND_DISABLE_RADICALE=false
-
-# IMPORTANT: The container starts internally as root, as expected by the container.
-# Then automatically changes the data ownership to PUID/PGID (here 1000:1000).
-# This corresponds exactly to the recommendation in the error message:
-# This Docker container must be run as root, do not specify a user. You can specify PUID and PGID env vars...
-Environment=PUID=1000
-Environment=PGID=1000
 
 # Entrypoint / Exec
 Entrypoint=["/bin/bash","-c"]
