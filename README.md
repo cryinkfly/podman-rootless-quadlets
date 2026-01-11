@@ -174,7 +174,7 @@ Volume=nginx-proxy-manager_data:/data:Z
 Volume=nginx-proxy-manager_letsencrypt:/etc/letsencrypt:Z
 
 # Healthcheck on dashboard port
-HealthCmd=["CMD-SHELL", "curl -f http://127.0.0.1:81 || exit 1"]
+HealthCmd=["CMD-SHELL", "curl -f http://localhost:81 || exit 1"]
 HealthInterval=10s
 HealthTimeout=3s
 HealthRetries=3
