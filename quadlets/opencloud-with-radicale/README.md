@@ -22,5 +22,10 @@
 
     podman unshare nano /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/banned-password-list.txt
 
+### WARNING:
+
+> Removing a user in OpenCloud does not automatically delete related calendar or address book data. These files remain in the Radicale volume and must be removed manually.
+
+    podman unshare rm -rf /home/$USER/.local/share/containers/storage/volumes/radicale_data/_data/collections/collection-root/USER-HASH-FOLDER
 
 ... Still in progress ...
