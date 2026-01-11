@@ -1,5 +1,8 @@
 [Unit]
 Description=Nginx Proxy Manager (Rootless Podman)
+# Requires Podman version >= 5.4.1
+
+# Network must be online before the container starts
 After=network-online.target
 Wants=network-online.target
 
@@ -27,12 +30,24 @@ PublishPort=81:81
 # This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
 Timezone=local
 
-# Non-root user in container
-User=1000:1000
+# IMPORTANT: The container starts internally as root, as expected by the NPM container.
+# NPM then automatically changes the data ownership to PUID/PGID (here 1000:1000).
+# This corresponds exactly to the recommendation in the error message:
+# "This Docker container must be run as root, do not specify a user. You can specify PUID and PGID env vars..."
+Environment=PUID=1000
+Environment=PGID=1000
 
 # Volumes
 Volume=nginx-proxy-manager_data:/data:Z
 Volume=nginx-proxy-manager_letsencrypt:/etc/letsencrypt:Z
+
+# Healthcheck on dashboard port
+HealthCmd=["CMD-SHELL", "curl -f http://localhost:81 || exit 1"]
+HealthInterval=10s
+HealthTimeout=3s
+HealthRetries=3
+HealthStartPeriod=10s
+HealthOnFailure=kill
 
 [Service]
 Restart=always
