@@ -26,6 +26,8 @@ This guide explains how to manage **rootless Podman containers** using **systemd
 command -v podman >/dev/null || sudo apt update && sudo apt install -y podman
 ```
 
+<img width="968" height="504" alt="grafik" src="https://github.com/user-attachments/assets/e1a37c29-b8e2-4010-b6e5-a5c496526da7" />
+
 ---
 
 ### 2. Modifying unprivileged ports to access low-level ports
@@ -109,6 +111,8 @@ chown -R $(whoami):$(whoami) /mnt/podman-data
 chmod -R 755 /mnt/podman-data
 ```
 
+---
+
 ### 5 Create a seperate podman network for example the Nginx Proxy Manager
 
 ```
@@ -121,6 +125,8 @@ Note / Special Considerations:
 - Later, additional networks can be created for other containers or services (e.g., Vaultwarden, Jellyfin).
 - `Nginx Proxy Manager` can `join all networks to reverse proxy requests`, while containers themselves remain isolated by default.
 - By default, containers do not communicate with each other unless they are explicitly grouped in a pod. This ensures better security and `network separation` in your homelab setup.
+
+---
 
 ### 6. Create a .container file for example the Nginx Proxy Manager
 
@@ -189,6 +195,8 @@ RestartSec=10
 WantedBy=default.target
 ```
 
+---
+
 ### 7. Start and Enable Auto-Update Timer
 
 Once you have created your `podman-auto-update.service` and `podman-auto-update.timer` in the `~/quadlets/containers/` folder, start and enable the timer:
@@ -209,6 +217,8 @@ Check the timer status:
 systemctl --user status podman-auto-update.timer
 ```
 
+---
+
 ### 8. Enable User Linger (Headless Setup)
 
 Activates linger for your user account. User systemd services (like your Rootless Podman container service) will start automatically at boot, even if no one logs in. This is perfect for headless Raspberry Pi setups.
@@ -228,6 +238,8 @@ Why it matters:
 - Without linger, systemd user services like your rootless container services and auto-update timer will not start automatically at boot.
 - Enabling linger ensures that rootless Podman timers (podman-auto-update.timer) and container services run on headless setups like a Raspberry Pi homelab.
 
+---
+
 ### 9. Reload Systemd for User Services
 
 After creating or modifying any Quadlet files (`.container`, `.network`, `.env`, `...`), you must reload the systemd user daemon so your changes are recognized:
@@ -245,6 +257,8 @@ systemctl --user list-timers
 
 > ⚡ Tip: Always reload systemd after adding or editing Quadlets before starting or enabling services.
 
+---
+
 ### 10. Start the container
 
 Once your `.container` Quadlet is ready and systemd has been reloaded, start the container:
@@ -253,6 +267,8 @@ Once your `.container` Quadlet is ready and systemd has been reloaded, start the
 systemctl --user start nginx-proxy-manager.service
 ```
 
+---
+
 ### 11. Check if the Podman Container is Running
 
 Verify that your rootless container is up and running:
@@ -260,6 +276,8 @@ Verify that your rootless container is up and running:
 ```
 podman ps
 ```
+
+---
 
 ### 12. Healthcheck for example the Nginx Proxy Manager
 
