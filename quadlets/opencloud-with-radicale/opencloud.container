@@ -25,8 +25,8 @@ Network=opencloud.net
 # This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
 Timezone=local
 
-# IMPORTANT: The container starts internally as root, as expected by the container.
-User=0
+# IMPORTANT: The container starts internally as non-root, as expected by the container.
+User=1000:1000
 
 # Volumes
 Volume=opencloud_config:/etc/opencloud:z
@@ -62,7 +62,7 @@ Environment=FRONTEND_DISABLE_RADICALE=false
 
 # Entrypoint / Exec
 Entrypoint=["/bin/bash","-c"]
-Exec=-'opencloud init || true; opencloud server'
+Exec='opencloud init || true; opencloud server'
 
 [Service]
 Restart=always
