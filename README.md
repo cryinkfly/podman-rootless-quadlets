@@ -168,14 +168,6 @@ PublishPort=81:81
 # This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
 Timezone=local
 
-# IMPORTANT: The container starts internally as root, as expected by the NPM container.
-# NPM then automatically changes the data ownership to PUID/PGID (here 1000:1000).
-# This corresponds exactly to the recommendation in the error message:
-# This Docker container must be run as root, do not specify a user. You can specify PUID and PGID env vars ...
-# The following lines are **disabled** due to a current issue with Nginx Proxy Manager: https://github.com/NginxProxyManager/nginx-proxy-manager/issues/2750
-#Environment=PUID=1000
-#Environment=PGID=1000
-
 # Volumes
 Volume=nginx-proxy-manager_data:/data:Z
 Volume=nginx-proxy-manager_letsencrypt:/etc/letsencrypt:Z
