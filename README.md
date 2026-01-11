@@ -4,7 +4,7 @@ This guide explains how to manage **rootless Podman containers** using **systemd
 
 > **Tested on:** Raspberry Pi 5 with Debian Trixi (Version 13) </br>
 > **Podman version:** 5.4.2+  </br>
-> **Firewall:** UFW recommended for port control </br>
+> **Exposed Ports:** 80/443 (HTTP/HTTPS) and 81 (NPM Admin UI)  </br>
 > **SELinux:** Optional (not required)
 
 ## Features
