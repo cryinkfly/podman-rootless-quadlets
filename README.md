@@ -27,6 +27,7 @@ command -v podman >/dev/null || sudo apt update && sudo apt install -y podman
 ```
 
 <img width="968" height="504" alt="grafik" src="https://github.com/user-attachments/assets/e1a37c29-b8e2-4010-b6e5-a5c496526da7" />
+<img width="968" height="106" alt="grafik" src="https://github.com/user-attachments/assets/dc5eba14-205e-4fe9-a552-ac611d4a5fb6" />
 
 ---
 
