@@ -150,7 +150,7 @@ Image=docker.io/jc21/nginx-proxy-manager:latest
 
 # Automatical Updates
 # To enable automatic updates for all containers, start the systemd timer:
-# systemctl --user start --now radicale.auto-update.timer
+# systemctl --user start --now podman-auto-update.timer
 AutoUpdate=registry
 
 # Network
