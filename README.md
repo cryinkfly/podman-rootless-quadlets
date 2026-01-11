@@ -6,6 +6,7 @@
 - Ready-to-use templates for .container, .network, and .env
 - Tested on Raspberry Pi 5 with Debian Trixi
 - As an example, the nginx proxy manager is set up here, and SELinux is not installed.
+- Podman version 5.4.2 and heighter
 
 ### 1. Check if Podman is installed on the system; if not, install it.
 
