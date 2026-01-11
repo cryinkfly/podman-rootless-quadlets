@@ -39,7 +39,8 @@ Environment=OC_LOG_PRETTY=true
 Environment=PROXY_TLS=false
 Environment=OC_INSECURE=true
 # Default password is: admin
-#Environment=IDM_ADMIN_PASSWORD=admin
+# Change the password after the first login!
+Environment=IDM_ADMIN_PASSWORD=admin
 Environment=IDM_CREATE_DEMO_USERS=false
 
 Environment=NOTIFICATIONS_SMTP_HOST=xxx
