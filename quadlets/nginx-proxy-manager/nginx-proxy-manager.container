@@ -27,6 +27,9 @@ PublishPort=81:81
 # This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
 Timezone=local
 
+# Non-root user in container
+User=1000:1000
+
 # Volumes
 Volume=nginx-proxy-manager_data:/data:Z
 Volume=nginx-proxy-manager_letsencrypt:/etc/letsencrypt:Z
