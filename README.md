@@ -14,8 +14,8 @@ This guide explains how to manage **rootless Podman containers** using **systemd
 - Templates for `.pod`, `.container`, `.network`, `.env`, `...` files
 - Persistent storage support
 - Automatic container updates via timer
-- `Only ports 80, 443, 81 exposed by default with UFW` (Port 22 optional for SSH)
-- Safe low port binding with `net.ipv4.ip_unprivileged_port_start=80` when using UFW
+- Only ports `80`, `443`, `81` exposed by default
+- Safe low port binding with `net.ipv4.ip_unprivileged_port_start=80`
 - `Nginx Proxy Manager handles all external access`; containers do not expose extra ports
 
 ---
