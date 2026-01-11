@@ -164,20 +164,21 @@ Timezone=local
 # IMPORTANT: The container starts internally as root, as expected by the NPM container.
 # NPM then automatically changes the data ownership to PUID/PGID (here 1000:1000).
 # This corresponds exactly to the recommendation in the error message:
-# "This Docker container must be run as root, do not specify a user. You can specify PUID and PGID env vars..."
-Environment=PUID=1000
-Environment=PGID=1000
+# This Docker container must be run as root, do not specify a user. You can specify PUID and PGID env vars ...
+# The following lines are **disabled** due to a current issue with Nginx Proxy Manager: https://github.com/NginxProxyManager/nginx-proxy-manager/issues/2750
+#Environment=PUID=1000
+#Environment=PGID=1000
 
 # Volumes
 Volume=nginx-proxy-manager_data:/data:Z
 Volume=nginx-proxy-manager_letsencrypt:/etc/letsencrypt:Z
 
 # Healthcheck on dashboard port
-HealthCmd=["CMD", "/usr/bin/check-health"]
+HealthCmd=["CMD-SHELL", "curl -f http://127.0.0.1:81 || exit 1"]
 HealthInterval=10s
 HealthTimeout=3s
 HealthRetries=3
-HealthStartPeriod=10s
+HealthStartPeriod=30s
 HealthOnFailure=kill
 
 [Service]
