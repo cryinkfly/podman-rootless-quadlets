@@ -1,6 +1,6 @@
 [Unit]
 Description=Nginx Proxy Manager (Rootless Podman)
-# Requires Podman version >= 5.4.1
+# Requires Podman version >= 5.4.2
 
 # Network must be online before the container starts
 After=network-online.target
