@@ -45,4 +45,4 @@ RestartSec=20
 
 [Install]
 # Start the service at boot
-WantedBy=default.target
+WantedBy=multi-user.target
