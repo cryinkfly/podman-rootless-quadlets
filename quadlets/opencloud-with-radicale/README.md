@@ -23,7 +23,7 @@ Create the following secrets:
 
 ---
 
-After the first successful start of all containers, the `proxy.yaml` file should be created, and the content from the repository copied and adjusted... except for `proy.yaml`, as the radical part there is already correct. The `banned-password-list.txt` file is optional.
+After the first successful start of all containers, the `proxy.yaml` file should be created, and the content from the repository copied and adjusted... except for `proxy.yaml`, as the radical part there is already correct. The `banned-password-list.txt` file is optional.
 
 ```
 podman unshare nano /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/proxy.yaml
