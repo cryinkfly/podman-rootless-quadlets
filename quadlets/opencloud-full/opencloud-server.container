@@ -69,7 +69,7 @@ Environment=FRONTEND_DISABLE_RADICALE=false
 
 #------------------- 
 # For OnlyOffice
-#Environment=ONLYOFFICE_DOMAIN=onlyoffice.mydomain.com
+#Environment=ONLYOFFICE_DOMAIN=onlyoffice.example.com
 #------------------- 
 
 #------------------- 
