@@ -62,6 +62,8 @@ Environment=PROXY_HTTP_ADDR="0.0.0.0:9200"
 
 Environment=FRONTEND_DISABLE_RADICALE=false
 
+#Environment=COMPANION_DOMAIN=companion.example.com
+
 # Entrypoint / Exec
 Entrypoint=["/bin/bash","-c"]
 Exec='opencloud init || true; opencloud server'
