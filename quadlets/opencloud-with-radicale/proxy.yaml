@@ -4,13 +4,6 @@
 additional_policies:
   - name: default
     routes:
-      - endpoint: /loleaflet/
-        backend: http://opencloud:9980
-        remote_user_header: X-Remote-User
-        skip_x_access_token: false
-        additional_headers:
-         - X-Forwarded-Host: collabora.podtopia.duckdns.org
-         - X-Forwarded-Proto: https
       # ---------------- Cal/CardDAV (bereits vorhanden) ----------------
       - endpoint: /caldav/
         backend: http://opencloud-radicale:5232
