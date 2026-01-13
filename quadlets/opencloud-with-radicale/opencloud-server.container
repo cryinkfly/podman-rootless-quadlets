@@ -18,8 +18,8 @@ AutoUpdate=registry
 # All containers are fully orchestrated and can communicate internally.
 Pod=opencloud.pod
 
-# Network
-Network=opencloud.net
+# Network via Pod
+#Network=opencloud.net
 
 # Timezone
 # This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
