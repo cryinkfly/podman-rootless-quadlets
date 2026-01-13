@@ -5,7 +5,9 @@ BindsTo=nginx-proxy-manager.service
 Requires=nginx-proxy-manager.service
 
 [Pod]
-PodName=opencloud.pod
+PodName=opencloud
+Network=opencloud.network
+ServiceName=opencloud
 
 [Service]
 Restart=always
