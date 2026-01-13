@@ -15,6 +15,13 @@
 - Look also here: https://github.com/opencloud-eu/opencloud-compose/issues/192
 
 ---
+
+Create the following secrets: 
+
+    printf "<secret>" | podman secret create opencloud_smtp_pwd -
+
+
+---
     podman volume create opencloud_config
     podman unshare nano /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/csp.yaml
 
