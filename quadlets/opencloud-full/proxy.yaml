@@ -4,52 +4,38 @@
 additional_policies:
   - name: default
     routes:
-      # ---------------- WOPI / Collaboration ----------------
-      - endpoint: /wopi/
-        backend: http://collaboration:9300
-        remote_user_header: X-Remote-User
-        skip_x_access_token: false
-        additional_headers:
-          - X-Script-Name: /wopi
-      - endpoint: /.well-known/wopi
-        backend: http://collaboration:9300
-        remote_user_header: X-Remote-User
-        skip_x_access_token: false
-        additional_headers:
-          - X-Script-Name: /wopi
-
-      # ---------------- Collabora Online ----------------
-      - endpoint: /loleaflet/
-        backend: http://collabora:9980
-        remote_user_header: X-Remote-User
-        skip_x_access_token: false
-      - endpoint: /hosting/discovery
-        backend: http://collabora:9980
-        remote_user_header: X-Remote-User
-        skip_x_access_token: false
-
       # ---------------- Cal/CardDAV (bereits vorhanden) ----------------
       - endpoint: /caldav/
-        backend: http://radicale:5232
+        backend: http://opencloud-radicale:5232
         remote_user_header: X-Remote-User
         skip_x_access_token: true
         additional_headers:
           - X-Script-Name: /caldav
       - endpoint: /.well-known/caldav
-        backend: http://radicale:5232
+        backend: http://opencloud-radicale:5232
         remote_user_header: X-Remote-User
         skip_x_access_token: true
         additional_headers:
           - X-Script-Name: /caldav
       - endpoint: /carddav/
-        backend: http://radicale:5232
+        backend: http://opencloud-radicale:5232
         remote_user_header: X-Remote-User
         skip_x_access_token: true
         additional_headers:
           - X-Script-Name: /carddav
       - endpoint: /.well-known/carddav
-        backend: http://radicale:5232
+        backend: http://opencloud-radicale:5232
         remote_user_header: X-Remote-User
         skip_x_access_token: true
         additional_headers:
           - X-Script-Name: /carddav
+# To enable the radicale web UI add this rule.
+# "unprotected" is True because the Web UI itself ask for
+# the password.
+# Also set "type" to "internal" in the config/radicale/config
+#      - endpoint: /caldav/.web/
+#        backend: http://localhost:5232/
+#        unprotected: true
+#        skip_x_access_token: true
+#        additional_headers:
+#          - X-Script-Name: /caldav
