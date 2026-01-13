@@ -36,13 +36,13 @@ additional_policies:
         skip_x_access_token: true
         additional_headers:
           - X-Script-Name: /carddav
-      # To enable the radicale web UI add this rule.
-      # "unprotected" is True because the Web UI itself ask for
-      # the password.
-      # Also set "type" to "internal" in the config/radicale/config
-      #      - endpoint: /caldav/.web/
-      #        backend: http://localhost:5232/
-      #        unprotected: true
-      #        skip_x_access_token: true
-      #        additional_headers:
-      #          - X-Script-Name: /caldav
+# To enable the radicale web UI add this rule.
+# "unprotected" is True because the Web UI itself ask for
+# the password.
+# Also set "type" to "internal" in the config/radicale/config
+#      - endpoint: /caldav/.web/
+#        backend: http://localhost:5232/
+#        unprotected: true
+#        skip_x_access_token: true
+#        additional_headers:
+#          - X-Script-Name: /caldav
