@@ -22,12 +22,15 @@ Create the following secrets:
 
 
 ---
-    podman volume create opencloud_config
-    podman unshare nano /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/csp.yaml
 
-    podman unshare nano /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/proxy.yaml
+After the first successful start of all containers, the `proxy.yaml` file should be created, and the content from the repository copied and adjusted... except for `proy.yaml`, as the radical part there is already correct. The `banned-password-list.txt` file is optional.
 
-    podman unshare nano /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/banned-password-list.txt
+```
+podman unshare nano /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/proxy.yaml
+```
+```
+podman unshare nano /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/banned-password-list.txt
+```
 
 ### WARNING:
 
