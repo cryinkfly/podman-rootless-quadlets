@@ -103,4 +103,4 @@ Restart=always
 RestartSec=30s
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
