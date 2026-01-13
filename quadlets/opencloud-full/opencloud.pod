@@ -1,0 +1,17 @@
+[Unit]
+Description=OpenCloud Pod (internal, no ports)
+After=nginx-proxy-manager.service
+BindsTo=nginx-proxy-manager.service
+Requires=nginx-proxy-manager.service
+
+[Pod]
+PodName=opencloud
+Network=opencloud.network
+ServiceName=opencloud
+
+[Service]
+Restart=always
+RestartSec=25
+
+[Install]
+WantedBy=default.target
