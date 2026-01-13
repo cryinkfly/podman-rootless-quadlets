@@ -1,0 +1,99 @@
+[Unit]
+Description=Opencloud (Rootless Podman)
+
+[Container]
+ContainerName=opencloud-server
+Image=docker.io/opencloudeu/opencloud-rolling:latest
+
+# Automatical Updates
+# To enable automatic updates for all containers, start the systemd timer:
+# systemctl --user start --now podman-auto-update.timer
+AutoUpdate=registry
+
+# Pod
+# [Container] Pod= automatically sets up the dependency for this container.
+# You don’t need After= or Requires= entries for this container regarding the Pod.
+# The Pod provides a shared network, localhost, and all other resources to its containers.
+# Once the Pod is running, this container starts automatically.
+# All containers are fully orchestrated and can communicate internally.
+Pod=opencloud.pod
+
+# Network via Pod
+#Network=opencloud.net
+
+# Timezone
+# This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
+Timezone=local
+
+# This container is executed with a non-root user context (UID:GID 1000:1000) to match the container's expected runtime permissions.
+User=1000:1000
+
+# Root filesystem is read-only for security. 
+# OpenCloud config and data volumes remain writable.
+ReadOnly=true
+
+# Volumes
+Volume=opencloud_config:/etc/opencloud:z,idmap
+Volume=opencloud_data:/var/lib/opencloud:Z,idmap
+Volume=opencloud_apps:/var/lib/opencloud/web/assets/apps:Z,idmap
+
+# Environment
+Environment=OC_ADD_RUN_SERVICES=notifications
+Environment=OC_URL=https://opencloud.example.org
+Environment=OC_LOG_LEVEL=warn
+Environment=OC_LOG_COLOR=true
+Environment=OC_LOG_PRETTY=true
+Environment=PROXY_TLS=false
+Environment=OC_INSECURE=true
+Environment=PROXY_ENABLE_BASIC_AUTH=false
+# Default password is: admin
+# Change the password after the first login!
+Environment=IDM_ADMIN_PASSWORD=admin
+Environment=IDM_CREATE_DEMO_USERS=false
+
+Environment=NOTIFICATIONS_SMTP_HOST=smtp.example.org
+Environment=NOTIFICATIONS_SMTP_PORT=587
+Environment=NOTIFICATIONS_SMTP_SENDER="OpenCloud Notifications <mail@example.com>"
+Environment=NOTIFICATIONS_SMTP_USERNAME=mail@example.com
+Secret=opencloud_smtp_pwd,type=env,target=NOTIFICATIONS_SMTP_PASSWORD
+Environment=NOTIFICATIONS_SMTP_INSECURE=false
+Environment=NOTIFICATIONS_SMTP_AUTHENTICATION=Login
+Environment=NOTIFICATIONS_SMTP_ENCRYPTION=starttls
+
+Environment=FRONTEND_ARCHIVER_MAX_SIZE=10000000000
+Environment=FRONTEND_CHECK_FOR_UPDATES=true
+Environment=PROXY_HTTP_ADDR="0.0.0.0:9200"
+Environment=FRONTEND_DISABLE_RADICALE=false
+
+#------------------- 
+# For collabora
+
+# Domain of the wopiserver which handles Collabora.
+Environment=WOPISERVER_DOMAIN=collaboration.example.org
+
+# Internal domain / container name for Collabora
+Environment=COLLABORA_DOMAIN=collabora.example.org
+
+# Expose NATS and the REVA gateway for the collaboration service
+Environment=NATS_NATS_HOST=0.0.0.0
+Environment=NATS_NATS_PORT=9233
+Environment=GATEWAY_GRPC_ADDR=0.0.0.0:9142
+
+# Make Collabora the secure view app
+# This points to the internal collaboration service container
+Environment=FRONTEND_APP_HANDLER_SECURE_VIEW_APP_ADDR=eu.opencloud.api.collaboration
+
+# Graph roles – can stay as UUIDs, unless you want to restrict them
+Environment=GRAPH_AVAILABLE_ROLES="b1e2218d-eef8-4d4c-b82d-0f1a1b48f3b5,a8d5fe5e-96e3-418d-825b-534dbdf22b99,fb6c3e19-e378-47e5-b277-9732f9de6e21,58c63c02-1d89-4572-916a-870abc5a1b7d,2d00ce52-1fc2-4dbc-8b95-a73b73395f5a,1c996275-f1c9-4e71-abdf-a42f6495e960,312c0871-5ef7-4b3a-85b6-0e4074c64049,aa97fe03-7980-45ac-9e50-b325749fd7e6"
+#-------------------
+
+# Entrypoint / Exec
+Entrypoint=["/bin/bash","-c"]
+Exec='opencloud init || true; opencloud server'
+
+[Service]
+Restart=always
+RestartSec=30s
+
+[Install]
+WantedBy=default.target
