@@ -65,8 +65,15 @@ Environment=FRONTEND_CHECK_FOR_UPDATES=true
 Environment=PROXY_HTTP_ADDR="0.0.0.0:9200"
 Environment=FRONTEND_DISABLE_RADICALE=false
 
+#Environment=COMPANION_DOMAIN=companion.mydomain.com
+
 #------------------- 
-# For collabora
+# For OnlyOffice
+#Environment=ONLYOFFICE_DOMAIN=onlyoffice.mydomain.com
+#------------------- 
+
+#------------------- 
+# For Collabora
 
 # Domain of the wopiserver which handles Collabora.
 Environment=WOPISERVER_DOMAIN=collaboration.example.org
