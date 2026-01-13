@@ -1,0 +1,65 @@
+[Unit]
+Description=Collabora (Rootless Podman)
+
+[Container]
+ContainerName=opencloud-collabora
+# release notes: https://www.collaboraonline.com/release-notes/
+Image=docker.io/collabora/code:25.04.8.1.1
+
+# Pod
+# [Container] Pod= automatically sets up the dependency for this container.
+# You don’t need After= or Requires= entries for this container regarding the Pod.
+# The Pod provides a shared network, localhost, and all other resources to its containers.
+# Once the Pod is running, this container starts automatically.
+# All containers are fully orchestrated and can communicate internally.
+Pod=opencloud.pod
+
+# Network via Pod
+#Network=opencloud.net
+
+# Timezone
+# This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
+Timezone=local
+
+# Volumes
+# Mount local TrueType fonts read-only for container font access
+# (e.g. Microsoft fonts like Arial, Calibri, Cambria by installing the `ttf-mscorefonts-installer` package).
+# Volume=/usr/share/fonts/truetype:/usr/share/fonts/truetype/more:ro,Z,idmap
+# Volume=/usr/share/fonts/truetype:/opt/cool/systemplate/usr/share/fonts/truetype/more:ro,Z,idmap
+
+# Internal WOPI server alias
+Environment=aliasgroup1=https://collaboration.example.org:443
+
+# Don't generate self-signed SSL (handled by Nginx)
+Environment=DONT_GEN_SSL_CERT=YES
+
+# Extra parameters for Collabora
+Environment=extra_params="--o:ssl.enable=false \
+                          --o:ssl.ssl_verification=true \
+                          --o:ssl.termination=true \
+                          --o:welcome.enable=false \
+                          --o:net.frame_ancestors=opencloud.example.org \
+                          --o:net.lok_allow.host[14]=opencloud.example.org \
+                          --o:home_mode.enable=false"
+
+Environment=username=admin
+Secret=collabora_pwd,type=env,target=password
+
+# Entrypoint / Exec
+Entrypoint=["/bin/bash", "-c"]
+Exec='coolconfig generate-proof-key && /start-collabora-online.sh'
+
+# Healthcheck
+HealthCmd=["CMD-SHELL", "curl -f http://localhost:9980/hosting/discovery || exit 1"]
+HealthStartPeriod=15s
+HealthInterval=15s
+HealthTimeout=5s
+HealthRetries=5
+Notify=healthy
+
+[Service]
+TimeoutStartSec=90
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
