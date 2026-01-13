@@ -1,0 +1,69 @@
+[Unit]
+Description=Collaboration (Rootless Podman)
+
+[Container]
+ContainerName=opencloud-collaboration
+Image=docker.io/opencloudeu/opencloud-rolling:latest
+
+# Automatical Updates
+# To enable automatic updates for all containers, start the systemd timer:
+# systemctl --user start --now podman-auto-update.timer
+AutoUpdate=registry
+
+# Pod
+# [Container] Pod= automatically sets up the dependency for this container.
+# You don’t need After= or Requires= entries for this container regarding the Pod.
+# The Pod provides a shared network, localhost, and all other resources to its containers.
+# Once the Pod is running, this container starts automatically.
+# All containers are fully orchestrated and can communicate internally.
+Pod=opencloud.pod
+
+# Network via Pod
+#Network=opencloud.net
+
+# Timezone
+# This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
+Timezone=local
+
+# This container is executed with a non-root user context (UID:GID 1000:1000) to match the container's expected runtime permissions.
+User=1000:1000
+
+# Volumes
+Volume=opencloud_config:/etc/opencloud:z,idmap
+
+# Environments
+# Internal WOPI / Collabora setup
+Environment=COLLABORATION_WOPI_SRC=https://collaboration.example.org
+
+# Collabora Online container itself
+Environment=COLLABORATION_APP_ADDR=https://collabora.example.org
+Environment=COLLABORATION_GRPC_ADDR=0.0.0.0:9301
+Environment=COLLABORATION_HTTP_ADDR=0.0.0.0:9300
+
+# Micro / NATS registry (internal)
+Environment=MICRO_REGISTRY=nats-js-kv
+Environment=MICRO_REGISTRY_ADDRESS=opencloud:9233
+
+# Collabora app info
+Environment=COLLABORATION_APP_NAME=CollaboraOnline
+Environment=COLLABORATION_APP_PRODUCT=Collabora
+Environment=COLLABORATION_APP_ICON=https://collabora.example.org/favicon.ico
+Environment=COLLABORATION_APP_INSECURE=false
+Environment=COLLABORATION_CS3API_DATAGATEWAY_INSECURE=false
+
+# OpenCloud logging & external URL
+Environment=OC_LOG_LEVEL=warn
+Environment=OC_LOG_COLOR=true
+Environment=OC_LOG_PRETTY=true
+Environment=OC_URL=https://opencloud.example.org
+
+# Entrypoint / Exec
+Entrypoint=["/bin/bash","-c"]
+Exec='opencloud collaboration server'
+
+[Service]
+TimeoutStartSec=30
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
