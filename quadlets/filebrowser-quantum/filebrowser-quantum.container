@@ -31,7 +31,7 @@ Network=filebrowser.net
 Timezone=local
 
 # This container is executed with a non-root user context (UID:GID 1000:1000) to match the container's expected runtime permissions.
-User=1000:1000
+#User=1000:1000 # Not work at the moment correctly!
 
 # Volumes
 # Persistent data (config, database, user files)
@@ -43,13 +43,14 @@ Environment=FILEBROWSER_CONFIG="data/config.yaml"
 # Optional OnlyOffice integration
 # Environment=FILEBROWSER_ONLYOFFICE_SECRET=SUPER_SECRET_PASSWORD
 
+# Entrypoint / Exec
+Entrypoint=["/bin/bash","-c"]
+Exec='curl -fsSL https://raw.githubusercontent.com/cryinkfly/podman-rootless-quadlets/main/quadlets/filebrowser-quantum/config.yaml -o /home/filebrowser/data/config.yaml'
+
 [Service]
 # Restart automatically on crash
 Restart=always
 RestartSec=10
-
-# Optional: Run container as non-root user
-# User=filebrowser
 
 [Install]
 # Enable at boot
