@@ -43,8 +43,7 @@ Environment=FILEBROWSER_CONFIG="data/config.yaml"
 # Optional OnlyOffice integration
 # Environment=FILEBROWSER_ONLYOFFICE_SECRET=SUPER_SECRET_PASSWORD
 
-# Entrypoint / Exec
-Entrypoint=["/bin/bash","-c"]
+# Exec - Download the default config.yaml settings
 Exec='curl -fsSL https://raw.githubusercontent.com/cryinkfly/podman-rootless-quadlets/main/quadlets/filebrowser-quantum/config.yaml -o /home/filebrowser/data/config.yaml'
 
 [Service]
