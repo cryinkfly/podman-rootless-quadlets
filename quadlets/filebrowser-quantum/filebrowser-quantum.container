@@ -37,7 +37,6 @@ User=1000:1000
 # Persistent data (config, database, user files)
 Volume=filebrowser-quantum_data:/home/filebrowser/data:Z
 Volume=filebrowser-quantum_files:/files:Z
-Volume=filebrowser-quantum_db:/home/filebrowser/db:Z
 
 # Environment
 Environment=FILEBROWSER_CONFIG="data/config.yaml"
