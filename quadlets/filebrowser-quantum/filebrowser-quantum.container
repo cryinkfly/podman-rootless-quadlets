@@ -31,7 +31,7 @@ Network=filebrowser.net
 Timezone=local
 
 # This container is executed with a non-root user context (UID:GID 1000:1000) to match the container's expected runtime permissions.
-#User=1000:1000 # Not work at the moment correctly!
+#User=1000:1000 # Is activated by default with FileBrowser Quantum image
 
 # Volumes
 # Persistent data (config, database, user files)
