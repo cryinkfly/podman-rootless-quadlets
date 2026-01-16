@@ -1,85 +1,61 @@
 [Unit]
 Description=FileBrowser Quantum (Rootless Podman)
-# Systemd service description
+After=network.target
+BindsTo=nginx-proxy-manager.service
+Requires=nginx-proxy-manager.service
 
 [Container]
-# Container name
+# Container settings
 ContainerName=filebrowser-quantum
-
-# Container image
 Image=docker.io/gtstef/filebrowser:latest
 
-# ----------------------------------------------------------------------
+# Automatical Updates
+# To enable automatic updates for all containers, start the systemd timer:
+# systemctl --user start --now podman-auto-update.timer
+AutoUpdate=registry
 
-# Volumes
-# Persistent data (config, database, etc.)
-Volume=filebrowser-quantum_data:/home/filebrowser/data
-# Persistent data (user files)
-# Default user files directory: /srv
-# In this setup, files are mapped to /folder
-# See instructions below to update config.yaml accordingly.
-# Download the config.yaml from here: https://github.com/cryinkfly/podman-rootless-quadlets/blob/main/quadlets/filebrowser-quantum/config.yaml
-Volume=filebrowser-quantum_files:/files
-# Database directory (separate volume)
-# This volume can later be read by the filebrowser-quantum-sync container
-# to generate a users file for other services/containers (e.g., Radicale for calendars, etc.)
-Volume=filebrowser-quantum_db:/home/filebrowser/sync
-
-# ----------------------------------------------------------------------
-# --- Editing config.yaml ---
-# After the container has started, you can edit the config directly:
-# 1. Enter the container shell:
-#    podman exec -it filebrowser-quantum sh
-# 2. Open config.yaml with vi:
-#    vi /home/filebrowser/data/config.yaml
-# 3. Enter insert mode with 'i' and adjust the sources, e.g.:
-#    sources:
-#      - path: "/folder"
-#        name: "Storage"
-# 4. Save and exit: Esc → :wq
-# 5. Restart the container for changes to take effect:
-#    podman restart filebrowser-quantum
-# or if using systemd:
-#    systemctl restart container-filebrowser.service
-# ----------------------------------------------------------------------
-
-# Load the timezone from Host
-# Mount host timezone files for correct log timestamps
-Volume=/etc/localtime:/etc/localtime:ro
-Volume=/etc/timezone:/etc/timezone:ro
-
-# ----------------------------------------------------------------------
-
-# Overrides the default path which is ./config.yaml
-Environment=FILEBROWSER_CONFIG="data/config.yaml"
-
-# Configure OnlyOffice for document editing:
-#Environment=FILEBROWSER_ONLYOFFICE_SECRET=SUPER_SECRET_PASSWORD
-
-# FileBrowser Quantum docker images have a non-default filebrowser user built-in.
-# This user has UID:GID of 1000:1000. You can use it by specifying a user in docker compose.
-#User=filebrowser
-
-# --- Network ---
+# Network
 # Isolated container network
 # IMPORTANT: The network must exist before starting this service!
-# Example:
-# podman network create proxy-filebrowser-quantum
-# podman network connect proxy-filebrowser-quantum nginx-proxy-manager
-Network=proxy-filebrowser-quantum
+# podman network create vaultwarden.net
+Network=filebrowser.net
 
-# --- Ports ---
-# Internal container port 80 is used by FileBrowser
+# Internal container port 80 is used by FileBrowser Quantum
 # Container name (filebrowser-quantum) is selected in Nginx Proxy Manager as Forward Hostname
 # Forward Port in Nginx Proxy Manager should be 80
 # No need to publish host ports when using Nginx Proxy Manager
-# PublishPort=80   # NOT required
+# PublishPort=80   # NOT required!
+
+# Timezone
+# This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
+Timezone=local
+
+# This container is executed with a non-root user context (UID:GID 1000:1000) to match the container's expected runtime permissions.
+User=1000:1000
+
+# Volumes
+# Persistent data (config, database, user files)
+Volume=filebrowser-quantum_data:/home/filebrowser/data:Z
+Volume=filebrowser-quantum_files:/files:Z
+Volume=filebrowser-quantum_db:/home/filebrowser/sync:Z
+
+# Host timezone for proper timestamps
+Volume=/etc/localtime:/etc/localtime:ro
+Volume=/etc/timezone:/etc/timezone:ro
+
+# Environment
+Environment=FILEBROWSER_CONFIG="data/config.yaml"
+# Optional OnlyOffice integration
+# Environment=FILEBROWSER_ONLYOFFICE_SECRET=SUPER_SECRET_PASSWORD
 
 [Service]
-# Restart the container automatically if it crashes
+# Restart automatically on crash
 Restart=always
 RestartSec=10
 
+# Optional: Run container as non-root user
+# User=filebrowser
+
 [Install]
-# Start the service at boot
+# Enable at boot
 WantedBy=default.target
