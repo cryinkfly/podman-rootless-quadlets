@@ -82,7 +82,7 @@ podman unshare nano /home/$USER/.local/share/containers/storage/volumes/radicale
 ## Create an API token for authentication.
 
 <img width="3806" height="1949" alt="Bildschirmfoto vom 2026-01-17 11-28-05" src="https://github.com/user-attachments/assets/a81e822a-457d-4c78-aeec-d9d100f85b77" />
-<img width="3806" height="1949" alt="Bildschirmfoto vom 2026-01-17 11-28-13" src="https://github.com/user-attachments/assets/818aa3ad-fa6b-4f75-8977-7bf561ed507a" />
+<img width="3806" height="1949" alt="create-user-api-token-radicale" src="https://github.com/user-attachments/assets/67e7ed41-ba77-4b66-b385-abe9d320701a" />
 
 ---
 
