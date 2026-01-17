@@ -1,0 +1,17 @@
+[Unit]
+Description=FileBrowser Quantum Pod (internal, no ports)
+After=nginx-proxy-manager.service
+BindsTo=nginx-proxy-manager.service
+Requires=nginx-proxy-manager.service
+
+[Pod]
+PodName=filebrowser
+Network=filebrowser.network
+ServiceName=filebrowser
+
+[Service]
+Restart=always
+RestartSec=25
+
+[Install]
+WantedBy=multi-user.target
