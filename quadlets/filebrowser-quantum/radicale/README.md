@@ -3,7 +3,8 @@
 > These settings must be copied into the Nginx Proxy Manager under the advanced file browser settings for radicale to work. 
 > Additionally, the [config](https://raw.githubusercontent.com/cryinkfly/podman-rootless-quadlets/refs/heads/main/quadlets/filebrowser-quantum/radicale/config) file from this repository must be moved to the correct source in the Radicale container and created for each user (web frontend).
 
-<img width="1977" height="1620" alt="npm-settings-radicale" src="https://github.com/user-attachments/assets/0c80cf14-6d33-4410-ab1e-ecb314b37156" />
+<img width="1977" height="1620" alt="npm-settings-radicale" src="https://github.com/user-attachments/assets/37c1bacd-bb6d-4153-b282-167f6a3f96c3" />
+
 
 ⚠️ It's important that NPM, Radicale, and FileBrowser Quantum are on the same network!
 
