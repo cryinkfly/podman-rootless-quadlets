@@ -2,14 +2,14 @@
 
 > These settings must be copied into the Nginx Proxy Manager under the advanced file browser settings for radicale to work. 
 > Additionally, the [config](https://raw.githubusercontent.com/cryinkfly/podman-rootless-quadlets/refs/heads/main/quadlets/filebrowser-quantum/radicale/config) file from this repository must be moved to the correct source in the Radicale container and created for each user (web frontend).
->
-> Video tutorial coming soon!
 
 <img width="1977" height="1620" alt="npm-settings-radicale" src="https://github.com/user-attachments/assets/0c80cf14-6d33-4410-ab1e-ecb314b37156" />
 
 ⚠️ It's important that NPM, Radicale, and FileBrowser Quantum are on the same network!
 
 ---
+
+## Configure the cloud.example.org settings in Nginx Proxy Manager
 
 ```
 # ---------------- CalDAV ----------------
@@ -67,8 +67,29 @@ location /caldav/.web/ {
     proxy_set_header X-Script-Name /caldav;
 }
 ```
-Edit the radicale `config` file. For example:
+
+---
+
+## Edit the radicale `config` file. For example:
 
 ```
 podman unshare nano /home/$USER/.local/share/containers/storage/volumes/radicale_config/_data/config
 ```
+
+---
+
+## Create an API token for authentication.
+
+<img width="3806" height="1949" alt="Bildschirmfoto vom 2026-01-17 11-28-05" src="https://github.com/user-attachments/assets/a81e822a-457d-4c78-aeec-d9d100f85b77" />
+<img width="3806" height="1949" alt="Bildschirmfoto vom 2026-01-17 11-28-13" src="https://github.com/user-attachments/assets/818aa3ad-fa6b-4f75-8977-7bf561ed507a" />
+
+---
+
+## And here's another example of adding accounts under Gnome Online (Linux)
+
+<img width="1977" height="1620" alt="gnome-online-add-carldav" src="https://github.com/user-attachments/assets/807afa08-9c3e-4281-9238-d2e5b75b3ee7" />
+<img width="3806" height="1949" alt="Bildschirmfoto vom 2026-01-17 11-36-29" src="https://github.com/user-attachments/assets/489d4d60-322c-4679-afb4-ad50573dd8e2" />
+<img width="3806" height="1949" alt="gnome-calendar-with-radicale-sync" src="https://github.com/user-attachments/assets/686c5174-ab55-449e-8123-32692254d676" />
+<img width="2157" height="1512" alt="Bildschirmfoto vom 2026-01-17 11-43-12" src="https://github.com/user-attachments/assets/c5387925-19a3-4373-89e3-7d9a51d580df" />
+<img width="1954" height="790" alt="Bildschirmfoto vom 2026-01-17 11-42-57" src="https://github.com/user-attachments/assets/02986611-a974-4664-aa47-0553a371c14d" />
+<img width="1845" height="236" alt="podman-radicale-ls-calendar-test" src="https://github.com/user-attachments/assets/7cb8fe9b-5f0d-40e7-9945-fe66b9f859dd" />
