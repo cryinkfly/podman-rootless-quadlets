@@ -1,2 +1,7 @@
+[Unit]
+Description=Podman network for Nginx Proxy Manager
+Wants=network-online.target
+After=network-online.target
+
 [Network]
 NetworkName=proxy.net
