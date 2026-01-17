@@ -20,7 +20,7 @@ AutoUpdate=registry
 # The Pod provides a shared network, localhost, and all other resources to its containers.
 # Once the Pod is running, this container starts automatically.
 # All containers are fully orchestrated and can communicate internally.
-Pod=filebrowser.pod
+Pod=filebrowser-quantum.pod
 
 # Network via Pod
 #Network=filebrowser.net
