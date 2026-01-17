@@ -1,2 +1,7 @@
+[Unit]
+Description=Podman network for Radicale
+Wants=network-online.target
+After=network-online.target
+
 [Network]
 NetworkName=radicale.net
