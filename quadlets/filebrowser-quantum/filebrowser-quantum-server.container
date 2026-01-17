@@ -14,11 +14,16 @@ Image=docker.io/gtstef/filebrowser:latest
 # systemctl --user start --now podman-auto-update.timer
 AutoUpdate=registry
 
-# Network
-# Isolated container network
-# IMPORTANT: The network must exist before starting this service!
-# podman network create vaultwarden.net
-Network=filebrowser-quantum.net
+# Pod
+# [Container] Pod= automatically sets up the dependency for this container.
+# You don’t need After= or Requires= entries for this container regarding the Pod.
+# The Pod provides a shared network, localhost, and all other resources to its containers.
+# Once the Pod is running, this container starts automatically.
+# All containers are fully orchestrated and can communicate internally.
+Pod=filebrowser-quantum.pod
+
+# Network via Pod
+#Network=filebrowser-quantum.net
 
 # Internal container port 80 is used by FileBrowser Quantum
 # Container name (filebrowser-quantum-server) is selected in Nginx Proxy Manager as Forward Hostname
