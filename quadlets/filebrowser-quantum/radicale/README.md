@@ -15,7 +15,7 @@
 ```
 # ---------------- CalDAV ----------------
 location /caldav/ {
-    proxy_pass http://radicale:5232;
+    proxy_pass http://filebrowser-quantum:5232;
     proxy_http_version 1.1;
 
     # WebDAV Standard Headers
@@ -30,7 +30,7 @@ location /caldav/ {
 }
 
 location /.well-known/caldav {
-    proxy_pass http://radicale:5232;
+    proxy_pass http://filebrowser-quantum:5232;
     proxy_set_header Host $host;
     proxy_set_header X-Remote-User $remote_user;
     proxy_set_header X-Script-Name /caldav;
@@ -38,7 +38,7 @@ location /.well-known/caldav {
 
 # ---------------- CardDAV ----------------
 location /carddav/ {
-    proxy_pass http://radicale:5232;
+    proxy_pass http://filebrowser-quantum:5232;
     proxy_http_version 1.1;
 
     proxy_set_header Host $host;
@@ -51,7 +51,7 @@ location /carddav/ {
 }
 
 location /.well-known/carddav {
-    proxy_pass http://radicale:5232;
+    proxy_pass http://filebrowser-quantum:5232;
     proxy_set_header Host $host;
     proxy_set_header X-Remote-User $remote_user;
     proxy_set_header X-Script-Name /carddav;
@@ -61,7 +61,7 @@ location /.well-known/carddav {
 ```
 # ---------------- Optional: Web-UI ----------------
 location /caldav/.web/ {
-    proxy_pass http://radicale:5232/;
+    proxy_pass http://filebrowser-quantum:5232/;
     auth_basic off;  # WebUI fragt selbst nach Passwort
     proxy_set_header Host $host;
     proxy_set_header X-Remote-User $remote_user;
