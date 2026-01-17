@@ -1,2 +1,7 @@
+[Unit]
+Description=Podman network for FileBrowser Quantum
+Wants=network-online.target
+After=network-online.target
+
 [Network]
 NetworkName=filebrowser-quantum.net
