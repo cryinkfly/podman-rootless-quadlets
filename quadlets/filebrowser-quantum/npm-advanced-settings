@@ -4,8 +4,8 @@
 # Video tutorial coming soon!
 
 # ---------------- Upload/Buffer ----------------
-client_max_body_size 0;      # unbegrenzt für große Dateien
-proxy_buffering off;         # wichtig für große Uploads/Downloads
+client_max_body_size 0; # unlimited for large files
+proxy_buffering off; # important for large uploads/downloads
 
 # ---------------- CalDAV ----------------
 location /caldav/ {
