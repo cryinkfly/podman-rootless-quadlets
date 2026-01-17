@@ -18,7 +18,7 @@ AutoUpdate=registry
 # Isolated container network
 # IMPORTANT: The network must exist before starting this service!
 # podman network create vaultwarden.net
-Network=filebrowser.net
+Network=filebrowser-quantum.net
 
 # Internal container port 80 is used by FileBrowser Quantum
 # Container name (filebrowser-quantum-server) is selected in Nginx Proxy Manager as Forward Hostname
