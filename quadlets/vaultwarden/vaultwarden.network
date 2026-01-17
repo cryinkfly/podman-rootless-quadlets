@@ -1,2 +1,7 @@
+[Unit]
+Description=Podman network for Vaultwarden
+Wants=network-online.target
+After=network-online.target
+
 [Network]
 NetworkName=vaultwarden.net
