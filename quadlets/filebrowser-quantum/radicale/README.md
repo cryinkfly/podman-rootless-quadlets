@@ -96,8 +96,8 @@ podman unshare nano /home/$USER/.local/share/containers/storage/volumes/radicale
 <img width="1473" height="1636" alt="gnome-online-settings-carddav" src="https://github.com/user-attachments/assets/1ecd0044-e591-4b75-8c84-2387f7c9e138" />
 <img width="1760" height="957" alt="calender-login" src="https://github.com/user-attachments/assets/34d6a7b2-2d16-4171-ac3b-5525e759fe6b" />
 <img width="3806" height="1949" alt="gnome-calendar-with-radicale-sync" src="https://github.com/user-attachments/assets/686c5174-ab55-449e-8123-32692254d676" />
-<img width="2157" height="1512" alt="Bildschirmfoto vom 2026-01-17 11-43-12" src="https://github.com/user-attachments/assets/c5387925-19a3-4373-89e3-7d9a51d580df" />
 <img width="1954" height="790" alt="Bildschirmfoto vom 2026-01-17 11-42-57" src="https://github.com/user-attachments/assets/02986611-a974-4664-aa47-0553a371c14d" />
+<img width="2157" height="1512" alt="Bildschirmfoto vom 2026-01-17 11-43-12" src="https://github.com/user-attachments/assets/c5387925-19a3-4373-89e3-7d9a51d580df" />
 <img width="1845" height="236" alt="podman-radicale-ls-calendar-test" src="https://github.com/user-attachments/assets/7cb8fe9b-5f0d-40e7-9945-fe66b9f859dd" />
 
 
