@@ -1,45 +1,49 @@
 [Unit]
 Description=Onlyoffice (Rootless Podman)
-# Systemd service description
+After=network.target
+BindsTo=nginx-proxy-manager.service
+Requires=nginx-proxy-manager.service
 
 [Container]
-# Container name
+# Container settings
 ContainerName=onlyoffice
-
-# Container image
 Image=docker.io/onlyoffice/documentserver:latest
 
-# Load the timezone from Host
-# Mount host timezone files for correct log timestamps
-Volume=/etc/localtime:/etc/localtime:ro
-Volume=/etc/timezone:/etc/timezone:ro
+# Automatical Updates
+# To enable automatic updates for all containers, start the systemd timer:
+# systemctl --user start --now podman-auto-update.timer
+AutoUpdate=registry
 
-# Configure OnlyOffice for document editing:
+# Pod
+# [Container] Pod= automatically sets up the dependency for this container.
+# You don’t need After= or Requires= entries for this container regarding the Pod.
+# The Pod provides a shared network, localhost, and all other resources to its containers.
+# Once the Pod is running, this container starts automatically.
+# All containers are fully orchestrated and can communicate internally.
+Pod=filebrowser.pod
+
+# Network via Pod
+#Network=filebrowser.net
+
+# Internal container port 80 is used by Onlyoffice
+# Container name (onlyoffice) is selected in Nginx Proxy Manager as Forward Hostname
+# Forward Port in Nginx Proxy Manager should be 80
+# No need to publish host ports when using Nginx Proxy Manager
+# PublishPort=80   # NOT required!
+
+# Timezone
+# This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
+Timezone=local
+
+# Environments
 Environment=JWT_ENABLED=true
 Environment=JWT_SECRET=SUPER_SECRET_PASSWORD
 
-# --- Network ---
-# Container network configuration
-# IMPORTANT: The network must exist before starting this service!
-# The container should be attached to the same network as Nginx Proxy Manager,
-# similar to how Filebrowser-aquantum is connected.
-# Example:
-# podman network create proxy-filebrowser-quantum
-# podman network connect proxy-filebrowser-quantum nginx-proxy-manager
-Network=proxy-filebrowser-quantum
-
-# --- Ports ---
-# Internal container port 80 is used by FileBrowser
-# Container name (filebrowser-quantum) is selected in Nginx Proxy Manager as Forward Hostname
-# Forward Port in Nginx Proxy Manager should be 80
-# No need to publish host ports when using Nginx Proxy Manager
-# PublishPort=80   # NOT required
-
 [Service]
-# Restart the container automatically if it crashes
+# Restart automatically on crash
 Restart=always
 RestartSec=10
 
 [Install]
-# Start the service at boot
-WantedBy=default.target
+# Enable at boot
+WantedBy=multi-user.target
