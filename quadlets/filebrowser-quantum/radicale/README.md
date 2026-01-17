@@ -88,8 +88,11 @@ podman unshare nano /home/$USER/.local/share/containers/storage/volumes/radicale
 
 ## And here's another example of adding accounts under Gnome Online (Linux)
 
-<img width="1845" height="1754" alt="gnome-online-add-carldav-carddav" src="https://github.com/user-attachments/assets/0bc3a827-11f4-4d1a-afc9-09ea84d59df6" />
-<img width="1845" height="1571" alt="gnome-online-settings-carldav-carddav" src="https://github.com/user-attachments/assets/204aaae0-4cba-4232-8743-a216c4175875" />
+<img width="1184" height="1729" alt="gnome-online-add-carldav" src="https://github.com/user-attachments/assets/3adb2f46-be20-4f97-abe6-c83971491af7" />
+<img width="1473" height="1636" alt="gnome-online-add-carddav" src="https://github.com/user-attachments/assets/3ba01462-d04c-4b2c-b51a-77b6dc6eabd9" />
+<img width="1473" height="1636" alt="gnome-online-settings-carldav" src="https://github.com/user-attachments/assets/e185cf2b-aa6a-434d-95c7-354bde777b55" />
+<img width="1473" height="1636" alt="gnome-online-settings-carddav" src="https://github.com/user-attachments/assets/1ecd0044-e591-4b75-8c84-2387f7c9e138" />
+<img width="1760" height="957" alt="calender-login" src="https://github.com/user-attachments/assets/34d6a7b2-2d16-4171-ac3b-5525e759fe6b" />
 <img width="3806" height="1949" alt="gnome-calendar-with-radicale-sync" src="https://github.com/user-attachments/assets/686c5174-ab55-449e-8123-32692254d676" />
 <img width="2157" height="1512" alt="Bildschirmfoto vom 2026-01-17 11-43-12" src="https://github.com/user-attachments/assets/c5387925-19a3-4373-89e3-7d9a51d580df" />
 <img width="1954" height="790" alt="Bildschirmfoto vom 2026-01-17 11-42-57" src="https://github.com/user-attachments/assets/02986611-a974-4664-aa47-0553a371c14d" />
