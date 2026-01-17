@@ -1,6 +1,10 @@
 [Unit]
 Description=Opencloud (Rootless Podman)
 
+After=opencloud-network.service
+Requires=nginx-proxy-manager.service opencloud-network.service opencloud.service
+BindsTo=nginx-proxy-manager.service opencloud-network.service opencloud.service
+
 [Container]
 ContainerName=opencloud
 Image=docker.io/opencloudeu/opencloud-rolling:latest
