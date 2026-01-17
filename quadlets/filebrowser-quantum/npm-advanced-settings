@@ -1,7 +1,7 @@
 # These settings must be copied into the Nginx Proxy Manager under the advanced file browser settings for radicale to work. 
 # Additionally, the config file from this repository must be moved to the correct source in the Radicale container and created for each user (web frontend).
 #
-#Video tutorial coming soon!
+# Video tutorial coming soon!
 
 # ---------------- Upload/Buffer ----------------
 client_max_body_size 0;      # unbegrenzt für große Dateien
