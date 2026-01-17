@@ -2,8 +2,8 @@
 Description=Opencloud (Rootless Podman)
 
 After=opencloud-network.service
-Requires=nginx-proxy-manager.service opencloud-network.service opencloud.service
-BindsTo=nginx-proxy-manager.service opencloud-network.service opencloud.service
+Requires=nginx-proxy-manager.service opencloud-network.service
+BindsTo=nginx-proxy-manager.service opencloud-network.service
 
 [Container]
 ContainerName=opencloud
