@@ -1,6 +1,10 @@
 [Unit]
 Description=Radicale (Rootless Podman)
 
+After=radicale-network.service
+Requires=nginx-proxy-manager.service radicale-network.service
+BindsTo=nginx-proxy-manager.service radicale-network.service
+
 [Container]
 ContainerName=radicale
 # Official Radicale image from Kozea (GHCR)
