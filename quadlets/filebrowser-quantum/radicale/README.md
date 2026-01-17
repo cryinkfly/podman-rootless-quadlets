@@ -118,4 +118,35 @@ podman unshare nano /home/$USER/.local/share/containers/storage/volumes/radicale
 <img width="2157" height="1512" alt="Bildschirmfoto vom 2026-01-17 11-43-12" src="https://github.com/user-attachments/assets/c5387925-19a3-4373-89e3-7d9a51d580df" />
 <img width="1845" height="236" alt="podman-radicale-ls-calendar-test" src="https://github.com/user-attachments/assets/7cb8fe9b-5f0d-40e7-9945-fe66b9f859dd" />
 
+---
 
+## 👤 List all users (usernames/nicknames) who have any collection (CarlDav & CardDav)
+
+
+```
+podman unshare ls -1 /home/$USER/.local/share/containers/storage/volumes/radicale_data/_data/collections/collection-root \
+  | grep -v '^admin$'
+```
+
+Example output:
+
+- lisa
+- max
+
+## 💾 Backup a user collection (CarlDav & CardDav)
+
+```
+podman unshare cp -a \
+  /home/$USER/.local/share/containers/storage/volumes/radicale_data/_data/collections/collection-root/lisa \
+  ~/radicale-backups/
+```
+
+## 🔥 Delete a user collection (CarlDav & CardDav)
+
+And if, for example, Lisa is deleted from the Quantum file browser, the data in Radicale remains unchanged. This is a security feature.
+
+However, if Lisa is deleted from the Quantum file browser and you are certain that Lisa's data can and should also be deleted from Radicale, then you can do so with the following command:
+
+```
+podman unshare rm -rf /home/$USER/.local/share/containers/storage/volumes/radicale_data/collections/collection-root/lisa
+```
