@@ -88,7 +88,7 @@ podman unshare nano /home/$USER/.local/share/containers/storage/volumes/radicale
 ## And here's another example of adding accounts under Gnome Online (Linux)
 
 <img width="1845" height="1754" alt="gnome-online-add-carldav-carddav" src="https://github.com/user-attachments/assets/0bc3a827-11f4-4d1a-afc9-09ea84d59df6" />
-<img width="1845" height="1571" alt="gnome-online-settings-carldav-carddav" src="https://github.com/user-attachments/assets/73c809a8-b3ec-4ecf-8c94-c99b81b42494" />
+<img width="1845" height="1571" alt="gnome-online-settings-carldav-carddav" src="https://github.com/user-attachments/assets/204aaae0-4cba-4232-8743-a216c4175875" />
 <img width="3806" height="1949" alt="gnome-calendar-with-radicale-sync" src="https://github.com/user-attachments/assets/686c5174-ab55-449e-8123-32692254d676" />
 <img width="2157" height="1512" alt="Bildschirmfoto vom 2026-01-17 11-43-12" src="https://github.com/user-attachments/assets/c5387925-19a3-4373-89e3-7d9a51d580df" />
 <img width="1954" height="790" alt="Bildschirmfoto vom 2026-01-17 11-42-57" src="https://github.com/user-attachments/assets/02986611-a974-4664-aa47-0553a371c14d" />
