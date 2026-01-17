@@ -5,9 +5,9 @@ BindsTo=nginx-proxy-manager.service
 Requires=nginx-proxy-manager.service
 
 [Pod]
-PodName=filebrowser
-Network=filebrowser.network
-ServiceName=filebrowser
+PodName=filebrowser-quantum
+Network=filebrowser-quantum.network
+ServiceName=filebrowser-quantum
 
 [Service]
 Restart=always
