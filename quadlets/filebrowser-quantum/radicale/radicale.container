@@ -2,7 +2,7 @@
 Description=Radicale (Rootless Podman)
 
 [Container]
-ContainerName=opencloud-radicale
+ContainerName=radicale
 # Official Radicale image from Kozea (GHCR)
 Image=ghcr.io/kozea/radicale:latest
 
@@ -14,7 +14,7 @@ AutoUpdate=registry
 # Pod
 # [Container] Pod= automatically sets up the dependency for this container.
 # You don’t need After= or Requires= entries for this container regarding the Pod.
-# The Pod provides a shared network, localhost, and all other resources to its containers.
+# The Pod provides a shared network, localhost, and all other resources to its containers.                                                                                             
 # Once the Pod is running, this container starts automatically.
 # All containers are fully orchestrated and can communicate internally.
 Pod=filebrowser-quantum.pod
