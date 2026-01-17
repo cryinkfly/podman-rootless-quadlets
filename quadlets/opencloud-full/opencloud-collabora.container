@@ -1,6 +1,10 @@
 [Unit]
 Description=Collabora (Rootless Podman)
 
+After=opencloud-network.service
+Requires=nginx-proxy-manager.service opencloud-network.service opencloud-server.service
+BindsTo=nginx-proxy-manager.service opencloud-network.service opencloud-server.service
+
 [Container]
 ContainerName=opencloud-collabora
 # release notes: https://www.collaboraonline.com/release-notes/
