@@ -1,12 +1,11 @@
-# These settings must be copied into the Nginx Proxy Manager under the advanced file browser settings for radicale to work. 
-# Additionally, the config file from this repository must be moved to the correct source in the Radicale container and created for each user (web frontend).
-#
-# Video tutorial coming soon!
+# FileBrowser Quantum with Radicale Support!
 
-# ---------------- Upload/Buffer ----------------
-client_max_body_size 0; # unlimited for large files
-proxy_buffering off; # important for large uploads/downloads
+> These settings must be copied into the Nginx Proxy Manager under the advanced file browser settings for radicale to work. 
+> Additionally, the config file from this repository must be moved to the correct source in the Radicale container and created for each user (web frontend).
+>
+> Video tutorial coming soon!
 
+```
 # ---------------- CalDAV ----------------
 location /caldav/ {
     proxy_pass http://radicale:5232;
@@ -50,7 +49,9 @@ location /.well-known/carddav {
     proxy_set_header X-Remote-User $remote_user;
     proxy_set_header X-Script-Name /carddav;
 }
+```
 
+```
 # ---------------- Optional: Web-UI ----------------
 location /caldav/.web/ {
     proxy_pass http://radicale:5232/;
@@ -59,3 +60,4 @@ location /caldav/.web/ {
     proxy_set_header X-Remote-User $remote_user;
     proxy_set_header X-Script-Name /caldav;
 }
+```
