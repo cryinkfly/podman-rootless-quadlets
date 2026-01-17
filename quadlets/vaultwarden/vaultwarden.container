@@ -1,8 +1,9 @@
 [Unit]
 Description=Vaultwarden (Rootless Podman)
-After=nginx-proxy-manager.service
-BindsTo=nginx-proxy-manager.service
-Requires=nginx-proxy-manager.service
+
+After=vaultwarden-network.service
+Requires=nginx-proxy-manager.service vaultwarden-network.service
+BindsTo=nginx-proxy-manager.service vaultwarden-network.service
 
 [Container]
 ContainerName=vaultwarden
