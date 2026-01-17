@@ -141,8 +141,13 @@ Description=Nginx Proxy Manager (Rootless Podman)
 # Requires Podman version >= 5.4.2
 
 # Network must be online before the container starts
-After=network-online.target
-Wants=network-online.target
+After=proxy-network.service
+Requires=proxy-network.service
+BindsTo=proxy-network.service
+
+#Requires=proxy-network.service vaultwarden-network.service ...
+#BindsTo=proxy-network.service vaultwarden-network.service ...
+
 
 [Container]
 ContainerName=nginx-proxy-manager
@@ -160,6 +165,7 @@ AutoUpdate=registry
 Network=proxy.net
 # Connect the nginx-proxy-manager to another networks. For example: vaultwarden.net
 # Network=vaultwarden.net
+# ...
 PublishPort=80:80
 PublishPort=443:443
 PublishPort=81:81
@@ -185,7 +191,7 @@ Restart=always
 RestartSec=10
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
 ```
 
 ---
