@@ -23,7 +23,7 @@ AutoUpdate=registry
 Pod=filebrowser-quantum.pod
 
 # Network via Pod
-#Network=filebrowser.net
+#Network=filebrowser-quantum.net
 
 # Internal container port 80 is used by Onlyoffice
 # Container name (onlyoffice) is selected in Nginx Proxy Manager as Forward Hostname
