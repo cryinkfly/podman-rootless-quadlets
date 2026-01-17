@@ -1,8 +1,8 @@
 [Unit]
 Description=Onlyoffice (Rootless Podman)
-After=network.target
-BindsTo=nginx-proxy-manager.service
-Requires=nginx-proxy-manager.service
+After=filebrowser-quantum-network.service
+BindsTo=nginx-proxy-manager.service filebrowser-quantum-network.service
+Requires=nginx-proxy-manager.service filebrowser-quantum-network.service
 
 [Container]
 # Container settings
