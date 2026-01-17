@@ -1,5 +1,8 @@
 [Unit]
 Description=Radicale (Rootless Podman)
+After=opencloud-network.service
+Requires=nginx-proxy-manager.service opencloud-network.service opencloud.service
+BindsTo=nginx-proxy-manager.service opencloud-network.service opencloud.service
 
 [Container]
 ContainerName=opencloud-radicale
