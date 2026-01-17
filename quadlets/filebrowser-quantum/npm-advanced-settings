@@ -1,0 +1,61 @@
+# These settings must be copied into the Nginx Proxy Manager under the advanced file browser settings for radicale to work. 
+# Additionally, the config file from this repository must be moved to the correct source in the Radicale container and created for each user (web frontend).
+#
+#Video tutorial coming soon!
+
+# ---------------- Upload/Buffer ----------------
+client_max_body_size 0;      # unbegrenzt für große Dateien
+proxy_buffering off;         # wichtig für große Uploads/Downloads
+
+# ---------------- CalDAV ----------------
+location /caldav/ {
+    proxy_pass http://radicale:5232;
+    proxy_http_version 1.1;
+
+    # WebDAV Standard Headers
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    # Radicale Headers
+    proxy_set_header X-Remote-User $remote_user;
+    proxy_set_header X-Script-Name /caldav;
+}
+
+location /.well-known/caldav {
+    proxy_pass http://radicale:5232;
+    proxy_set_header Host $host;
+    proxy_set_header X-Remote-User $remote_user;
+    proxy_set_header X-Script-Name /caldav;
+}
+
+# ---------------- CardDAV ----------------
+location /carddav/ {
+    proxy_pass http://radicale:5232;
+    proxy_http_version 1.1;
+
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    proxy_set_header X-Remote-User $remote_user;
+    proxy_set_header X-Script-Name /carddav;
+}
+
+location /.well-known/carddav {
+    proxy_pass http://radicale:5232;
+    proxy_set_header Host $host;
+    proxy_set_header X-Remote-User $remote_user;
+    proxy_set_header X-Script-Name /carddav;
+}
+
+# ---------------- Optional: Web-UI ----------------
+location /caldav/.web/ {
+    proxy_pass http://radicale:5232/;
+    auth_basic off;  # WebUI fragt selbst nach Passwort
+    proxy_set_header Host $host;
+    proxy_set_header X-Remote-User $remote_user;
+    proxy_set_header X-Script-Name /caldav;
+}
