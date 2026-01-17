@@ -1,6 +1,6 @@
 [Unit]
 Description=FileBrowser Quantum (Rootless Podman)
-After=network.target
+After=proxy-network.service
 BindsTo=nginx-proxy-manager.service
 Requires=nginx-proxy-manager.service
 
