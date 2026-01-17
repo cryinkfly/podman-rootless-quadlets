@@ -7,6 +7,10 @@ After=proxy-network.service
 Requires=proxy-network.service
 BindsTo=proxy-network.service
 
+#Requires=proxy-network.service vaultwarden-network.service ...
+#BindsTo=proxy-network.service vaultwarden-network.service ...
+
+
 [Container]
 ContainerName=nginx-proxy-manager
 Image=docker.io/jc21/nginx-proxy-manager:latest
