@@ -3,8 +3,9 @@ Description=Nginx Proxy Manager (Rootless Podman)
 # Requires Podman version >= 5.4.2
 
 # Network must be online before the container starts
-After=network-online.target
-Wants=network-online.target
+After=proxy-network.service
+Requires=proxy-network.service
+BindsTo=proxy-network.service
 
 [Container]
 ContainerName=nginx-proxy-manager
