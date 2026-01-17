@@ -1,2 +1,7 @@
+[Unit]
+Description=Podman network for OpenCloud
+Wants=network-online.target
+After=network-online.target
+
 [Network]
 NetworkName=opencloud.net
