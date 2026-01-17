@@ -1,0 +1,48 @@
+[Unit]
+Description=Radicale (Rootless Podman)
+
+[Container]
+ContainerName=opencloud-radicale
+# Official Radicale image from Kozea (GHCR)
+Image=ghcr.io/kozea/radicale:latest
+
+# Automatical Updates
+# To enable automatic updates for all containers, start the systemd timer:
+# systemctl --user start --now podman-auto-update.timer
+AutoUpdate=registry
+
+# Pod
+# [Container] Pod= automatically sets up the dependency for this container.
+# You don’t need After= or Requires= entries for this container regarding the Pod.
+# The Pod provides a shared network, localhost, and all other resources to its containers.
+# Once the Pod is running, this container starts automatically.
+# All containers are fully orchestrated and can communicate internally.
+Pod=filebrowser-quantum.pod
+
+# Network via Pod
+#Network=filebrowser-quantum.net
+
+# Timezone
+# This option tells Podman to set the time zone based on the local system's time zone where Podman is running.
+Timezone=local
+
+# Volumes
+Volume=radicale_data:/var/lib/radicale
+# The :ro suffix makes the radicale_config volume read-only inside the container!
+# The config file cannot be changed from within the container; the file must be edited on the host system.
+# Example: podman unshare nano ~/.local/share/containers/storage/volumes/radicale_config/_data/config
+# You need this config settings: https://raw.githubusercontent.com/cryinkfly/podman-rootless-quadlets/refs/heads/main/quadlets/filebrowser-quantum/radicale/config
+# Documentation: https://radicale.org/v3.html#configuration
+Volume=radicale_config:/etc/radicale:ro
+
+[Service]
+# Limit tasks and memory for Rootless container
+TasksMax=50
+MemoryHigh=256M
+
+# Restart policy
+Restart=always
+RestartSec=20
+
+[Install]
+WantedBy=multi-user.target
