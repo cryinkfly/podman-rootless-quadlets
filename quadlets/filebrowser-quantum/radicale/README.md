@@ -12,6 +12,12 @@
 
 ## Configure the cloud.example.org settings in Nginx Proxy Manager
 
+> In my setup, the `Radicale container runs inside the filebrowser-quantum pod` (filebrowser-quantum.pod).
+> Since all containers inside a Podman pod share the same network namespace, Radicale is not reachable by its own container name (radicale) from outside the pod.
+> Instead, it must be accessed via the pod name.
+>
+> Therefore, the upstream address is: `http://filebrowser-quantum:5232`
+
 ```
 # ---------------- CalDAV ----------------
 location /caldav/ {
@@ -67,6 +73,18 @@ location /caldav/.web/ {
     proxy_set_header X-Remote-User $remote_user;
     proxy_set_header X-Script-Name /caldav;
 }
+```
+
+If the `Radicale container runs outside of the filebrowser-quantum pod`, for example as its own container or pod:
+
+- Radicale must be attached to the same Podman network as Nginx Proxy Manager
+(e.g. filebrowser-quantum.net or proxy.net)
+- In this case, Radicale can be resolved via its container name
+
+Then the upstream address becomes:
+
+```
+http://radicale:5232
 ```
 
 ---
