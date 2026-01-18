@@ -46,8 +46,6 @@ Volume=filebrowser-quantum_files:/srv:Z
 
 # Environment
 Environment=FILEBROWSER_CONFIG="data/config.yaml"
-# Optional OnlyOffice integration
-# Environment=FILEBROWSER_ONLYOFFICE_SECRET=SUPER_SECRET_PASSWORD
 
 [Service]
 # Restart automatically on crash
