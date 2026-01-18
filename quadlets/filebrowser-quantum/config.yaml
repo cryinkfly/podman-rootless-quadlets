@@ -5,7 +5,7 @@ server:
   logging:
     - levels: "info|warning|error"
   sources:
-    - path: "/files"
+    - path: "/srv"
       name: "Storage"
       
 #frontend:
