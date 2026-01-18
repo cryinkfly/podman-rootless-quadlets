@@ -7,9 +7,4 @@ server:
   sources:
     - path: "/srv"
       name: "Storage"
-      
-#frontend:
-#  externalLinks:
-#    - text: "Radicale"
-#      title: "Access your Calendars and Contacts (Radicale)"
-#      url: "http://radicale.example.org"
+    
