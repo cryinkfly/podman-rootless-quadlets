@@ -15,7 +15,8 @@
 >
 > Therefore, the upstream address is: `http://filebrowser-quantum:5232`
 
-<img width="610" height="1948" alt="grafik" src="https://github.com/user-attachments/assets/3ff62fa3-10f6-493c-ab1e-0d53d1f9dfa5" />
+<img width="610" height="1918" alt="grafik" src="https://github.com/user-attachments/assets/3084cef5-e534-48fa-9dda-0aba9e9d3672" />
+
 
 If the `Radicale container runs outside of the filebrowser-quantum pod`, for example as its own container or pod:
 
