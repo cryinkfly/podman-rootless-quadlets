@@ -12,17 +12,66 @@
 > In my setup, the `Radicale container runs inside the filebrowser-quantum pod` (filebrowser-quantum.pod).
 > Since all containers inside a Podman pod share the same network namespace, Radicale is not reachable by its own container name (radicale) from outside the pod.
 > Instead, it must be accessed via the pod name.
->
-> Therefore, the upstream address is: `http://filebrowser-quantum:5232`
 
 | Domain            | Target Container    | SSL           | Access | Port | Status |    |
 |-------------------|---------------------|---------------|--------|------|--------|--- |
 | cloud.example.org | filebrowser-quantum | Let's Encrypt | Puplic |  80  | Online | ⚙️ |
 
->⚙️ → Indicates that the proxy settings, including custom locations and headers, are configured under the “Locations” tab in the NPM GUI.
+>⚙️ Indicates that the proxy settings, including custom locations, etc. are configured under the “Locations” tab in the NPM GUI.
 
-<img width="610" height="1918" alt="grafik" src="https://github.com/user-attachments/assets/3084cef5-e534-48fa-9dda-0aba9e9d3672" />
+---
 
+| Location          | Schema | Forward Hostname / IP    | Forward Port  |    |
+|-------------------|--------|--------------------------|---------------|--- |
+| /caldav/          | http   | filebrowser-quantum      | 5232          | ⚙️ |
+
+```
+proxy_set_header X-Script-Name /caldav;
+proxy_set_header X-Remote-User $remote_user;
+proxy_set_header Host $host;
+proxy_set_header X-Forwarded-Prodo $scheme;
+```
+
+---
+
+| Location          | Schema | Forward Hostname / IP    | Forward Port  |    |
+|-------------------|--------|--------------------------|---------------|--- |
+| /carddav/         | http   | filebrowser-quantum      | 5232          | ⚙️ |
+
+```
+proxy_set_header X-Script-Name /caldav;
+proxy_set_header X-Remote-User $remote_user;
+proxy_set_header Host $host;
+proxy_set_header X-Forwarded-Prodo $scheme;
+```
+
+---
+
+| Location          | Schema | Forward Hostname / IP    | Forward Port  |    |
+|-------------------|--------|--------------------------|---------------|--- |
+| /.well-known/carldav         | http   | filebrowser-quantum      | 5232          | ⚙️ |
+
+```
+proxy_set_header X-Script-Name /caldav;
+proxy_set_header X-Remote-User $remote_user;
+proxy_set_header Host $host;
+proxy_set_header X-Forwarded-Prodo $scheme;
+```
+
+---
+
+| Location          | Schema | Forward Hostname / IP    | Forward Port  |    |
+|-------------------|--------|--------------------------|---------------|--- |
+| /.well-known/carddav         | http   | filebrowser-quantum      | 5232          | ⚙️ |
+
+```
+proxy_set_header X-Script-Name /caldav;
+proxy_set_header X-Remote-User $remote_user;
+proxy_set_header Host $host;
+proxy_set_header X-Forwarded-Prodo $scheme;
+```
+
+---
 
 If the `Radicale container runs outside of the filebrowser-quantum pod`, for example as its own container or pod:
 
