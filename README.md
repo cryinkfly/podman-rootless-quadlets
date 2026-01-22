@@ -129,7 +129,7 @@ Note / Special Considerations:
 
 ---
 
-### 6. Create a .container file and .network for example the Nginx Proxy Manager
+### 6. Create a .container and .network file for example the Nginx Proxy Manager
 
 ```
 nano ~/.config/containers/systemd/proxy.network
