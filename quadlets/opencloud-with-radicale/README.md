@@ -18,7 +18,7 @@
 
 Create the following secrets: 
 
-    # echo -n "password123" | podman secret create opencloud_smtp_pwd -
+    # echo -n 'password123' | podman secret create opencloud_smtp_pwd -
 
 
 ---
