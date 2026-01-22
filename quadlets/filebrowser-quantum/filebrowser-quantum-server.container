@@ -44,8 +44,11 @@ Timezone=local
 Volume=filebrowser-quantum_data:/home/filebrowser/data:Z
 Volume=filebrowser-quantum_files:/srv:Z
 
-# Environment
+# Environments
 Environment=FILEBROWSER_CONFIG="data/config.yaml"
+# Run this command before you start this container:
+# echo -n "password123" | podman secret create filebrowser_admin_pwd -
+Secret=vaultwarden_admin_pwd,type=env,target=FILEBROWSER_ADMIN_PASSWORD
 
 [Service]
 # Restart automatically on crash
