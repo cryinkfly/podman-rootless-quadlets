@@ -36,7 +36,9 @@ Volume=vaultwarden_data:/data:Z
 # Admin token for Vaultwarden web interface
 # You must generate your own secure token (e.g., using Argon2 hash)
 # For example here: https://argon2.online
-Environment=ADMIN_TOKEN="$argon2i...LONG....HASH"
+# Run this command before you start this container:
+# printf "$argon2i...LONG....HASH" | podman secret create vaultwarden_admin_pwd -
+Secret=vaultwarden_admin_pwd,type=env,target=ADMIN_TOKEN
 
 [Service]
 # Restart the container automatically if it crashes
