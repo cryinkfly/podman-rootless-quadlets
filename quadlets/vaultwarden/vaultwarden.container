@@ -48,7 +48,7 @@ Environment=ADMIN_TOKEN="$argon2i...LONG....HASH"
 # Environment=SMTP_USERNAME=username
 # Run this command before you start this container:
 # printf "password123" | podman secret create vaultwarden_smtp_pwd -
-# Secret=vaultwarden_admin_pwd,type=env,target=SMTP_PASSWORD
+# Secret=vaultwarden_smtp_pwd,type=env,target=SMTP_PASSWORD
 # Environment=SMTP_TIMEOUT=15
 
 ## Choose the type of secure connection for SMTP. The default is "starttls".
