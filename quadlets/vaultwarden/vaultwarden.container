@@ -32,13 +32,68 @@ Timezone=local
 # Volume
 Volume=vaultwarden_data:/data:Z
 
-# Environment
+#------------------- Environments -------------------#
 # Admin token for Vaultwarden web interface
 # You must generate your own secure token (e.g., using Argon2 hash)
 # For example here: https://argon2.online
 # Run this command before you start this container:
 # printf "$argon2i...LONG....HASH" | podman secret create vaultwarden_admin_pwd -
 Secret=vaultwarden_admin_pwd,type=env,target=ADMIN_TOKEN
+
+## Mail specific settings, set SMTP_FROM and either SMTP_HOST or USE_SENDMAIL to enable the mail service.
+## To make sure the email links are pointing to the correct host, set the DOMAIN variable.
+## Note: if SMTP_USERNAME is specified, SMTP_PASSWORD is mandatory
+# Environment=SMTP_HOST=smtp.domain.tld
+# Environment=SMTP_FROM=vaultwarden@domain.tld
+# Environment=SMTP_FROM_NAME=Vaultwarden
+# Environment=SMTP_USERNAME=username
+# Run this command before you start this container:
+# printf "password123" | podman secret create vaultwarden_smtp_pwd -
+# Secret=vaultwarden_admin_pwd,type=env,target=SMTP_PASSWORD
+# Environment=SMTP_TIMEOUT=15
+
+## Choose the type of secure connection for SMTP. The default is "starttls".
+## The available options are:
+## - "starttls": The default port is 587.
+## - "force_tls": The default port is 465.
+## - "off": The default port is 25.
+## Ports 587 (submission) and 25 (smtp) are standard without encryption and with encryption via STARTTLS (Explicit TLS). Port 465 (submissions) is used for encrypted submission (Implicit TLS).
+# Environment=SMTP_SECURITY=starttls
+# Environment=SMTP_PORT=587
+
+# Whether to send mail via the `sendmail` command
+# Environment=USE_SENDMAIL=false
+# Which sendmail command to use. The one found in the $PATH is used if not specified.
+# Environment=SENDMAIL_COMMAND="/path/to/sendmail"
+
+## Defaults for SSL is "Plain" and "Login" and nothing for Non-SSL connections.
+## Possible values: ["Plain", "Login", "Xoauth2"].
+## Multiple options need to be separated by a comma ','.
+# Environment=SMTP_AUTH_MECHANISM=
+
+## Server name sent during the SMTP HELO
+## By default this value should be the machine's hostname,
+## but might need to be changed in case it trips some anti-spam filters
+# Environment=HELO_NAME=
+
+## Embed images as email attachments
+# Environment=SMTP_EMBED_IMAGES=true
+
+## SMTP debugging
+## When set to true this will output very detailed SMTP messages.
+## WARNING: This could contain sensitive information like passwords and usernames! Only enable this during troubleshooting!
+# Environment=SMTP_DEBUG=false
+
+## Accept Invalid Certificates
+## DANGEROUS: This option introduces significant vulnerabilities to man-in-the-middle attacks!
+## Only use this as a last resort if you are not able to use a valid certificate.
+## If the Certificate is valid but the hostname doesn't match, please use SMTP_ACCEPT_INVALID_HOSTNAMES instead.
+# Environment=SMTP_ACCEPT_INVALID_CERTS=false
+
+## Accept Invalid Hostnames
+## DANGEROUS: This option introduces significant vulnerabilities to man-in-the-middle attacks!
+## Only use this as a last resort if you are not able to use a valid certificate.
+# Environment=SMTP_ACCEPT_INVALID_HOSTNAMES=false
 
 [Service]
 # Restart the container automatically if it crashes
