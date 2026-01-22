@@ -15,6 +15,12 @@
 >
 > Therefore, the upstream address is: `http://filebrowser-quantum:5232`
 
+| Domain            | Target Container    | SSL           | Access | Port | Status |    |
+|-------------------|---------------------|---------------|--------|------|--------|--- |
+| cloud.example.org | filebrowser-quantum | Let's Encrypt | Puplic |  80  | Online | ⚙️ |
+
+>⚙️ → Indicates that the proxy settings, including custom locations and headers, are configured under the “Locations” tab in the NPM GUI.
+
 <img width="610" height="1918" alt="grafik" src="https://github.com/user-attachments/assets/3084cef5-e534-48fa-9dda-0aba9e9d3672" />
 
 
@@ -23,6 +29,9 @@ If the `Radicale container runs outside of the filebrowser-quantum pod`, for exa
 - Radicale must be attached to the same Podman network as Nginx Proxy Manager
 (e.g. filebrowser-quantum.net or proxy.net)
 - In this case, Radicale can be resolved via its container name
+his ensures NPM waits for FileBrowser to be active before starting.
+
+As a result, the custom locations (cloud.example.org → filebrowser-quantum:80) resolve correctly on startup.
 
 Then the upstream address becomes:
 
