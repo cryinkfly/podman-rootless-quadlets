@@ -129,7 +129,21 @@ Note / Special Considerations:
 
 ---
 
-### 6. Create a .container file for example the Nginx Proxy Manager
+### 6. Create a .container file and .network for example the Nginx Proxy Manager
+
+```
+nano ~/.config/containers/systemd/proxy.network
+```
+
+```
+[Unit]
+Description=Podman network for Nginx Proxy Manager
+Wants=network-online.target
+After=network-online.target
+
+[Network]
+NetworkName=proxy.net
+```
 
 ```
 nano ~/.config/containers/systemd/nginx-proxy-manager.container
@@ -140,14 +154,13 @@ nano ~/.config/containers/systemd/nginx-proxy-manager.container
 Description=Nginx Proxy Manager (Rootless Podman)
 # Requires Podman version >= 5.4.2
 
-# Network must be online before the container starts
+# Ensure the networks are created and active before starting this container
 After=proxy-network.service
 Requires=proxy-network.service
 BindsTo=proxy-network.service
 
 #Requires=proxy-network.service vaultwarden-network.service ...
 #BindsTo=proxy-network.service vaultwarden-network.service ...
-
 
 [Container]
 ContainerName=nginx-proxy-manager
@@ -158,10 +171,8 @@ Image=docker.io/jc21/nginx-proxy-manager:latest
 # systemctl --user start --now podman-auto-update.timer
 AutoUpdate=registry
 
-# Network
-# Isolated container network
-# IMPORTANT: The network must exist before starting this service!
-# podman network create proxy.net
+# Network Settings
+# Isolated container networks
 Network=proxy.net
 # Connect the nginx-proxy-manager to another networks. For example: vaultwarden.net
 # Network=vaultwarden.net
