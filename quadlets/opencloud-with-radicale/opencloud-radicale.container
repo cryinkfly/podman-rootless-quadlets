@@ -47,4 +47,4 @@ Restart=always
 RestartSec=20
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
