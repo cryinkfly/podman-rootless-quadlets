@@ -109,7 +109,7 @@ For rootless Podman, make sure your user owns the directory on the SSD:
 
 ```
 chown -R $(whoami):$(whoami) /mnt/podman/data
-chmod -R 755 /mnt/podman/data
+chmod -R 700 /mnt/podman/data
 ```
 
 ---
