@@ -7,6 +7,10 @@ server:
   sources:
     - path: "/srv"
       name: "Storage"
+      config:
+        defaultEnabled: true
+        createUserDir: true
+        defaultUserScope: "/home/users"
 userDefaults:
   editorQuickSave: false                  # show quick save button in editor
   hideSidebarFileActions: false           # hide the file actions in the sidebar
