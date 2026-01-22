@@ -176,22 +176,20 @@ While these custom locations work in the GUI, you may encounter issues after res
 
 ### Solution
 
-To ensure that custom locations work reliably:
+Since your FileBrowser Quantum pod has its [Install] section with:
 
-1. Start the FileBrowser Pod and container first
+```
+WantedBy=default.target
+```
 
-    - Ensure the Pod (filebrowser-quantum.pod) is running before NPM.
+... this means systemd automatically starts the pod at user login/boot.
 
-    - The FileBrowser container must be bound to the Pod and start automatically.
+**Consequently:**
 
-2. Add systemd dependencies for NPM
+- You do not need Nginx Proxy Manager to wait for FileBrowser via `After=` or `Requires=`, because the pod is already guaranteed to be running by the time the user session starts.
+- Adding `After=filebrowser-quantum.service` in NPM causes the circular dependency problem you saw.
+- NPM can safely start immediately, and as long as the pod is running, its internal hostname (filebrowser-quantum) is resolvable, so your Custom Locations in NPM GUI will work.
 
-    - In the NPM container unit, add:
+💡 **Key takeaway:**
 
-      ```
-      After=filebrowser-quantum.service
-      Requires=filebrowser-quantum.service
-      ```
-
-   - This ensures NPM waits for FileBrowser to be active before starting.
-   - As a result, the custom locations (cloud.example.org → filebrowser-quantum:80) resolve correctly on startup.
+- Let the pod handle its own startup via WantedBy=default.target, and avoid systemd dependencies from NPM → this prevents deadlocks while ensuring proper resolution of container hostnames.
