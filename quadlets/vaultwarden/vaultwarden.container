@@ -17,7 +17,6 @@ AutoUpdate=registry
 # Network
 # Isolated container network
 # IMPORTANT: The network must exist before starting this service!
-# podman network create vaultwarden.net
 Network=vaultwarden.net
 
 # Internal container port 80 is used by Vaultwarden
@@ -46,4 +45,4 @@ RestartSec=20
 
 [Install]
 # Start the service at boot
-WantedBy=multi-user.target
+WantedBy=default.target
