@@ -57,4 +57,4 @@ RestartSec=10
 
 [Install]
 # Enable at boot
-WantedBy=multi-user.target
+WantedBy=default.target
