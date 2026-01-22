@@ -29,7 +29,7 @@
 proxy_set_header X-Script-Name /caldav;
 proxy_set_header X-Remote-User $remote_user;
 proxy_set_header Host $host;
-proxy_set_header X-Forwarded-Prodo $scheme;
+proxy_set_header X-Forwarded-Proto $scheme;
 ```
 
 ---
@@ -42,7 +42,7 @@ proxy_set_header X-Forwarded-Prodo $scheme;
 proxy_set_header X-Script-Name /caldav;
 proxy_set_header X-Remote-User $remote_user;
 proxy_set_header Host $host;
-proxy_set_header X-Forwarded-Prodo $scheme;
+proxy_set_header X-Forwarded-Proto $scheme;
 ```
 
 ---
@@ -55,7 +55,7 @@ proxy_set_header X-Forwarded-Prodo $scheme;
 proxy_set_header X-Script-Name /caldav;
 proxy_set_header X-Remote-User $remote_user;
 proxy_set_header Host $host;
-proxy_set_header X-Forwarded-Prodo $scheme;
+proxy_set_header X-Forwarded-Proto $scheme;
 ```
 
 ---
@@ -68,7 +68,7 @@ proxy_set_header X-Forwarded-Prodo $scheme;
 proxy_set_header X-Script-Name /caldav;
 proxy_set_header X-Remote-User $remote_user;
 proxy_set_header Host $host;
-proxy_set_header X-Forwarded-Prodo $scheme;
+proxy_set_header X-Forwarded-Proto $scheme;
 ```
 
 ---
