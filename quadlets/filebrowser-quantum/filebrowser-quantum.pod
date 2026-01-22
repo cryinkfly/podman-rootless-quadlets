@@ -11,7 +11,7 @@ ServiceName=filebrowser-quantum
 
 [Service]
 Restart=always
-RestartSec=25
+RestartSec=30
 
 [Install]
 WantedBy=default.target
