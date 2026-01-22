@@ -2,7 +2,7 @@
 Description=Radicale (Rootless Podman)
 
 [Container]
-ContainerName=filebrowser-quantum-radicale.container
+ContainerName=filebrowser-quantum-radicale
 # Official Radicale image from Kozea (GHCR)
 Image=ghcr.io/kozea/radicale:latest
 
