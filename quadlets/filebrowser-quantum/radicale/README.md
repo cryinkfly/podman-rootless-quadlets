@@ -93,3 +93,47 @@ However, if Lisa is deleted from the Quantum file browser and you are certain th
 ```
 podman unshare rm -rf /home/$USER/.local/share/containers/storage/volumes/radicale_data/collections/collection-root/lisa
 ```
+
+---
+
+## 🔥 Troubleshooting with Nginx Proxy Manager as Proxy
+
+When using Nginx Proxy Manager (NPM) to proxy a domain such as:
+
+| Domain            | Target Container    | SSL           | Access | Port | Status |    |
+|-------------------|---------------------|---------------|--------|------|--------|--- |
+| cloud.example.org | filebrowser-quantum | Let's Encrypt | Puplic |  80  | Online | ⚙️ |
+
+> **⚙️** → Indicates that the settings for this proxy (custom locations, etc.) can be configured via the **Nginx Proxy Manager GUI**.
+
+While these custom locations work in the GUI, you may encounter issues after restarting NPM. Although NPM itself starts, the proxy to FileBrowser may fail, often returning 502 or 504 errors.
+
+
+### Cause
+
+- FileBrowser Quantum runs inside a Podman pod (filebrowser-quantum.pod).
+- NPM relies on the internal hostname filebrowser-quantum for its custom locations.
+- If NPM starts before the Pod or FileBrowser container is running, it cannot resolve the hostname, causing the proxy to fail.
+- This typically occurs during system boot or when NPM is restarted independently.
+
+### Solution
+
+To ensure that custom locations work reliably:
+
+1. Start the FileBrowser Pod and container first
+
+    - Ensure the Pod (filebrowser-quantum.pod) is running before NPM.
+
+    - The FileBrowser container must be bound to the Pod and start automatically.
+
+2. Add systemd dependencies for NPM
+
+    - In the NPM container unit, add:
+
+      ```
+      After=filebrowser-quantum.service
+      Requires=filebrowser-quantum.service
+      ```
+
+   - This ensures NPM waits for FileBrowser to be active before starting.
+   - As a result, the custom locations (cloud.example.org → filebrowser-quantum:80) resolve correctly on startup.
