@@ -77,4 +77,4 @@ Restart=always
 RestartSec=30s
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
