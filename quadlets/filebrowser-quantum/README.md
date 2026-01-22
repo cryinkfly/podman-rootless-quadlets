@@ -12,6 +12,16 @@
 
     podman unshare nano /home/$USER/.local/share/containers/storage/volumes/filebrowser-quantum_data/_data/config.yaml
 
+## Create a odman secret for admin password:
+
+```
+echo -n 'password123' | podman secret create filebrowser_admin_pwd -
+```
+
+and then you can use this in your .container file:
+
+    Secret=filebrowser_admin_pwd,type=env,target=FILEBROWSER_ADMIN_PASSWORD
+
 ---
 
 # Support Radicale (CarlDav & CardDav)
