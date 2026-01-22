@@ -1,10 +1,6 @@
 [Unit]
 Description=FileBrowser Quantum (Rootless Podman)
 
-After=filebrowser-quantum-network.service
-BindsTo=nginx-proxy-manager.service filebrowser-quantum-network.service
-Requires=nginx-proxy-manager.service filebrowser-quantum-network.service
-
 [Container]
 # Container settings
 ContainerName=filebrowser-quantum-server
