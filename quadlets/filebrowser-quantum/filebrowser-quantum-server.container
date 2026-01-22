@@ -47,7 +47,7 @@ Volume=filebrowser-quantum_files:/srv:Z
 # Environments
 Environment=FILEBROWSER_CONFIG="data/config.yaml"
 # Run this command before you start this container:
-# echo -n "password123" | podman secret create filebrowser_admin_pwd -
+# echo -n 'password123' | podman secret create filebrowser_admin_pwd -
 Secret=filebrowser_admin_pwd,type=env,target=FILEBROWSER_ADMIN_PASSWORD
 
 [Service]
