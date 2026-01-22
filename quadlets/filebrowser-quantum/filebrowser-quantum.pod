@@ -1,8 +1,8 @@
 [Unit]
 Description=FileBrowser Quantum Pod (internal, no ports)
-After=nginx-proxy-manager.service filebrowser-quantum-network.service
-BindsTo=nginx-proxy-manager.service filebrowser-quantum-network.service
-Requires=nginx-proxy-manager.service filebrowser-quantum-network.service
+After=filebrowser-quantum-network.service
+BindsTo=filebrowser-quantum-network.service
+Requires=filebrowser-quantum-network.service
 
 [Pod]
 PodName=filebrowser-quantum
