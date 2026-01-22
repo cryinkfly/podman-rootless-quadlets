@@ -192,4 +192,4 @@ WantedBy=default.target
 
 💡 **Key takeaway:**
 
-- Let the pod handle its own startup via WantedBy=default.target, and avoid systemd dependencies from NPM → this prevents deadlocks while ensuring proper resolution of container hostnames.
+- Let the pod handle its own startup via `WantedBy=default.target`, and avoid systemd dependencies from NPM → this prevents deadlocks while ensuring proper resolution of container hostnames.
