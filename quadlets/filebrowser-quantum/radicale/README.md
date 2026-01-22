@@ -52,10 +52,7 @@ proxy_set_header X-Forwarded-Proto $scheme;
 | /.well-known/carldav         | http   | filebrowser-quantum      | 5232          | ⚙️ |
 
 ```
-proxy_set_header X-Script-Name /caldav;
-proxy_set_header X-Remote-User $remote_user;
-proxy_set_header Host $host;
-proxy_set_header X-Forwarded-Proto $scheme;
+return 301 /carldav/;
 ```
 
 ---
@@ -65,10 +62,7 @@ proxy_set_header X-Forwarded-Proto $scheme;
 | /.well-known/carddav         | http   | filebrowser-quantum      | 5232          | ⚙️ |
 
 ```
-proxy_set_header X-Script-Name /caldav;
-proxy_set_header X-Remote-User $remote_user;
-proxy_set_header Host $host;
-proxy_set_header X-Forwarded-Proto $scheme;
+return 301 /carddav/;
 ```
 
 ---
