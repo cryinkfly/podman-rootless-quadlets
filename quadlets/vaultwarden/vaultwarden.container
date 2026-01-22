@@ -1,7 +1,7 @@
 [Unit]
 Description=Vaultwarden (Rootless Podman)
 
-After=vaultwarden-network.service
+After=nginx-proxy-manager.service vaultwarden-network.service
 Requires=nginx-proxy-manager.service vaultwarden-network.service
 BindsTo=nginx-proxy-manager.service vaultwarden-network.service
 
@@ -14,7 +14,7 @@ Image=docker.io/vaultwarden/server:latest
 # systemctl --user start --now podman-auto-update.timer
 AutoUpdate=registry
 
-# Network
+# Network Settings
 # Isolated container network
 # IMPORTANT: The network must exist before starting this service!
 Network=vaultwarden.net
