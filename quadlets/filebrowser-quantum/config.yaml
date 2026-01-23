@@ -59,3 +59,7 @@ frontend:
   styling:
     lightBackground: "#d8edda"
     darkBackground: "#000b0b"
+auth:
+  methods:
+    password:
+      minLength: 12
