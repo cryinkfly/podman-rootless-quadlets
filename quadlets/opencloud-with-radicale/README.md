@@ -1,4 +1,4 @@
-💡 Important:
+## General information
 
 - Nginx Proxy Manager and Radicale (including their configurations) must be fully set up before starting OpenCloud, otherwise OpenCloud cannot correctly reach the CalDAV/CardDAV routes.
 - All containers (OpenCloud, Radicale, NPM) must be in the same network (proxy-opencloud) so that internal DNS names like radicale resolve correctly.
@@ -7,7 +7,7 @@
 
 ---
 
-Create the following secrets: 
+### Create the following secrets: 
 
 ```
 echo -n 'password123' | podman secret create opencloud_smtp_pwd -
