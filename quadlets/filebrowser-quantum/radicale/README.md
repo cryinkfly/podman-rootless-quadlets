@@ -5,7 +5,6 @@
 
 ⚠️ It's important that NPM, Radicale, and FileBrowser Quantum are on the same network!
 
-
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │                     Client / DAV-Client                      │
@@ -91,7 +90,7 @@
 
 >⚙️ Indicates that the proxy settings, including custom locations, etc. are configured under the “Locations” tab in the NPM GUI.
 
----
+<br/>
 
 | Location          | Schema | Forward Hostname / IP    | Forward Port  |    |
 |-------------------|--------|--------------------------|---------------|--- |
@@ -109,7 +108,7 @@ proxy_set_header X-Remote-User $remote_user;
 proxy_set_header X-Script-Name /caldav;
 ```
 
----
+<br/>
 
 | Location          | Schema | Forward Hostname / IP    | Forward Port  |    |
 |-------------------|--------|--------------------------|---------------|--- |
@@ -127,7 +126,7 @@ proxy_set_header X-Remote-User $remote_user;
 proxy_set_header X-Script-Name /carddav;
 ```
 
----
+<br/>
 
 | Location          | Schema | Forward Hostname / IP    | Forward Port  |    |
 |-------------------|--------|--------------------------|---------------|--- |
@@ -143,7 +142,7 @@ proxy_set_header X-Remote-User $remote_user;
 proxy_set_header X-Script-Name /caldav;
 ```
 
----
+<br/>
 
 | Location          | Schema | Forward Hostname / IP    | Forward Port  |    |
 |-------------------|--------|--------------------------|---------------|--- |
@@ -158,26 +157,17 @@ proxy_set_header X-Remote-User $remote_user;
 proxy_set_header X-Script-Name /carddav;
 ```
 
----
+<br/>
 
-If the `Radicale container runs outside of the filebrowser-quantum pod`, for example as its own container or pod:
+If the `Radicale container runs outside of the filebrowser-quantum pod`, for example container `radicale`:
 
-- Radicale must be attached to the same Podman network as Nginx Proxy Manager
-(e.g. filebrowser-quantum.net or proxy.net)
+- Radicale must be attached to the same network as Nginx Proxy Manager and Filebrowser Quantum!
 - In this case, Radicale can be resolved via its container name
-his ensures NPM waits for FileBrowser to be active before starting.
+- The `Forward Hostname / IP` must set to `radicale`
 
-As a result, the custom locations (cloud.example.org → filebrowser-quantum:80) resolve correctly on startup.
+<br/>
 
-Then the upstream address becomes:
-
-```
-http://radicale:5232
-```
-
----
-
-And you can check if Radicale works with your web browser:
+And if Radicale and all other containers works, then you can open your web browser and check if Radicale works:
 
 ```
 https://cloud.example.org/caldav/.web
