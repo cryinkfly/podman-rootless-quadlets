@@ -353,13 +353,15 @@ Secret=vaultwarden_admin_pwd,type=env,target=ADMIN_TOKEN
 
 **Steps to use:**
 
-1. Generate a secure token (e.g., using Argon2). You can create one online here: https://argon2.online
+**1. Generate a secure token (e.g., using Argon2):**
+
+You can create your own special token online here: https://argon2.online/
 
      <img width="1537" height="1149" alt="grafik" src="https://github.com/user-attachments/assets/dc05eea0-462b-4b3c-b66d-325f8e83570b" />
 
 <br/>
  
-2. Create a Podman secret:
+**2. Create a Podman secret:**
 
 ```
 echo -n '$argon2i$v=19$m=16,t=2,p=1$MmVuYXZXZU1NblhORXBXaw$BTgzECkgwX+Aw1QvOHug/g' | podman secret create vaultwarden_admin_pwd -
@@ -367,7 +369,7 @@ echo -n '$argon2i$v=19$m=16,t=2,p=1$MmVuYXZXZU1NblhORXBXaw$BTgzECkgwX+Aw1QvOHug/
 
 <br/>
 
-3. List all secrets:
+**3. List all secrets:**
 
 ```
 podman secret ls
@@ -375,7 +377,7 @@ podman secret ls
 
 <br/>
 
-4. Remove a secret:
+**4. Remove a secret:**
 
 ```
 podman secret rm vaultwarden_admin_pwd
@@ -383,7 +385,7 @@ podman secret rm vaultwarden_admin_pwd
 
 <br/>
 
-5. Here can you see more functions:
+**5. Here can you see more functions:**
 
 ```
 podman secret --help
