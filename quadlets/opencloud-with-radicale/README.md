@@ -23,6 +23,9 @@ podman unshare nano /home/$USER/.local/share/containers/storage/volumes/openclou
 ```
 podman unshare nano /home/$USER/.local/share/containers/storage/volumes/opencloud_config/_data/banned-password-list.txt
 ```
+```
+podman unshare nano /home/$USER/.local/share/containers/storage/volumes/radicale_config/_data/config
+```
 
 ### WARNING:
 
