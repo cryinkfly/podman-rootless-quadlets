@@ -247,7 +247,7 @@ podman unshare rm -rf /home/$USER/.local/share/containers/storage/volumes/radica
 
 ---
 
-## 🔥 Troubleshooting with Nginx Proxy Manager as Proxy
+## 🛟 Troubleshooting with Nginx Proxy Manager as Proxy
 
 When using Nginx Proxy Manager (NPM) to proxy a domain such as:
 
