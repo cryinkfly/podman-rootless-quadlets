@@ -359,7 +359,7 @@ Secret=vaultwarden_admin_pwd,type=env,target=ADMIN_TOKEN
 
 <br/>
  
-2. Create the Podman secret:
+2. Create a Podman secret:
 
 ```
 echo -n '$argon2i$v=19$m=16,t=2,p=1$MmVuYXZXZU1NblhORXBXaw$BTgzECkgwX+Aw1QvOHug/g' | podman secret create vaultwarden_admin_pwd -
@@ -383,7 +383,7 @@ podman secret rm vaultwarden_admin_pwd
 
 <br/>
 
-5. More functions:
+5. Here can you see more functions:
 
 ```
 podman secret --help
