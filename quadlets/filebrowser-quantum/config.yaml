@@ -10,7 +10,7 @@ server:
       config:
         defaultEnabled: true
         createUserDir: true
-        defaultUserScope: "/home/users"
+        defaultUserScope: "/home/users/"
 userDefaults:
   editorQuickSave: false                  # show quick save button in editor
   hideSidebarFileActions: false           # hide the file actions in the sidebar
