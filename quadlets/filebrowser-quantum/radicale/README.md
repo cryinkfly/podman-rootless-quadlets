@@ -177,6 +177,20 @@ http://radicale:5232
 
 ---
 
+And you can check if Radicale works with your web browser:
+
+```
+https://cloud.example.org/caldav/.web
+```
+
+...and you will receive a response:
+
+```
+Radicale works!
+```
+
+---
+
 ## Edit the radicale `config` file. For example:
 
 ```
