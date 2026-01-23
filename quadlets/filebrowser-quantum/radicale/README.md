@@ -233,6 +233,8 @@ podman unshare cp -a \
   ~/radicale-backups/
 ```
 
+---
+
 ## 🔥 Delete a user collection (CarlDav & CardDav)
 
 And if, for example, Lisa is deleted from the Quantum file browser, the data in Radicale remains unchanged. This is a security feature.
