@@ -210,7 +210,9 @@ WantedBy=default.target
 
 ---
 
-### 7. Start and Enable Auto-Update Timer
+### 7. Auto-Update Timer
+
+#### Activate the Auto-Update Timer
 
 Once you have created your `podman-auto-update.service` and `podman-auto-update.timer` in the `~/quadlets/containers/` folder, start and enable the timer:
 
@@ -228,6 +230,35 @@ Check the timer status:
 
 ```
 systemctl --user status podman-auto-update.timer
+```
+
+This command shows whether the Podman auto-update timer is active. Later, the logs from the triggered service `podman-auto-update.service` can be used to see which container images were actually updated.
+
+<br/>
+
+Here is an example:
+
+```
+systemctl --user status podman-auto-update.service
+○ podman-auto-update.service - Podman auto-update service
+     Loaded: loaded (/usr/lib/systemd/user/podman-auto-update.service; disabled; preset: enabled)
+     Active: inactive (dead) since Fri 2026-01-23 11:00:59 CET; 2min 23s ago
+ Invocation: cad47ce6b39f4abcb0b5a3733756c1aa
+TriggeredBy: ● podman-auto-update.timer
+       Docs: man:podman-auto-update(1)
+   Main PID: 15889 (code=exited, status=0/SUCCESS)
+        CPU: 1.477s
+
+Jan 23 11:00:54 pod_system podman[15889]: 2026-01-23 11:00:54.72001975 +0100 CET m=+7.853205496 image pull 249e0dbbf2973c92bbf6bd6660ff6d72e838036fc27c5635667793a7895b16c5 ghcr.io/kozea/radicale:latest
+Jan 23 11:00:59 pod_system podman[15889]:             UNIT                         CONTAINER                                  IMAGE                                      POLICY      UPDATED
+Jan 23 11:00:59 pod_system podman[15889]:             nginx-proxy-manager.service  e3bbf09070ab (nginx-proxy-manager)         docker.io/jc21/nginx-proxy-manager:latest  registry    false
+Jan 23 11:00:59 pod_system podman[15889]:             vaultwarden.service          609142eb2224 (vaultwarden)                 docker.io/vaultwarden/server:latest        registry    false
+Jan 23 11:00:59 pod_system podman[15889]:             filebrowser-quantum.service  fca9ac3033a5 (filebrowser-quantum-server)  docker.io/gtstef/filebrowser:latest        registry    true
+Jan 23 11:00:59 pod_system podman[15889]:             filebrowser-quantum.service  440a5938951b (radicale)                    ghcr.io/kozea/radicale:latest              registry    true
+Jan 23 11:00:59 pod_system podman[16090]: 53197fd2f3cda0e6706c616cbe7904f45f26b3b436fdf1f27c31275adfe98aff
+Jan 23 11:00:59 pod_system podman[16090]: 2026-01-23 11:00:59.073240421 +0100 CET m=+0.037328026 image remove 53197fd2f3cda0e6706c616cbe7904f45f26b3b436fdf1f27c31275adfe98aff 
+Jan 23 11:00:59 pod_system systemd[885]: Finished podman-auto-update.service - Podman auto-update service.
+Jan 23 11:00:59 pod_system systemd[885]: podman-auto-update.service: Consumed 1.477s CPU time.
 ```
 
 ---
