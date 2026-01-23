@@ -37,7 +37,7 @@ Volume=vaultwarden_data:/data:Z
 # You must generate your own secure token (e.g., using Argon2 hash)
 # For example here: https://argon2.online
 # Run this command before you start this container:
-# echo -n 'password123' | podman secret create vaultwarden_admin_pwd -
+# echo -n 'HASHED Password' | podman secret create vaultwarden_admin_pwd -
 Secret=vaultwarden_admin_pwd,type=env,target=ADMIN_TOKEN
 
 ## Mail specific settings, set SMTP_FROM and either SMTP_HOST or USE_SENDMAIL to enable the mail service.
