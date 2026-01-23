@@ -138,8 +138,10 @@ nano ~/.config/containers/systemd/proxy.network
 ```
 [Unit]
 Description=Podman network for Nginx Proxy Manager
-Wants=network-online.target
-After=network-online.target
+
+# Network dependency is handled via podman-user-wait-network-online.service
+# Wants/After network-online.target have no effect for rootless containers
+# See: https://github.com/cryinkfly/podman-rootless-quadlets/issues/1
 
 [Network]
 NetworkName=proxy.net
