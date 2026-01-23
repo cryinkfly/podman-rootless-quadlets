@@ -9,7 +9,7 @@
 
 > 💡 **Note for Docker setups:**
 > 
-> This guide can also be used in Docker environments. The only differences are the container paths and volumes for configuration files. The NGINX settings remain the same, so you don’t need to modify them. Just ensure the containers can communicate on the same Docker network and that the configuration files are correctly mounted inside the Radicale container.
+> This guide can also be used in Docker environments. The only differences are the container paths and volumes for configuration files. The NGINX settings remain the same, so you don’t need to modify them.
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
