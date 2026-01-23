@@ -1,6 +1,6 @@
 # Rootless Podman with Quadlets for Homelab Setups 📦
 
-This guide explains how to manage **rootless Podman containers** using **systemd Quadlets**, suitable for Raspberry Pi or other homelab environments.
+This guide explains how to manage `rootless Podman containers` using `systemd Quadlets`, suitable for Raspberry Pi or other homelab environments.
 
 > **Tested on:** Raspberry Pi 5 with Debian Trixi (Version 13) </br>
 > **Podman version:** 5.4.2+  </br>
