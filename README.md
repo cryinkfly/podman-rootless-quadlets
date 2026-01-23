@@ -1,4 +1,4 @@
-# Rootless Podman with Quadlets for Homelab Setups 📦
+# Rootless Podman with Quadlets 📦
 
 This guide explains how to manage `rootless Podman containers` using `systemd Quadlets`, suitable for Raspberry Pi or other homelab environments.
 
