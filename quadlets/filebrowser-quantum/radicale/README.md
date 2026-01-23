@@ -5,6 +5,80 @@
 
 ⚠️ It's important that NPM, Radicale, and FileBrowser Quantum are on the same network!
 
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                     Client / DAV-Client                      │
+│           Browser · Thunderbird · iOS · DAVx⁵ · App          │
+└──────────────────────────────────────────────────────────────┘
+                               ▲
+                               │ HTTPS Request / Response (Port 443)
+                               │ cloud.example.org/caldav
+                               │ cloud.example.org/carddav
+                               ▼
+┌──────────────────────────────────────────────────────────────┐
+│              Nginx Proxy Manager (NPM)                       │
+│──────────────────────────────────────────────────────────────└─────────┐
+│ Podman Container                                                       │
+│ Multi-Network:                                                         │
+│   • Public Access via Host-Exposed Ports:                              │
+│       • 80 / 443 / 81                                                  │
+│   • filebrowser-quantum.net (internal) 10.89.2.x                       │
+│   • other networks (internal)                                          │
+│                                                                        │
+│ Locations / Routing:                                                   │
+│   /caldav/       → filebrowser-quantum-radicale:5232                   │
+│   /carddav/      → filebrowser-quantum-radicale:5232                   │
+│   /.well-known/* → filebrowser-quantum-radicale:5232                   │
+│   /caldav/.web/  → filebrowser-quantum-radicale:5232 (optional Web UI) │
+└────────────────────────────────────────────────────────────────────────┘
+                               ▲
+                               │ Internal HTTP / DAV
+                               │ Request / Response
+                               │ X-Script-Name / X-Remote-User / API-Token
+                               ▼
+┌───────────────────────────────────────────────────────────────────────────────────────────┐
+│               Podman Network: filebrowser-quantum.net                                     │
+│───────────────────────────────────────────────────────────────────────────────────────────│
+│ NPM 10.89.2.2 ◀── HTTP/DAV ──▶ filebrowser-quantum-infra (Pod-Master container) 10.89.2.3 │
+│                                  └─ Internal communication happens via the Pod:           │
+│                                    └─ **PodName=filebrowser-quantum**                     │
+└───────────────────────────────────────────────────────────────────────────────────────────┘
+                               ▲
+                               │ internal
+                               ▼
+┌──────────────────────────────────────────────────────────────┐
+│               Podman Pod: filebrowser-quantum                │
+│──────────────────────────────────────────────────────────────│
+│ Shared Network Namespace                                     │
+│                                                              │
+│ ┌───────────────────────────────────────────────────────┐    │
+│ │ filebrowser-quantum-server Container ◀── ▲/▼ ──▶      │    │
+│ │ IP (internal): 10.89.2.3                              │    │
+│ │ • User Login / Web UI                                 │    │
+│ │ • Calendar & Contacts Integration                     │    │
+│ │ • User & API Tokens for Radicale                      │    │
+│ │ • Internal Port: 80 (Filebrowser Quantum)             │    │
+│ │ ↕ Internal API Calls / Tokens / Headers ▼/▲           │    │
+│ └───────────────────────────────────────────────────────┘    │
+│                 ▲                                            │
+│                 │ internal                       │
+│                 ▼                                            │
+│ ┌────────────────────────────────────────────────────────────┐    
+│ │ filebrowser-quantum-radicale Container ◀── ▲/▼ ──▶    │    │
+│ │ IP (internal): 10.89.2.3                              │    │
+│ │ • CalDAV / CardDAV Backend                            │    │
+│ │ • Web Interface: none (type = none)                   │    │
+│ │   └─ set "internal" → Web UI activated                │    │
+│ │     └─ Add location in NPM                            │    │
+│ │ • Path Mapping via X-Script-Name (/caldav, /carddav)  │    │
+│ │ • User Authentication via X-Remote-User / API Tokens  │    │
+│ │ • Accessible only through FileBrowser Quantum         │    │
+│ │ ↕ DAV Request / Response / Token Validation ▼/▲       │    │
+│ └───────────────────────────────────────────────────────┘    │
+└──────────────────────────────────────────────────────────────┘
+```
+
 ---
 
 ## Configure the cloud.example.org settings in Nginx Proxy Manager
