@@ -1,12 +1,3 @@
-    podman network create network proxy-opencloud
-    
-    podman network connect network proxy-opencloud nginx-proxy-manager
-
-    curl -L https://raw.githubusercontent.com/cryinkfly/podman-rootless-quadlets/main/quadlets/opencloud-with-radicale/opencloud.container -o ~/.config/containers/systemd/opencloud.container
-
-    systemctl --user daemon-reload
-    systemctl --user start opencloud.service
-
 💡 Important:
 
 - Nginx Proxy Manager and Radicale (including their configurations) must be fully set up before starting OpenCloud, otherwise OpenCloud cannot correctly reach the CalDAV/CardDAV routes.
@@ -18,8 +9,9 @@
 
 Create the following secrets: 
 
-    # echo -n 'password123' | podman secret create opencloud_smtp_pwd -
-
+```
+echo -n 'password123' | podman secret create opencloud_smtp_pwd -
+```
 
 ---
 
@@ -36,6 +28,4 @@ podman unshare nano /home/$USER/.local/share/containers/storage/volumes/openclou
 
 > Removing a user in OpenCloud does not automatically delete related calendar or address book data. These files remain in the Radicale volume and must be removed manually.
 
-    podman unshare rm -rf /home/$USER/.local/share/containers/storage/volumes/radicale_data/_data/collections/collection-root/USER-HASH-FOLDER
-
-... Still in progress ...
+    podman unshare rm -rf /home/$USER/.local/share/containers/storage/volumes/radicale_data/_data/collections/collection-root/USER
