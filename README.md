@@ -12,11 +12,12 @@ This guide explains how to manage **rootless Podman containers** using **systemd
 - Rootless container setup only 
 - Systemd-managed containers via Quadlets
 - Templates for `.pod`, `.container`, `.network`, `.env`, `...` files
-- Persistent storage support
-- Automatic container updates via timer
+- Persistent storage support – container data survives restarts
+- Automatic container updates via timer – uses `podman-auto-update`
 - Only ports `80`, `443`, `81` exposed by default
 - Safe low port binding with `net.ipv4.ip_unprivileged_port_start=80`
 - `Nginx Proxy Manager handles all external access`; containers do not expose extra ports
+- Secure secrets support – use Podman Secrets to store `passwords`, `tokens`, etc. without exposing them in environment variables
 
 ---
 
