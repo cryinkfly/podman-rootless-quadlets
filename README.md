@@ -330,3 +330,75 @@ You can test whether Nginx Proxy Manager is working correctly:
 ```
 podman inspect -f '{{.State.Health.Status}}' nginx-proxy-manager
 ```
+
+---
+
+### 13. Podman Secrets: Handling Sensitive Data
+
+`Podman Secrets` allow you to provide sensitive data such as `passwords`, `tokens`, etc. securely to containers without storing them in the `environment variables`.
+
+In this section, we will show how to create a secret, use it in a container, and manage it.
+
+For example we use a Secret for the Vaultwarden admin token
+
+```
+Secret=vaultwarden_admin_pwd,type=env,target=ADMIN_TOKEN
+```
+
+**Explanation:**
+
+- `vaultwarden_admin_pwd` → Name of the secret you just created
+- `type=env` → Passes the secret as an environment variable inside the container
+- `target=ADMIN_TOKEN` → Name of the environment variable inside the container
+
+**Steps to use:**
+
+1. Generate a secure token (e.g., using Argon2). You can create one online here: https://argon2.online
+
+     <img width="1537" height="1149" alt="grafik" src="https://github.com/user-attachments/assets/dc05eea0-462b-4b3c-b66d-325f8e83570b" />
+
+<br/>
+ 
+2. Create the Podman secret:
+
+```
+echo -n '$argon2i$v=19$m=16,t=2,p=1$MmVuYXZXZU1NblhORXBXaw$BTgzECkgwX+Aw1QvOHug/g' | podman secret create vaultwarden_admin_pwd -
+```
+
+<br/>
+
+3. List all secrets:
+
+```
+podman secret ls
+```
+
+<br/>
+
+4. Remove a secret:
+
+```
+podman secret rm vaultwarden_admin_pwd
+```
+
+<br/>
+
+5. More functions:
+
+```
+podman secret --help
+Manage secrets
+
+Description:
+  Manage secrets
+
+Usage:
+  podman secret [command]
+
+Available Commands:
+  create      Create a new secret
+  exists      Check if a secret exists in local storage
+  inspect     Inspect a secret
+  ls          List secrets
+  rm          Remove one or more secrets
+```
