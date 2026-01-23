@@ -26,10 +26,15 @@
 | /caldav/          | http   | filebrowser-quantum      | 5232          | ⚙️ |
 
 ```
-proxy_set_header X-Script-Name /caldav;
-proxy_set_header X-Remote-User $remote_user;
+# WebDAV Standard Headers
 proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 proxy_set_header X-Forwarded-Proto $scheme;
+
+# Radicale Headers
+proxy_set_header X-Remote-User $remote_user;
+proxy_set_header X-Script-Name /caldav;
 ```
 
 ---
@@ -39,10 +44,15 @@ proxy_set_header X-Forwarded-Proto $scheme;
 | /carddav/         | http   | filebrowser-quantum      | 5232          | ⚙️ |
 
 ```
-proxy_set_header X-Script-Name /caldav;
-proxy_set_header X-Remote-User $remote_user;
+# WebDAV Standard Headers
 proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 proxy_set_header X-Forwarded-Proto $scheme;
+
+# Radicale Headers
+proxy_set_header X-Remote-User $remote_user;
+proxy_set_header X-Script-Name /carddav;
 ```
 
 ---
@@ -52,7 +62,13 @@ proxy_set_header X-Forwarded-Proto $scheme;
 | /.well-known/carldav         | http   | filebrowser-quantum      | 5232          | ⚙️ |
 
 ```
-return 301 /carldav/;
+# WebDAV Standard Headers
+proxy_set_header Host $host;
+
+
+# Radicale Headers
+proxy_set_header X-Remote-User $remote_user;
+proxy_set_header X-Script-Name /caldav;
 ```
 
 ---
@@ -62,7 +78,40 @@ return 301 /carldav/;
 | /.well-known/carddav         | http   | filebrowser-quantum      | 5232          | ⚙️ |
 
 ```
-return 301 /carddav/;
+# WebDAV Standard Headers
+proxy_set_header Host $host;
+
+# Radicale Headers
+proxy_set_header X-Remote-User $remote_user;
+proxy_set_header X-Script-Name /carddav;
+```
+
+---
+
+**Optional - Activate the Web-UI of Radicale:**
+
+| Location          | Schema | Forward Hostname / IP    | Forward Port  |    |
+|-------------------|--------|--------------------------|---------------|--- |
+| /caldav/.web/         | http   | filebrowser-quantum      | 5232          | ⚙️ |
+
+```
+# WebDAV Standard Headers
+proxy_set_header Host $host;
+
+# Radicale Headers
+auth_basic off;  # WebUI automatically asks for the password
+proxy_set_header X-Remote-User $remote_user;
+proxy_set_header X-Script-Name /caldav;
+```
+
+Also set the "type" to "internal" in the radicale/config:
+
+```
+[web]
+
+# Web interface backend
+# Value: none | internal
+type = internal
 ```
 
 ---
