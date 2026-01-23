@@ -35,7 +35,6 @@
 │   /caldav/       → filebrowser-quantum-radicale:5232                   │
 │   /carddav/      → filebrowser-quantum-radicale:5232                   │
 │   /.well-known/* → filebrowser-quantum-radicale:5232                   │
-│   /caldav/.web/  → filebrowser-quantum-radicale:5232 (optional Web UI) │
 └────────────────────────────────────────────────────────────────────────┘
                                ▲
                                │ Internal HTTP / DAV
@@ -60,7 +59,6 @@
 │ ┌───────────────────────────────────────────────────────┐    │
 │ │ filebrowser-quantum-server Container ◀── ▲/▼ ──▶      │    │
 │ │ IP (internal): 10.89.2.3                              │    │
-│ │ • User Login / Web UI                                 │    │
 │ │ • Calendar & Contacts Integration                     │    │
 │ │ • User & API Tokens for Radicale                      │    │
 │ │ • Internal Port: 80 (Filebrowser Quantum)             │    │
