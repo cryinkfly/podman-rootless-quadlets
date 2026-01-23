@@ -58,4 +58,4 @@ userDefaults:
 frontend:
   styling:
     lightBackground: "#d8edda"
-    darkBackground: "#00100f"
+    darkBackground: "#000b0b"
