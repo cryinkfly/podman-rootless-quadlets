@@ -17,7 +17,7 @@ This guide explains how to manage **rootless Podman containers** using **systemd
 - Only ports `80`, `443`, `81` exposed by default
 - Safe low port binding with `net.ipv4.ip_unprivileged_port_start=80`
 - `Nginx Proxy Manager handles all external access`; containers do not expose extra ports
-- Secure secrets support – use Podman Secrets to store `passwords`, `tokens`, etc. without exposing them in environment variables
+- Secure secrets support – use Podman Secrets to store `passwords`, `tokens`, `...` without exposing them in environment variables
 
 ---
 
@@ -336,7 +336,7 @@ podman inspect -f '{{.State.Health.Status}}' nginx-proxy-manager
 
 ### 13. Podman Secrets: Handling Sensitive Data
 
-`Podman Secrets` allow you to provide sensitive data such as `passwords`, `tokens`, etc. securely to containers without storing them in the `environment variables`.
+`Podman Secrets` allow you to provide sensitive data such as `passwords`, `tokens`, `...` securely to containers without storing them in the `environment variables`.
 
 In this section, we will show how to create a secret, use it in a container, and manage it.
 
