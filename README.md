@@ -21,6 +21,12 @@ This guide explains how to manage `rootless Podman containers` using `systemd Qu
 
 ---
 
+**Support this project, share your ideas, and help our community thrive!**
+
+[![Become a Sponsor or Supporter](https://img.shields.io/badge/Become%20a%20Sponsor%20or%20Supporter-%23E34C4C?style=for-the-badge&logoColor=white)](https://cryinkfly.com/sponsors)
+
+---
+
 ### 1. Check if Podman is installed on the system; if not, install it.
 
 ```
