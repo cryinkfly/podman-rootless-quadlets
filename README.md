@@ -21,12 +21,6 @@ This guide explains how to manage `rootless Podman containers` using `systemd Qu
 
 ---
 
-**Support this project, share your ideas, and help our community thrive!** ♥️ 
-
-[![Become a Sponsor or Supporter](https://img.shields.io/badge/Become%20a%20Sponsor%20or%20Supporter-%23E34C4C?style=for-the-badge&logoColor=white)](https://cryinkfly.com/sponsors)
-
----
-
 ### 1. Check if Podman is installed on the system; if not, install it.
 
 ```
@@ -411,3 +405,23 @@ Available Commands:
   ls          List secrets
   rm          Remove one or more secrets
 ```
+
+---
+
+### Support this project, share your ideas, and help our community thrive! ♥️ 
+
+If you enjoy my work and want to help me create more tutorials, guides, and open-source projects, you can **support me in multiple ways** — either as a sponsor or as an active helper!  
+
+**Ways to Support:**  
+- 💰 **Sponsors:** Contribute financially to help cover hosting costs, development time, and resources  
+- 🤝 **Supporters & Collaborators:** Share ideas, provide feedback, contribute tutorials or code, and help the community grow  
+
+**Benefits of Supporting:**  
+- 💡 Early access to new tutorials and resources  
+- 🔒 Exclusive updates and behind-the-scenes insights  
+- 🏅 Recognition on the website or in projects (optional)  
+- 🌱 Helping the community thrive and learn together
+
+**Support my work, contribute ideas, and help the community grow!**
+
+[![Become a Sponsor or Supporter](https://img.shields.io/badge/Become%20a%20Sponsor%20or%20Supporter-%23E34C4C?style=for-the-badge&logoColor=white)](https://cryinkfly.com/sponsors)
