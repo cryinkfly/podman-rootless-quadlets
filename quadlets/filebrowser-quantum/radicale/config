@@ -253,19 +253,19 @@ type = http_x_remote_user
 #  }
 #
 predefined_collections = {
-    "def-addressbook": {
-       "D:displayname": "Personal Address Book",
-       "tag": "VADDRESSBOOK"
+    "def-personal-addressbook": {
+        "D:displayname": "Personal Address Book",
+        "tag": "VADDRESSBOOK"
     },
-    "def-calendar": {
-       "C:supported-calendar-component-set": "VEVENT,VJOURNAL,VTODO",
-       "D:displayname": "Personal Calendar",
-       "tag": "VCALENDAR"
+    "def-personal-calendar": {
+        "C:supported-calendar-component-set": "VEVENT,VJOURNAL,VTODO",
+        "D:displayname": "Personal Calendar",
+        "tag": "VCALENDAR"
     },
-    "def-birthdays": {
-       "C:supported-calendar-component-set": "VEVENT",
-       "D:displayname": "Birthday Calendar",
-       "tag": "VCALENDAR"
+    "def-birthday-calendar": {
+        "C:supported-calendar-component-set": "VEVENT",
+        "D:displayname": "Birthday Calendar",
+        "tag": "VCALENDAR"
     }
 }
 
