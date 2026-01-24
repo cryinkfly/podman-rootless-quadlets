@@ -241,15 +241,19 @@ type = http_x_remote_user
 # json format:
 #
 #  {
-#    "def-addressbook": {
+#    "def-personal-addressbook": {
 #       "D:displayname": "Personal Address Book",
 #       "tag": "VADDRESSBOOK"
 #    },
-#    "def-calendar": {
+#    "def-personal-calendar": {
 #       "C:supported-calendar-component-set": "VEVENT,VJOURNAL,VTODO",
 #       "D:displayname": "Personal Calendar",
 #       "tag": "VCALENDAR"
-#    }
+#    },
+#    "def-birthday-calendar": {
+#       "C:supported-calendar-component-set": "VEVENT",
+#       "D:displayname": "Birthday Calendar",
+#       "tag": "VCALENDAR"
 #  }
 #
 predefined_collections = {
