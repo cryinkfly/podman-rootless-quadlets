@@ -140,7 +140,6 @@ proxy_set_header X-Script-Name /carddav;
 # WebDAV Standard Headers
 proxy_set_header Host $host;
 
-
 # Radicale Headers
 proxy_set_header X-Remote-User $remote_user;
 proxy_set_header X-Script-Name /caldav;
@@ -296,4 +295,4 @@ WantedBy=default.target
 
 ### Radicale - Authorization only via Username
 
-Currently, there are still problems with secure login via calendar or contacts clients. Only the username is checked; the API token is accepted but not verified.
+> Currently, there are still problems with secure login via calendar or contacts clients. Only a username check is performed; the API token is accepted but not verified. However, the non-existent user (FileBrowser Quantum) is still created in Radicale, but no access is possible – essentially, it's a dead folder.
