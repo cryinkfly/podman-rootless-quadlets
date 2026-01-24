@@ -8,7 +8,7 @@ This guide explains how to manage `rootless Podman containers` using `systemd Qu
 > **SELinux:** Optional (not required)
 
 ```
-           .--"--.                          .------.      .------.      .------.
+           .--"--.                          .------.     .------.     .------.
          / -     - \                       /      /|    /      /|    /      /|
         / (O)   (O) \                     / Pod1 / |   / Pod2 / |   / Pod3 / |
      ~~~| -=(,Y,)= - |~~~                 '------' |   '------' |   '------' |
