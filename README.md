@@ -13,12 +13,12 @@ This guide explains how to manage `rootless Podman containers` using `systemd Qu
         / (O)   (O) \                     / Pod1 / |   / Pod2 / |   / Pod3 / |
      ~~~| -=(,Y,)= - |~~~                 '------' |   '------' |   '------' |
       .---. /`  \   |~~                   |      | '  |      | '  |      | '
-   ~/  o  o \~~~~.----. ~~                 | C1   |    | C3   |    | C5   |
+   ~/  o  o \~~~~.----. ~~                | C1   |    | C3   |    | C5   |
   | =(X)= |~  / (O (O) \                  | C2   |    | C4   |    | C6   |
    ~~~~~~~  ~| =(Y_)=-  |                  '------'    '------'    '------'
   ~~~~    ~~~|   U      |~~                     ||          ||          ||
-                                               ~~||~~~~~~~~~~||~~~~~~~~~~||~~
-                                                Network-A  Network-B  Network-C
+                                              ~~||~~~~~~~~~~||~~~~~~~~~~||~~
+                                              Network-A  Network-B  Network-C
 ```
 
 <div align="left">
