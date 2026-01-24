@@ -134,7 +134,7 @@ proxy_set_header X-Script-Name /carddav;
 
 | Location          | Schema | Forward Hostname / IP    | Forward Port  |    |
 |-------------------|--------|--------------------------|---------------|--- |
-| /.well-known/carldav         | http   | filebrowser-quantum      | 5232          | ⚙️ |
+| /.well-known/caldav         | http   | filebrowser-quantum      | 5232          | ⚙️ |
 
 ```
 # WebDAV Standard Headers
