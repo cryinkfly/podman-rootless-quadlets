@@ -297,4 +297,4 @@ WantedBy=default.target
 
 > Currently, there are still issues with secure login through calendar or contacts clients. Only the username is being checked; the API token is accepted but not verified. For non-existent users (e.g., FileBrowser Quantum), Radicale still creates a folder, but access is not possible—essentially resulting in a “dead” folder.
 
-> Work is ongoing to replicate OpenCloud’s behavior with Radicale integration, as it functions correctly there.
+> Work is ongoing to replicate [OpenCloud’s](https://github.com/opencloud-eu/opencloud-compose) behavior with Radicale integration, as it functions correctly there.
