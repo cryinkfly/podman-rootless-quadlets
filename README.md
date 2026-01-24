@@ -7,6 +7,19 @@ This guide explains how to manage `rootless Podman containers` using `systemd Qu
 > **Exposed Ports:** 80/443 (HTTP/HTTPS) and 81 (NPM Admin UI)  </br>
 > **SELinux:** Optional (not required)
 
+```
+           .--"--.                     .------.    .------.    .------.
+         / -     - \                  /      /|  /      /|  /      /|
+        / (O)   (O) \                / Pod1 / | / Pod2 / | / Pod3 / |
+     ~~~| -=(,Y,)= - |~~~            '------' | '------' | '------' |
+      .---. /`  \   |~~             |      | ' |      | ' |      | '
+   ~/  o  o \~~~~.----. ~~           | C1   |   | C3   |   | C5   |
+  | =(X)= |~  / (O (O) \             | C2   |   | C4   |   | C6   |
+   ~~~~~~~  ~| =(Y_)=-  |             '------'   '------'   '------'
+  ~~~~    ~~~|   U      |~~
+         Podman World
+```
+
 <div align="left">
  <img align="center" src="https://img.shields.io/github/license/cryinkfly/podman-rootless-quadlets?style=flat">
  <img align="center" src="https://img.shields.io/github/last-commit/cryinkfly/podman-rootless-quadlets?style=flat">
