@@ -416,7 +416,7 @@ Available Commands:
 
 ---
 
-### 14. Offical Podman Wiki
+### 14. Official Podman Documentation
 
 Link: https://podman.io/docs
 
