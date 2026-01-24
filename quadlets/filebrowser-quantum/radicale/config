@@ -240,9 +240,13 @@ type = http_x_remote_user
 #
 # json format:
 #
-#  {
+# predefined_collections = {
 #    "def-personal-addressbook": {
 #       "D:displayname": "Personal Address Book",
+#       "tag": "VADDRESSBOOK"
+#    },
+#    "def-work-addressbook": {
+#       "D:displayname": "Work Address Book",
 #       "tag": "VADDRESSBOOK"
 #    },
 #    "def-personal-calendar": {
@@ -254,11 +258,20 @@ type = http_x_remote_user
 #       "C:supported-calendar-component-set": "VEVENT",
 #       "D:displayname": "Birthday Calendar",
 #       "tag": "VCALENDAR"
-#  }
-#
+#    },
+#    "def-work-calendar": {
+#       "C:supported-calendar-component-set": "VEVENT",
+#       "D:displayname": "Work Calendar",
+#       "tag": "VCALENDAR"
+#    },
+# }
 predefined_collections = {
     "def-personal-addressbook": {
         "D:displayname": "Personal Address Book",
+        "tag": "VADDRESSBOOK"
+    },
+    "def-work-addressbook": {
+        "D:displayname": "Work Address Book",
         "tag": "VADDRESSBOOK"
     },
     "def-personal-calendar": {
@@ -269,6 +282,11 @@ predefined_collections = {
     "def-birthday-calendar": {
         "C:supported-calendar-component-set": "VEVENT",
         "D:displayname": "Birthday Calendar",
+        "tag": "VCALENDAR"
+    },
+    "def-work-calendar": {
+        "C:supported-calendar-component-set": "VEVENT",
+        "D:displayname": "Work Calendar",
         "tag": "VCALENDAR"
     }
 }
