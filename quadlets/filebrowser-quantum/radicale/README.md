@@ -251,7 +251,10 @@ podman unshare rm -rf /home/$USER/.local/share/containers/storage/volumes/radica
 
 ---
 
-## 🛟 Troubleshooting with Nginx Proxy Manager as Proxy
+## 🛟 Troubleshootings with this Setup
+
+
+### Nginx Proxy Manager as Proxy
 
 When using Nginx Proxy Manager (NPM) to proxy a domain such as:
 
@@ -264,14 +267,14 @@ When using Nginx Proxy Manager (NPM) to proxy a domain such as:
 While these custom locations work in the GUI, you may encounter issues after restarting NPM. Although NPM itself starts, the proxy to FileBrowser may fail, often returning 502 or 504 errors.
 
 
-### Cause
+#### Cause
 
 - FileBrowser Quantum runs inside a Podman pod (filebrowser-quantum.pod).
 - NPM relies on the internal hostname filebrowser-quantum for its custom locations.
 - If NPM starts before the Pod or FileBrowser container is running, it cannot resolve the hostname, causing the proxy to fail.
 - This typically occurs during system boot or when NPM is restarted independently.
 
-### Solution
+#### Solution
 
 Since your FileBrowser Quantum pod has its [Install] section with:
 
@@ -290,3 +293,7 @@ WantedBy=default.target
 💡 **Key takeaway:**
 
 - Let the pod handle its own startup via `WantedBy=default.target`, and avoid systemd dependencies from NPM → this prevents deadlocks while ensuring proper resolution of container hostnames.
+
+### Radicale - Authorization only via Username
+
+Currently, there are still problems with secure login via calendar or contacts clients. Only the username is checked; the API token is accepted but not verified.
