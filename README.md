@@ -241,6 +241,7 @@ Once you have created your `podman-auto-update.service` and `podman-auto-update.
 
 ```
 systemctl --user start --now podman-auto-update.timer
+systemctl --user enable podman-auto-update.timer
 ```
 
 Explanation:
