@@ -10,7 +10,7 @@ server:
       config:
         defaultEnabled: true
         createUserDir: true
-        defaultUserScope: "/home/users/"
+        defaultUserScope: "/"
 
 frontend:
   styling:
