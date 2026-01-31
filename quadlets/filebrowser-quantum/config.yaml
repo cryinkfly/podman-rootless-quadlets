@@ -11,12 +11,10 @@ server:
         defaultEnabled: true
         createUserDir: true
         defaultUserScope: "/"
-
 frontend:
   styling:
     lightBackground: "#d8edda"
     darkBackground: "#000b0b"
-
 auth:
   methods:
     password:
