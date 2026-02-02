@@ -34,7 +34,7 @@ additional_policies:
 # the password.
 # Also set "type" to "internal" in the config/radicale/config
 #      - endpoint: /caldav/.web/
-#        backend: http://localhost:5232/
+#        backend: http://opencloud-radicale:5232
 #        unprotected: true
 #        skip_x_access_token: true
 #        additional_headers:
