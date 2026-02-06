@@ -288,7 +288,35 @@ Jan 23 11:00:59 pod_system systemd[885]: podman-auto-update.service: Consumed 1.
 #### Configure the Auto-Update Timer
 
 ```
-systemctl --user list-timers podman-auto-update.timer
+systemctl --user edit podman-auto-update.timer
+```
+
+You can see now where the config file is stored. For example:
+
+```
+### Editing /home/$USER/.config/systemd/user/podman-auto-update.timer.d/override.conf
+### Anything between here and the comment below will become the contents of the drop-in file
+
+
+
+### Edits below this comment will be discarded
+
+
+### /usr/lib/systemd/user/podman-auto-update.timer
+# [Unit]
+# Description=Podman auto-update timer
+# 
+# [Timer]
+# OnCalendar=daily
+# RandomizedDelaySec=900
+# Persistent=true
+# 
+# [Install]
+# WantedBy=timers.target
+```
+
+```
+nano /home/$USER/.config/systemd/user/podman-auto-update.timer.d/override.conf
 ```
 
 ```
