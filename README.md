@@ -285,6 +285,31 @@ Jan 23 11:00:59 pod_system systemd[885]: Finished podman-auto-update.service - P
 Jan 23 11:00:59 pod_system systemd[885]: podman-auto-update.service: Consumed 1.477s CPU time.
 ```
 
+#### Configure the Auto-Update Timer
+
+```
+systemctl --user list-timers podman-auto-update.timer
+```
+
+```
+[Timer]
+# Clear the default OnCalendar from the original timer
+OnCalendar=
+
+# Run daily at 03:30
+OnCalendar=*-*-* 03:30:00
+
+# Add a random delay of up to 30 minutes
+# The actual start time will vary between 03:30 and 04:00
+RandomizedDelaySec=30min
+```
+
+```
+systemctl --user daemon-reload
+systemctl --user restart podman-auto-update.timer
+systemctl --user list-timers podman-auto-update.timer
+```
+
 ---
 
 ### 8. Enable User Linger (Headless Setup)
