@@ -291,13 +291,20 @@ Jan 23 11:00:59 pod_system systemd[885]: podman-auto-update.service: Consumed 1.
 systemctl --user edit podman-auto-update.timer
 ```
 
-You can see now where the config file is stored. For example:
-
 ```
-### Editing /home/$USER/.config/systemd/user/podman-auto-update.timer.d/override.conf
+### Editing /home/USERNAME/.config/systemd/user/podman-auto-update.timer.d/override.conf
 ### Anything between here and the comment below will become the contents of the drop-in file
 
+[Timer]
+# Clear the default OnCalendar from the original timer
+OnCalendar=
 
+# Run daily at 03:30
+OnCalendar=*-*-* 03:30:00
+
+# Add a random delay of up to 30 minutes
+# The actual start time will vary between 03:30 and 04:00
+RandomizedDelaySec=30min
 
 ### Edits below this comment will be discarded
 
@@ -313,23 +320,6 @@ You can see now where the config file is stored. For example:
 # 
 # [Install]
 # WantedBy=timers.target
-```
-
-```
-nano /home/$USER/.config/systemd/user/podman-auto-update.timer.d/override.conf
-```
-
-```
-[Timer]
-# Clear the default OnCalendar from the original timer
-OnCalendar=
-
-# Run daily at 03:30
-OnCalendar=*-*-* 03:30:00
-
-# Add a random delay of up to 30 minutes
-# The actual start time will vary between 03:30 and 04:00
-RandomizedDelaySec=30min
 ```
 
 ```
