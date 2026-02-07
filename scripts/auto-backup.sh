@@ -111,8 +111,14 @@ TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 case "$BACKUP_TYPE" in
   daily)
     mkdir -p "$DAILY_DIR"
-    echo "Starting Daily Backup (incremental rsync)..." | tee -a "$LOGFILE"
-    rsync -a --delete --info=progress2 "$SRC_DIR/" "$DAILY_DIR/$TIMESTAMP/" 2>&1 | tee >(cat >&2) >> "$LOGFILE"
+    echo "Starting Daily Backup (incremental rsync with hardlinks)..." | tee -a "$LOGFILE"
+    # Find latest Daily for hardlink reference
+    LAST_DAILY=$(ls -1 "$DAILY_DIR" 2>/dev/null | sort | tail -n1)
+    if [ ! -z "$LAST_DAILY" ]; then
+        rsync -a --delete --link-dest="$DAILY_DIR/$LAST_DAILY" "$SRC_DIR/" "$DAILY_DIR/$TIMESTAMP/" 2>&1 | tee >(cat >&2) >> "$LOGFILE"
+    else
+        rsync -a --delete "$SRC_DIR/" "$DAILY_DIR/$TIMESTAMP/" 2>&1 | tee >(cat >&2) >> "$LOGFILE"
+    fi
     if [ $? -eq 0 ]; then
         echo "✅ Daily Backup completed successfully" | tee -a "$LOGFILE"
     else
@@ -138,7 +144,7 @@ case "$BACKUP_TYPE" in
     mkdir -p "$MONTHLY_DIR"
     BACKUP_FILE="$MONTHLY_DIR/full_backup_$TIMESTAMP.tar.bz2"
     echo "Starting Monthly Full Backup (tar + bzip2)..." | tee -a "$LOGFILE"
-    tar -cvjf "$BACKUP_FILE" -C "$DAILY_DIR" . | tee -a "$LOGFILE"
+    tar -cvjf "$BACKUP_FILE" -C "$DAILY_DIR" . >> "$LOGFILE" 2>&1
     if [ $? -eq 0 ]; then
         echo "✅ Monthly Full Backup completed: $BACKUP_FILE" | tee -a "$LOGFILE"
     else
