@@ -109,41 +109,42 @@ fi
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 
 case "$BACKUP_TYPE" in
-  daily)
+daily)
     mkdir -p "$DAILY_DIR"
-    echo "Starting Daily Backup (incremental rsync with hardlinks)..." | tee -a "$LOGFILE"
-    # Find latest Daily for hardlink reference
-    LAST_DAILY=$(ls -1 "$DAILY_DIR" 2>/dev/null | sort | tail -n1)
+    echo "Starting Daily Backup (incremental with hardlinks)..." | tee -a "$LOGFILE"
+    LAST_DAILY=$(ls -1 "$DAILY_DIR" | sort -V | tail -n1)
     if [ ! -z "$LAST_DAILY" ]; then
-        rsync -a --delete --link-dest="$DAILY_DIR/$LAST_DAILY" "$SRC_DIR/" "$DAILY_DIR/$TIMESTAMP/" 2>&1 | tee >(cat >&2) >> "$LOGFILE"
+        rsync -a --delete --link-dest="$DAILY_DIR/$LAST_DAILY" "$SRC_DIR/" "$DAILY_DIR/$TIMESTAMP/" \
+            2>&1 | tee >(cat >&2) >> "$LOGFILE"
     else
         rsync -a --delete "$SRC_DIR/" "$DAILY_DIR/$TIMESTAMP/" 2>&1 | tee >(cat >&2) >> "$LOGFILE"
     fi
     if [ $? -eq 0 ]; then
-        echo "✅ Daily Backup completed successfully" | tee -a "$LOGFILE"
+        echo "✅ Daily Backup completed" | tee -a "$LOGFILE"
     else
         echo "❌ Daily Backup failed" | tee -a "$LOGFILE"
     fi
     ;;
-  weekly)
+weekly)
     mkdir -p "$WEEKLY_DIR"
     echo "Starting Weekly Backup (sync latest Daily)..." | tee -a "$LOGFILE"
-    LAST_DAILY=$(ls -1 "$DAILY_DIR" | sort | tail -n1)
+    LAST_DAILY=$(ls -1 "$DAILY_DIR" | sort -V | tail -n1)
     if [ ! -z "$LAST_DAILY" ]; then
-        rsync -a --delete "$DAILY_DIR/$LAST_DAILY/" "$WEEKLY_DIR/" >> "$LOGFILE" 2>&1
+        rsync -a --delete --link-dest="$DAILY_DIR/$LAST_DAILY" "$DAILY_DIR/$LAST_DAILY/" "$WEEKLY_DIR/" \
+            >> "$LOGFILE" 2>&1
         if [ $? -eq 0 ]; then
-            echo "✅ Weekly Backup completed successfully" | tee -a "$LOGFILE"
+            echo "✅ Weekly Backup completed" | tee -a "$LOGFILE"
         else
             echo "❌ Weekly Backup failed" | tee -a "$LOGFILE"
         fi
     else
-        echo "❌ No Daily Backup found. Weekly Backup skipped." | tee -a "$LOGFILE"
+        echo "❌ No Daily backup found. Weekly skipped." | tee -a "$LOGFILE"
     fi
     ;;
-  monthly)
+monthly)
     mkdir -p "$MONTHLY_DIR"
     BACKUP_FILE="$MONTHLY_DIR/full_backup_$TIMESTAMP.tar.bz2"
-    echo "Starting Monthly Full Backup (tar + bzip2)..." | tee -a "$LOGFILE"
+    echo "Starting Monthly Full Backup (tar+bzip2)..." | tee -a "$LOGFILE"
     tar -cvjf "$BACKUP_FILE" -C "$DAILY_DIR" . >> "$LOGFILE" 2>&1
     if [ $? -eq 0 ]; then
         echo "✅ Monthly Full Backup completed: $BACKUP_FILE" | tee -a "$LOGFILE"
@@ -154,33 +155,36 @@ case "$BACKUP_TYPE" in
 esac
 
 # -----------------------------
-# Rotate Backups
+# Rotate backups
 # -----------------------------
 rotate_backups() {
     local dir="$1"
     local max="$2"
-    local backups=($(ls -1 "$dir" 2>/dev/null | sort))
+    local backups=($(ls -1 "$dir" 2>/dev/null | sort -V))
     local count=${#backups[@]}
-
     if [ $count -gt $max ]; then
         local to_delete=$((count - max))
-        echo "Deleting old backups: $to_delete files" | tee -a "$LOGFILE"
-        for ((i=0; i<to_delete; i++)); do
+        echo "Deleting $to_delete old backups in $dir" | tee -a "$LOGFILE"
+        for ((i=0;i<to_delete;i++)); do
             rm -rf "$dir/${backups[$i]}"
-            if [ $? -eq 0 ]; then
-                echo "🗑️  Deleted: $dir/${backups[$i]}" | tee -a "$LOGFILE"
-            else
-                echo "❌ Failed to delete: $dir/${backups[$i]}" | tee -a "$LOGFILE"
-            fi
+            echo "🗑️  Deleted $dir/${backups[$i]}" | tee -a "$LOGFILE"
         done
     fi
 }
 
 case "$BACKUP_TYPE" in
-  daily) rotate_backups "$DAILY_DIR" 2 ;;
-  weekly) rotate_backups "$WEEKLY_DIR" 1 ;;
-  monthly) rotate_backups "$MONTHLY_DIR" 1 ;;
+daily) rotate_backups "$DAILY_DIR" 2 ;;
+weekly) rotate_backups "$WEEKLY_DIR" 1 ;;
+monthly) rotate_backups "$MONTHLY_DIR" 1 ;;
 esac
+
+# -----------------------------
+# Show sizes of backups
+# -----------------------------
+echo "Backup sizes:" | tee -a "$LOGFILE"
+du -sh "$DAILY_DIR"/* 2>/dev/null | tee -a "$LOGFILE"
+du -sh "$WEEKLY_DIR"/* 2>/dev/null | tee -a "$LOGFILE"
+du -sh "$MONTHLY_DIR"/* 2>/dev/null | tee -a "$LOGFILE"
 
 # -----------------------------
 # Restart Podman daemon
@@ -191,14 +195,14 @@ if systemctl list-unit-files | grep -q podman.service; then
 fi
 
 # -----------------------------
-# Restart Rootless User Services
+# Restart Rootless services
 # -----------------------------
 if [ ! -z "$STOPPED_SERVICES" ]; then
     for svc in $STOPPED_SERVICES; do
-        echo "Starting Service: $svc ..." | tee -a "$LOGFILE"
+        echo "Starting $svc ..." | tee -a "$LOGFILE"
         $SYSTEMCTL_CMD start "$svc"
         if [ $? -eq 0 ]; then
-            echo "✅ $svc started successfully" | tee -a "$LOGFILE"
+            echo "✅ $svc started" | tee -a "$LOGFILE"
         else
             echo "❌ Failed to start $svc" | tee -a "$LOGFILE"
         fi
@@ -208,3 +212,5 @@ fi
 echo "=============================="
 echo "Backup finished: $(date)"
 echo "==============================" | tee -a "$LOGFILE"
+exit 0
+
