@@ -112,7 +112,7 @@ case "$BACKUP_TYPE" in
   daily)
     mkdir -p "$DAILY_DIR"
     echo "Starting Daily Backup (incremental rsync)..." | tee -a "$LOGFILE"
-    rsync -a --delete --info=progress2 "$SRC_DIR/" "$DAILY_DIR/$TIMESTAMP/" | tee -a "$LOGFILE"
+    rsync -a --delete --info=progress2 "$SRC_DIR/" "$DAILY_DIR/$TIMESTAMP/" 2>&1 | tee >(cat >&2) >> "$LOGFILE"
     if [ $? -eq 0 ]; then
         echo "✅ Daily Backup completed successfully" | tee -a "$LOGFILE"
     else
@@ -124,7 +124,7 @@ case "$BACKUP_TYPE" in
     echo "Starting Weekly Backup (sync latest Daily)..." | tee -a "$LOGFILE"
     LAST_DAILY=$(ls -1 "$DAILY_DIR" | sort | tail -n1)
     if [ ! -z "$LAST_DAILY" ]; then
-        rsync -a --delete --info=progress2 "$DAILY_DIR/$LAST_DAILY/" "$WEEKLY_DIR/" | tee -a "$LOGFILE"
+        rsync -a --delete "$DAILY_DIR/$LAST_DAILY/" "$WEEKLY_DIR/" >> "$LOGFILE" 2>&1
         if [ $? -eq 0 ]; then
             echo "✅ Weekly Backup completed successfully" | tee -a "$LOGFILE"
         else
