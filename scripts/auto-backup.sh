@@ -18,6 +18,7 @@
 #
 # Cronjob Example:
 # ==========================
+# sudo crontab -e
 # # Daily backup at 3:00 AM
 # 0 3 * * * root /mnt/podman/backup/auto-backup.sh
 #
