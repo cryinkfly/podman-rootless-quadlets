@@ -114,8 +114,18 @@ case "$BACKUP_TYPE" in
   daily)
     mkdir -p "$DAILY_DIR"
     DAILY_TARGET="$DAILY_DIR/daily_$TIMESTAMP"
-    echo "Starting Daily Backup (incremental rsync, max 7 days)..." | tee -a "$LOGFILE"
-    rsync -a --delete --info=progress2 "$SRC_DIR/" "$DAILY_TARGET/" 2>&1 | tee >(cat >&2) >> "$LOGFILE"
+    echo "Starting Daily Backup (incremental with hardlinks, max 7 days)..." | tee -a "$LOGFILE"
+    # Find latest daily backup for hardlinking
+    LAST_DAILY=$(ls -1 "$DAILY_DIR" | sort | tail -n1)
+
+    if [ -n "$LAST_DAILY" ]; then
+        # Use --link-dest to only copy changed files
+        rsync -a --delete --link-dest="$DAILY_DIR/$LAST_DAILY" --info=progress2 "$SRC_DIR/" "$DAILY_TARGET/" 2>&1 | tee >(cat >&2) >> "$LOGFILE"
+    else
+        # No previous daily, do normal rsync
+        rsync -a --delete --info=progress2 "$SRC_DIR/" "$DAILY_TARGET/" 2>&1 | tee >(cat >&2) >> "$LOGFILE"
+    fi
+
     if [ $? -eq 0 ]; then
         echo "✅ Daily Backup completed: $DAILY_TARGET" | tee -a "$LOGFILE"
     else
