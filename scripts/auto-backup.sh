@@ -1,7 +1,7 @@
 #!/bin/bash
 # ==============================================================
 # Podman Backup Script with Daily/Weekly/Monthly Rotation
-# 
+#
 # Features:
 # 1. Stops all Rootless Podman / Quadlet services for a user
 # 2. Stops system-wide podman.service (if running)
