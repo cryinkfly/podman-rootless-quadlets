@@ -6,12 +6,13 @@
 # 1. Stops all Rootless Podman / Quadlet services for a user
 # 2. Stops system-wide podman.service (if running)
 # 3. Performs Daily/Weekly/Monthly backups
-#    - Daily: incremental rsync (max 2 backups)
-#    - Weekly: incremental rsync from latest daily (max 1 backup)
-#    - Monthly: full backup with tar+bzip2 (max 1 backup)
-# 4. Backup rotation and log rotation (>5 MB)
-# 5. Status reporting for each step (✅ / ❌)
-# 6. Rsync progress display
+#    - Daily: incremental rsync (max 7 backups)
+#    - Weekly: Full Backup from SRC_DIR, max 1, timestamped
+#    - Monthly: Full Backup from SRC_DIR, max 1, timestamped
+# 4 Backup size reporting (safe even if dirs empty)
+# 5. Backup rotation and log rotation (>5 MB)
+# 6. Status reporting for each step (✅ / ❌)
+# 7. Rsync progress display
 #
 # Usage:
 # sudo /mnt/podman/backup/auto-backup.sh
@@ -113,7 +114,7 @@ case "$BACKUP_TYPE" in
   daily)
     mkdir -p "$DAILY_DIR"
     DAILY_TARGET="$DAILY_DIR/daily_$TIMESTAMP"
-    echo "Starting Daily Backup (incremental)..." | tee -a "$LOGFILE"
+    echo "Starting Daily Backup (incremental rsync, max 7 days)..." | tee -a "$LOGFILE"
     rsync -a --delete --info=progress2 "$SRC_DIR/" "$DAILY_TARGET/" 2>&1 | tee >(cat >&2) >> "$LOGFILE"
     if [ $? -eq 0 ]; then
         echo "✅ Daily Backup completed: $DAILY_TARGET" | tee -a "$LOGFILE"
@@ -124,23 +125,23 @@ case "$BACKUP_TYPE" in
   weekly)
     mkdir -p "$WEEKLY_DIR"
     WEEKLY_TARGET="$WEEKLY_DIR/weekly_$TIMESTAMP"
-    echo "Starting Weekly Full Backup from SRC_DIR (tar + bzip2)..." | tee -a "$LOGFILE"
-    tar -cvjf "$WEEKLY_TARGET.tar.bz2" -C "$(dirname "$SRC_DIR")" "$(basename "$SRC_DIR")" | tee -a "$LOGFILE"
+    echo "Starting Weekly Full Backup from SRC_DIR (tar + zstd)..." | tee -a "$LOGFILE"
+    tar --zstd -cvf "$WEEKLY_TARGET.tar.zst" -C "$(dirname "$SRC_DIR")" "$(basename "$SRC_DIR")" 2> >(tee -a "$LOGFILE" >&2)
     if [ $? -eq 0 ]; then
-        echo "✅ Weekly Full Backup completed: $WEEKLY_TARGET.tar.bz2" | tee -a "$LOGFILE"
+        echo "✅ Weekly Full Backup completed: $WEEKLY_TARGET.tar.zst" | tee -a "$LOGFILE"
     else
         echo "❌ Weekly Backup failed" | tee -a "$LOGFILE"
     fi
     ;;
   monthly)
     mkdir -p "$MONTHLY_DIR"
-    MONTHLY_FILE="$MONTHLY_DIR/full_backup_$TIMESTAMP.tar.bz2"
-    echo "Starting Monthly Full Backup from SRC_DIR (tar + bzip2)..." | tee -a "$LOGFILE"
-    tar -cvjf "$MONTHLY_FILE" -C "$(dirname "$SRC_DIR")" "$(basename "$SRC_DIR")" | tee -a "$LOGFILE"
+    MONTHLY_FILE="$MONTHLY_DIR/monthly_$TIMESTAMP.tar.zst"
+    echo "Starting Monthly Full Backup from SRC_DIR (tar + zstd)..." | tee -a "$LOGFILE"
+    tar --zstd -cvf "$MONTHLY_FILE" -C "$(dirname "$SRC_DIR")" "$(basename "$SRC_DIR")" 2> >(tee -a "$LOGFILE" >&2)
     if [ $? -eq 0 ]; then
         echo "✅ Monthly Full Backup completed: $MONTHLY_FILE" | tee -a "$LOGFILE"
     else
-        echo "❌ Monthly Full Backup failed" | tee -a "$LOGFILE"
+        echo "❌ Monthly Backup failed" | tee -a "$LOGFILE"
     fi
     ;;
 esac
@@ -155,7 +156,7 @@ rotate_backups() {
     local count=${#backups[@]}
 
     if [ $count -le $max ]; then
-        return 0  # Nothing to delete
+        return 0
     fi
 
     local to_delete=$((count - max))
@@ -172,12 +173,34 @@ rotate_backups() {
     done
 }
 
-# Rotate according to type
+# Rotate backups according to type
 case "$BACKUP_TYPE" in
   daily) rotate_backups "$DAILY_DIR" 7 ;;
   weekly) rotate_backups "$WEEKLY_DIR" 1 ;;
   monthly) rotate_backups "$MONTHLY_DIR" 1 ;;
 esac
+
+# -----------------------------
+# Show Backup Sizes (safe if dirs empty)
+# -----------------------------
+echo "Backup sizes:" | tee -a "$LOGFILE"
+show_backup_size() {
+    local dir="$1"
+    if [ -d "$dir" ]; then
+        local files=("$dir"/*)
+        if [ -e "${files[0]}" ]; then
+            du -sh "$dir"/* 2>/dev/null | tee -a "$LOGFILE"
+        else
+            echo "No backups in $dir" | tee -a "$LOGFILE"
+        fi
+    else
+        echo "Directory $dir does not exist" | tee -a "$LOGFILE"
+    fi
+}
+
+show_backup_size "$DAILY_DIR"
+show_backup_size "$WEEKLY_DIR"
+show_backup_size "$MONTHLY_DIR"
 
 # -----------------------------
 # Restart Podman daemon
