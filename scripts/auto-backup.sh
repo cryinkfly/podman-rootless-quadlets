@@ -124,18 +124,10 @@ case "$BACKUP_TYPE" in
   weekly)
     mkdir -p "$WEEKLY_DIR"
     WEEKLY_TARGET="$WEEKLY_DIR/weekly_$TIMESTAMP"
-    echo "Starting Weekly Backup (full SRC_DIR with optional hardlinks)..." | tee -a "$LOGFILE"
-
-    # Optional Hardlinks to last weekly
-    LAST_WEEKLY=$(ls -1 "$WEEKLY_DIR" | sort | tail -n1)
-    if [ ! -z "$LAST_WEEKLY" ]; then
-        rsync -a --delete --link-dest="$WEEKLY_DIR/$LAST_WEEKLY" "$SRC_DIR/" "$WEEKLY_TARGET/" 2>&1 | tee >(cat >&2) >> "$LOGFILE"
-    else
-        rsync -a --delete "$SRC_DIR/" "$WEEKLY_TARGET/" 2>&1 | tee >(cat >&2) >> "$LOGFILE"
-    fi
-
+    echo "Starting Weekly Full Backup from SRC_DIR (tar + bzip2)..." | tee -a "$LOGFILE"
+    tar -cvjf "$WEEKLY_TARGET.tar.bz2" -C "$(dirname "$SRC_DIR")" "$(basename "$SRC_DIR")" | tee -a "$LOGFILE"
     if [ $? -eq 0 ]; then
-        echo "✅ Weekly Backup completed: $WEEKLY_TARGET" | tee -a "$LOGFILE"
+        echo "✅ Weekly Full Backup completed: $WEEKLY_TARGET.tar.bz2" | tee -a "$LOGFILE"
     else
         echo "❌ Weekly Backup failed" | tee -a "$LOGFILE"
     fi
