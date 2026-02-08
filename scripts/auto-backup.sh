@@ -196,15 +196,17 @@ esac
 echo "Backup sizes:" | tee -a "$LOGFILE"
 show_backup_size() {
     local dir="$1"
+    local label="$2"
+
     if [ -d "$dir" ]; then
-        local files=("$dir"/*)
-        if [ -e "${files[0]}" ]; then
+        if compgen -G "$dir/*" > /dev/null; then
+            echo "$label backups in $dir:" | tee -a "$LOGFILE"
             du -sh "$dir"/* 2>/dev/null | tee -a "$LOGFILE"
         else
-            echo "No backups in $dir" | tee -a "$LOGFILE"
+            echo "No $label backups created yet in $dir" | tee -a "$LOGFILE"
         fi
     else
-        echo "Directory $dir does not exist" | tee -a "$LOGFILE"
+        echo "No $label backups created yet ($dir does not exist)" | tee -a "$LOGFILE"
     fi
 }
 
