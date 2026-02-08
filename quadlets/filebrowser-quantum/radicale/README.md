@@ -187,6 +187,7 @@ Radicale works!
 ## Edit the radicale `config` file. For example:
 
 ```
+podman volume create radicale_config #if not exists!
 podman unshare nano /home/$USER/.local/share/containers/storage/volumes/radicale_config/_data/config
 ```
 
