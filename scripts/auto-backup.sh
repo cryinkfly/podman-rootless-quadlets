@@ -174,7 +174,7 @@ rotate_backups() {
 
 # Rotate according to type
 case "$BACKUP_TYPE" in
-  daily) rotate_backups "$DAILY_DIR" 2 ;;
+  daily) rotate_backups "$DAILY_DIR" 7 ;;
   weekly) rotate_backups "$WEEKLY_DIR" 1 ;;
   monthly) rotate_backups "$MONTHLY_DIR" 1 ;;
 esac
