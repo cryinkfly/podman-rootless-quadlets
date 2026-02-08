@@ -34,10 +34,10 @@
 # CONFIGURATION
 # -----------------------------
 USER_NAME="test"                     # User running Rootless Podman
-LOGFILE="/mnt/podman/backup/backup.log"
-MAX_LOG_SIZE=$((5*1024*1024))         # Log rotation threshold (5 MB)
 SRC_DIR="/mnt/podman/data"            # Source directory to backup
 BASE_DEST_DIR="/mnt/podman/backup"    # Backup goes to the separate mounted SSD, HDD or ...
+LOGFILE="$BASE_DEST_DIR/backup.log"
+MAX_LOG_SIZE=$((5*1024*1024))         # Log rotation threshold (5 MB)
 DAILY_DIR="$BASE_DEST_DIR/daily"
 WEEKLY_DIR="$BASE_DEST_DIR/weekly"
 MONTHLY_DIR="$BASE_DEST_DIR/monthly"
