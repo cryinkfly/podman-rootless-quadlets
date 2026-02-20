@@ -1,3 +1,7 @@
+>[!WARNING]
+>This project has been archived here and will be continued on https://codeberg.org/cryinkfly/Rootless-Podman-with-Quadlets.
+
+
 # Rootless Podman with Quadlets 📦
 
 This guide explains how to manage `rootless Podman containers` using `systemd Quadlets`, suitable for Raspberry Pi or other homelab environments.
