@@ -1,6 +1,7 @@
 >[!WARNING]
 >This project has been archived here and will be continued on https://codeberg.org/cryinkfly/Rootless-Podman-with-Quadlets.
 
+---
 
 # Rootless Podman with Quadlets 📦
 
